@@ -35,6 +35,106 @@ body{
     color: var(--text-color);
 }
 
+/*----Formulario---*/
+.card_form{
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+}
+
+.card_form .title{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+
+.card_form .title::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    background: #b0beff;
+}
+
+.card_form form .user-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 10px 0 5px 0;
+}
+
+form .user-details .input-box{
+    margin-bottom: 5px;
+    width: calc(100% / 2 - 15px);
+}
+
+.user-details .input-box .details{
+    display: block;
+    font-weight: 400;
+}
+
+.user-details .input-box .radio{
+    height: 35px;
+    width: 100% ;
+}
+
+.user-details .input-box .input{
+    height: 35px;
+    width: 100% ;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.user-details .input-box .input:focus,
+.user-details .input-box .input:valid{
+    border-color: #d3e06e;
+}
+
+.card_form .input-box .input{
+    height: 30px;
+    width: 100% ;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.card_form .input-box .input:focus,
+.card_form .input-box .input:valid{
+    border-color: #d3e06e;
+}
+
+form .button{
+    height: 35px;
+    margin: 15px 0;
+}
+
+form .button input{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    transition: all 0.4s ease;
+    background: linear-gradient(135deg, #fabc41, #d3e06e);
+}
+
 /*------------------INICIO HEADER --------------*/
 
 header{

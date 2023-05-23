@@ -17,6 +17,7 @@ if(isset($username) && isset($password)){
     
     if(!strcmp($password, $rows['user_psw']) && $rows['user_situacao'] == 'ativo'){
              
+        $_SESSION["clicadoc_user_id"] = $rows['user_id'];
         $_SESSION["clicadoc_user_situacao"] = $rows['user_situacao'];
         $_SESSION["clicadoc_user_log"] = $rows['user_log'];
         $_SESSION["clicadoc_user_nom"] = $rows['user_nom'];

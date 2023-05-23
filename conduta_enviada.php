@@ -1,6 +1,33 @@
 <?php 
 include "include/valida_session_usuario.php";
 include "include/mysqlconecta.php";
+
+if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['anmpac_id']){
+
+    header("Location: ./fila_atendimento.php");
+    exit;
+
+} else {   
+
+    $anmpac_id = $_POST['anmpac_id'];
+    $conduta_medico = $_POST['conduta_medico'];
+    $observacoes_medico = $_POST['observacoes_medico'];
+
+    if($conduta_medico == '' || $observacoes_medico == ''){
+        header("Location: ./fila_atendimento.php");
+        exit;
+    }
+
+    $anmcon_id_medico = $_SESSION['clicadoc_user_id'];
+
+    $SQL = "INSERT INTO tanam_dados_consulta (anmcon_conduta,anmcon_conduta_medica,anmcon_observacao,anmcon_id_paciente,anmcon_id_medico) 
+            VALUES (1,'$conduta_medico','$observacoes_medico',$anmpac_id,$anmcon_id_medico)";    
+
+    @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
+
+    $_SESSION['clicadoc_conduta_cadastrada'] = $anmpac_id;
+    
+}
 ?>
 
 <!DOCTYPE html>
@@ -74,35 +101,30 @@ include "include/mysqlconecta.php";
                                 <div class="card-body">
                                     <div class="dastone-profile">
                                         <div class="row">
-                                            <h4 class="CdTitulo" style="
+                                            <div class="col-lg-12 d-flex justify-content-between">
                                                 
-                                                font-family: 'Poppins', sans-serif;
-                                                font-style: normal;
-                                                font-weight: 600;
-                                                font-size: 20px;
-                                                line-height: 29px;
-                                                margin-bottom: 20px;">Paciente
-                                            </h4>                                                             
-                                        
+                                                <h4 class="page-title" style="margin-top:-3px">Paciente</h4>
+                                                    
+                                                <div class="h-25">
+                                                    <span class='badge rounded-pill bg-success text-dark'>CONCLUÍDO</span>                                                   
+                                                </div>
+                                                                                        
+                                            </div><!--end col-->  
                                             
                                             <div class="col-lg-11 align-self-center mb-3 mb-lg-0">
                                                 <div class="dastone-profile-main">
                                                     <div class="dastone-profile-main-pic">
-                                                        <img src="assets/images/users/user-4.jpg" alt="" height="110" class="rounded-circle">
+                                                        <img src="<?=$_SESSION['clicadoc_user_foto_perfil']?>" alt="" height="110" class="rounded-circle">
                                                     </div>
                                                     <div class="dastone-profile_user-detail">
-                                                        <h4 class="dastone-user-name">Nome do paciente: Isaque Sene</h4>                                                        
-                                                        <i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i> <b> Número de telefone </b> : +91 23456 78910                                                       
+                                                        <h4 class="dastone-user-name">Nome do paciente: <?=$rows['anmpac_nom'];?></h4>                                                        
+                                                        <i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i> <b> Número de telefone </b> : <?=$rows['anmpac_numcel'];?>                                                    
                                                     </div>
                                                 </div>                                                
                                             </div><!--end col-->
-                                            <div class="col-lg-11 d-flex justify-content-end">
-                                                <div class="row">
-                                                        <p class="mb-lg-3 fw-semibold"></p>                                                    </div><!--end col-->
-                                                </div><!--end row-->                                               
-                                            </div><!--end col-->
-                                        </div><!--end row-->
-                                    </div><!--end f_profile-->                                                                                
+                                            
+                                        </div><!--end row-->                                                                                                                   
+                                    </div>                                                                             
                                 </div><!--end card-body-->          
                             </div> <!--end card-->    
                         </div><!--end col-->
@@ -128,11 +150,7 @@ include "include/mysqlconecta.php";
                     </div>
                 </div><!-- container -->
 
-                <footer class="footer text-center text-sm-start">
-                    &copy; <script>
-                        document.write(new Date().getFullYear())
-                    </script> ClicaDoc
-                </footer><!--end footer-->  
+                <?php include "footer.php";?>  
             </div>
             <!-- end page content -->
         </div>
@@ -168,11 +186,11 @@ include "include/mysqlconecta.php";
         <!-- Plugins js -->
       
         <script src="assets/plugins/select2/select2.min.js"></script>
-        <script src="assets/plugins/huebee/huebee.pkgd.min.js"></script>
+        
         <script src="assets/plugins/timepicker/bootstrap-material-datetimepicker.js"></script>
         <script src="assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
         <script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
-        <script src="assets/pages/jquery.forms-advanced.js"></script>
+        
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>

@@ -1,8 +1,3 @@
-<?php	
-include "../../include/valida_session_usuario.php";
-include "../../include/mysqlconecta.php";
-include "assets/ajax/atualiza_formulario.php";
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +37,7 @@ include "assets/ajax/atualiza_formulario.php";
             <div class="image">
                 <img src="assets/image/image_form.png" alt="">
             </div>
-            <form method="post">
+            <form method="post" action="assets/ajax/atualiza_formulario.php">
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span>
                 <p>Receba a receita direto no seu celular.
                     As receitas médicas têm validade em todas as farmácias do Brasil.

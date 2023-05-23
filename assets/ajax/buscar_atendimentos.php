@@ -24,7 +24,7 @@ while($rows = mysqli_fetch_array($result_id)){
     if($anmcon_conduta == 'inexistente'){
         
         $status = "<span class='badge rounded-pill bg-warning'>Aguardando atendimento</span>";
-        $btns = "<button type='button' class='btn btn-success'><i class='mdi mdi-file-plus me-2'></i>Atender</button>";
+        $btns = "<button type='button' onclick='realizarAtendimento($anmpac_id)' class='btn btn-success'><i class='mdi mdi-file-plus me-2'></i>Atender</button>";
         
     } else if ($anmcon_conduta == 1){
 

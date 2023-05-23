@@ -36,72 +36,68 @@ body{
 }
 
 /*----Formulario---*/
+.card{
+    min-height: 190vh;
+    height: 100%;
+    width: 100%;
+    padding: 90px 10%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 4rem;
+}
+
 .card_form{
-    max-width: 700px;
     width: 100%;
     background: #fff;
-    padding: 25px 30px;
+    padding: 30px 9%;
     border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
 }
 
-.card_form .title{
-    font-size: 25px;
-    font-weight: 500;
-    position: relative;
-}
-
-.card_form .title::before{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 3px;
-    width: 30px;
-    background: #b0beff;
-}
-
-.card_form form .user-details{
+.image img{
+    width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 10px 0 5px 0;
+    margin-bottom: 30px;
 }
 
-form .user-details .input-box{
-    margin-bottom: 5px;
-    width: calc(100% / 2 - 15px);
+.title{
+    font-size: 2.5rem;
+    color: #2C7D7A;
+    font-family: 'Poppins';
+    font-weight: 600;
+    margin-bottom: 40px;
 }
 
-.user-details .input-box .details{
-    display: block;
-    font-weight: 400;
+.input-box{
+    margin-bottom: 30px;
 }
 
-.user-details .input-box .radio{
-    height: 35px;
-    width: 100% ;
-}
-
-.user-details .input-box .input{
-    height: 35px;
-    width: 100% ;
-    outline: none;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    padding-left: 15px;
+.input-box .details{
+    font-weight: 500;
     font-size: 16px;
-    border-bottom-width: 2px;
-    transition: all 0.3s ease;
+    color: #2C7D7A;
 }
 
-.user-details .input-box .input:focus,
-.user-details .input-box .input:valid{
-    border-color: #d3e06e;
+.input-radio{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.input-radio .details{
+    font-weight: 500;
+    font-size: 16px;
+    color: #2C7D7A;
 }
 
 .card_form .input-box .input{
-    height: 30px;
-    width: 100% ;
+    height: 40px;
+    width: 100%;
     outline: none;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -111,9 +107,26 @@ form .user-details .input-box{
     transition: all 0.3s ease;
 }
 
-.card_form .input-box .input:focus,
-.card_form .input-box .input:valid{
-    border-color: #d3e06e;
+.termo{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.termo p{
+    text-align: justify;
+    font-size: 14px;
+}
+
+p{
+    font-family: 'Jost';
+    font-weight: 400;
+    color: #616161;
+    font-size: var(--p-font);
+    line-height: 28px;
+    margin-bottom: 20px;
 }
 
 form .button{
@@ -132,7 +145,7 @@ form .button input{
     letter-spacing: 1px;
     border-radius: 5px;
     transition: all 0.4s ease;
-    background: linear-gradient(135deg, #fabc41, #d3e06e);
+    background:  #2C7D7A;
 }
 
 /*------------------INICIO HEADER --------------*/
@@ -933,14 +946,6 @@ header.sticky{
 }
 
 /*---form contato---*/
-
-.title{
-    font-size: 2.5rem;
-    color: #2C7D7A;
-    font-family: 'Poppins';
-    font-weight: 600;
-    text-align: center;
-}
 
 .contact .container .contact-inner{
     justify-content: center;

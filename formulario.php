@@ -22,55 +22,82 @@
         <div class="bx bx-menu" id="menu-icon"></div>
 
         <ul class="navlist">
-            <li><a href="#saude-do-homem">HOME</a></li>
+            <li><a href="#homem">HOME</a></li>
             <!--<li><a href="#receita">AGENDAR UMA CONSULTA</a></li>-->
-            <li><a href="#especialistas">MAIS INFORMAÇÕES</a></li>
-            <li><a href="#disfunção_eretil">DISFUNÇÃO ERÉTIL</a></li>
-            <li><a href="#ejaculacao_precoce">EJACULAÇÃO PRECOCE</a></li>
-            <li><a href="#receitas">SERVIÇOS</a></li>
+            <li><a href="#">RENOVAÇÃO DE RECEITA</a></li>
+            <li><a href="#">COMO FUNCIONA</a></li>
+            <li><a href="#">SERVIÇOS</a></li>
         </ul>
         <!--<a href="https://api.whatsapp.com/send?phone=5512935851032&text=Ol%C3%A1+Em+que+Posso+ajudar%3F" target="_blank" class="top-btn-w"><img src="image/WhatsApp.svg.png" alt=""><span class="fale"></span></a>-->
-        <a href="#" id="open-form" target="_blank" data-modal="open" class="top-btn"></a>
+        <!--<a href="#" id="open-form" target="_blank" data-modal="open" class="top-btn"></a>-->
     </header>
     <!--FIM HEADER-->
-    <section class="card_form">
-        <div class="title">Prontuario Simples</div>
-        <form>
-            <div class="user-details">
-                <div class="input-box">
-                    <span class="details">Data Registro</span>
-                    <input class="input" type="date" name="data_registro" id="data_registro">
-                </div>
-                <div class="input-box">
-                    <span class="details">Nome Completo</span>
-                    <input class="input" type="text" placeholder="Nome Completo" name="nome_completo" id="nome_completo">
-                </div>
-                <div class="input-box">
-                    <span class="details">Idade</span>
-                    <input class="input" type="text" placeholder="Idade" name="idade" id="idade">
-                </div>
-                <div class="input-box">
-                    <span class="details">Data nascimento</span>
-                    <input class="input" type="date" name="data_nasc" id="data_nasc">
-                </div>
-                <div class="input-box">
-                    <span class="details">Endereço</span>
-                    <input class="input" type="text" placeholder="Av, Rua logradouro" name="endereco" id="endereco">
-                </div>
-                <div class="input-box">
-                    <span class="details">Tel / Cel</span>
-                    <input class="input" type="text" placeholder="(**) ****-****" name="tel_cel" id="tel_cel">
-                </div>
-                <div class="input-box">
-                    <span class="details">Sexo</span>
-                    <select class="input" name="sexo" id="sexo">
-                        <option value="">Selecione...</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="Feminino">Feminino</option>
-                    </select>
-                </div>
+    <section class="card">
+        <div class="card_form">
+            <div class="image">
+                <img src="assets/image/image_form.png" alt="">
             </div>
-        </form>
+            <form>
+                <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span>
+                <p>Receba a receita direto no seu celular.
+                    As receitas médicas têm validade em todas as farmácias do Brasil.
+                    Resolva agora, sem agendamento, sem demora e sem fila.
+                    Médicos 100% Online. 24h.
+                </P>
+                <div class="input-box">
+                    <span class="details">Qual MEDICAMENTO você usa e precisa renovar a receita?*</span>
+                    <input class="input" type="text" placeholder="Descreva aqui...">
+                </div>
+                <div class="input-box">
+                    <span class="details">Para qual problema de saúde, seu médico prescreveu este medicamento?*</span>
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="nome_completo" id="nome_completo">
+                </div>
+                <div class="input-box">
+                    <span class="details">Tem alergia a algum medicamento?*</span>
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="idade" id="idade">
+                </div>
+                <div class="input-box">
+                    <span class="details">Qual seu nome completo? (Informe corretamente, para ser colocado na sua receita)</span>
+                    <input class="input" type="text" placeholder="Descreva aqui...">
+                </div>
+                <div class="input-box">
+                    <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)</span>
+                    <input class="input" type="phone" placeholder="(_) _____-____" name="endereco" id="endereco">
+                </div>
+                <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span><br>
+                <div class="termo">
+                    <p>
+                        Afirmo que sou maior de idade e que todas as informações fornecidas são verdadeiras, sob as penas da lei.
+                        Autorizo o uso das minhas informações, que ficarão em sigilo e guardadas em prontuário, para fins de atendimento médico..
+                        Fui informado que a Telessaúde tem limitações, por ser uma modalidade de atendimento à distância, sem exame físico e que no caso de sintomas, devo procurar atendimento presencial.
+                        Estou ciente de que a Teletriagem, como nesse caso, é um atendimento momentâneo, que não faz novo diagnóstico, mas avalia os sinais e sintomas de um caso que já tenha diagnóstico prévio. No caso de baixo risco, o médico emite uma conduta, até o paciente retornar em seu médico presencial.
+                        Fui orientado que, assim que possível, devo retornar no meu médico.
+                        Afirmo que não tenho sinal ou sintoma de descontrole da minha doença prévia. No caso de sintoma, fui orientado a procurar atendimento presencial.
+                        Nego qualquer tipo de alergia relacionado aos medicamentos que já uso, que foram prescritos pelo meu médico.
+                        Fui informado que este é um serviço de intermediação tecnológica e que o médico tem plena autonomia para fazer o atendimento de Telessaúde, por meio da Plataforma Clica Doc, desde que haja consentimento do paciente.
+                        Todas as condutas são realizadas e as receitas são enviadas pelo médico, com total autonomia e sem interferência da Plataforma Clica Doc.
+                        A Plataforma não realiza videoconsulta e não interfere na relação médico-paciente.
+                        Aviso legal: A Clica Doc é uma empresa  de Tecnologia de Sistemas e não presta serviços médicos. A Plataforma Clica Doc é um Sistema dê Telessaúde que conecta profissionais de saúde com seus pacientes.
+                        O preço do serviço de tecnologia da Plataforma depende do uso do sistema e do profissional a ser contatado.
+                        Clica Doc Tecnologia 
+                        CNPJ: 43.722.721/0001-18
+                        São José dos Campos-SP
+                    </p>
+                </div>
+                <div class="input-radio">
+                    <span class="details">
+                    <input class="input" type="radio" name="endereco" id="endereco">
+                        
+                    Li e concordo com os termos acima.
+
+                    </span>
+                </div>
+                <div class="button">
+                    <input type="submit" name="submit" value="Enviar">
+                </div>
+            </form>
+        </div>
+        
     </section>
 
     <!--FOOTER-->

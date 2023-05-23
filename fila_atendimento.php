@@ -15,8 +15,6 @@ include "include/mysqlconecta.php";
         <!-- App favicon -->
         <!-- <link rel="shortcut icon" href="assets/images/favicon.ico"> -->
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-
 
         <!-- DataTables -->
         <link href="assets/plugins/datatables/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
@@ -25,8 +23,7 @@ include "include/mysqlconecta.php";
         <link href="assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
 
         <!-- Plugins css -->
-        <link href="assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/huebee/huebee.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />        
         <link href="assets/plugins/timepicker/bootstrap-material-datetimepicker.css" rel="stylesheet">
         <link href="assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
 
@@ -130,44 +127,16 @@ include "include/mysqlconecta.php";
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">  
-                                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="tabela_atendimentos" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>Nome do paciente</th>
-                                            <th>Medicamento</th>
-                                            <th>Data</th>
-                                            <th>Telefone</th>
-                                            <th>Ação</th>
-                                        </tr>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Data</th>
+                                                <th>Nome do paciente</th>
+                                                <th>CPF</th>                                            
+                                                <th>Ação</th>
+                                            </tr>
                                         </thead>
-    
-                                        <tbody>                                        
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$112,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>28</td>
-                                            <td>2011/01/25</td>
-                                            <td>$112,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>29</td>
-                                            <td>2011/01/25</td>
-                                            <td>$112,000</td>
-                                        </tr>
-                                        </tbody>
                                     </table>        
                                 </div>
                             </div>
@@ -211,12 +180,10 @@ include "include/mysqlconecta.php";
 
         <!-- Plugins js -->
       
-        <script src="assets/plugins/select2/select2.min.js"></script>
-        <script src="assets/plugins/huebee/huebee.pkgd.min.js"></script>
+        <script src="assets/plugins/select2/select2.min.js"></script>        
         <script src="assets/plugins/timepicker/bootstrap-material-datetimepicker.js"></script>
         <script src="assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
-        <script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
-        <script src="assets/pages/jquery.forms-advanced.js"></script>
+        <script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>        
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
@@ -229,35 +196,40 @@ include "include/mysqlconecta.php";
 
 $("#menu_fila_atendimento").addClass("active");
 
-$(document).ready(function () {
-    $("#datatable").DataTable(),        
-        $("#datatable-buttons")
-            .DataTable({ lengthChange: !1, buttons: ["copy", "excel", "pdf", "colvis"] })
-            .buttons()
-            .container()
-            .appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)")
-})
+//CRIANDO DATATABLE EM BRANCO
+$("#tabela_atendimentos").DataTable({
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
+    },
+    pageLength: 20,
+    lengthMenu: [20, 30, 50, 75, 100],
+    order: [],
+    paging: true,
+    searching: true,
+    info: true,
+    data: [],
+    columns: [
+        { data: "status" },
+        { data: "anmpac_data_cadastro" },
+        { data: "anmpac_nom" },
+        { data: "anmpac_cpf" },
+        { data: "btns" }
+    ]
+});
 
+//FUNÇÃO PARA BUSCAR ATENDIMENTOS
 function busca_atendimentos(){ 
-    
-    $('#btn_submit').prop('disabled', false);
-    $("#loading").removeClass("d-flex").addClass("d-none"); 
-
-    if (dataTable){ dataTable.destroy(); }
-    
-    dataTable = new simpleDatatables.DataTable(tabela, {
-        ajax: {
-            url: "assets/ajax/busca_atendimentos.php"
-        }
-    }); 
-
-    $('#carregando').css("display", "none");
-    $('#area_efetivo').show();
-
-    $([document.documentElement, document.body]).animate({
-    scrollTop: $("#tabela").offset().top
-    }, 1000);
-
+    $.ajax({
+        url: "assets/ajax/buscar_atendimentos.php",
+        type: "GET"
+    }).done(function (result) {        
+        
+        var data = JSON.parse(result);        
+        
+        $("#tabela_atendimentos").DataTable().clear().draw();
+        $("#tabela_atendimentos").DataTable().rows.add(data).draw();
+    });
 }
 
+busca_atendimentos(); 
 </script>

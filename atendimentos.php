@@ -1,6 +1,22 @@
 <?php 
 include "include/valida_session_usuario.php";
 include "include/mysqlconecta.php";
+
+if (!$_POST['anmpac_id']){
+    header("Location: ./fila_atendimento.php");
+    exit;
+} else {
+
+    $anmpac_id = $_POST['anmpac_id'];
+
+    $SQL = "SELECT * FROM tanam_dados_pacientes WHERE anmpac_id = $anmpac_id";    
+
+    $result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
+    $linhas_json = array();
+
+    $rows = mysqli_fetch_array($result);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +24,7 @@ include "include/mysqlconecta.php";
     
 <head>
         <meta charset="utf-8" />
-        <title>ClicaDoc | Administração</title>
+        <title>ClicaDoc | Atendimento</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -88,17 +104,17 @@ include "include/mysqlconecta.php";
                                             <div class="col-lg-11 align-self-center mb-3 mb-lg-0">
                                                 <div class="dastone-profile-main">
                                                     <div class="dastone-profile-main-pic">
-                                                        <img src="assets/images/users/user-4.jpg" alt="" height="110" class="rounded-circle">
+                                                        <img src="<?=$_SESSION['clicadoc_user_foto_perfil']?>" alt="" height="110" class="rounded-circle">
                                                     </div>
                                                     <div class="dastone-profile_user-detail">
-                                                        <h4 class="dastone-user-name">Nome do paciente: Isaque Sene</h4>                                                        
-                                                        <i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i> <b> Número de telefone </b> : +91 23456 78910                                                       
+                                                        <h4 class="dastone-user-name">Nome do paciente: <?=$rows['anmpac_nom'];?></h4>                                                        
+                                                        <i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i> <b> Número de telefone </b> : <?=$rows['anmpac_numcel'];?>                                                    
                                                     </div>
                                                 </div>                                                
                                             </div><!--end col-->
-                                            <div class="col-lg-11 d-flex justify-content-end">
+                                            <div class="col-lg-12 d-flex justify-content-end">
                                                 <div class="row">
-                                                        <p class="mb-lg-3 fw-semibold">Consultas realizadas: 3</p>                                                    </div><!--end col-->
+                                                    <p class="mb-1 fw-bold">Consultas realizadas: 3</p>                                                    
                                                 </div><!--end row-->                                               
                                             </div><!--end col-->
                                         </div><!--end row-->
@@ -108,48 +124,52 @@ include "include/mysqlconecta.php";
                             <div class="card">                                
                                 <div class="card-body">
                                     <div class="row">
-                                        <h4 class="d-flex align-items-end"  style="
-                                                    color: rgba(44, 125, 122, 1);
-                                                    font-family: 'Poppins', sans-serif;
-                                                    font-style: normal;
-                                                    font-weight: 600;
-                                                    font-size: 20px;
-                                                    line-height: 29px;
-                                                    "
-                                        >Ficha Clinica</h4>
-                                        <div class="col-sm-10 ms-auto text-end">
-                                            <button type="submit" class="btn btn-primary" style="border-color: rgba(44, 125, 122, 1); color: rgba(44, 125, 122, 1); background: #fff">NÃO REALIZAR</button>
-                                            <button type="submit" class="btn btn-primary" style="background: rgba(44, 125, 122, 1);">GERAR CONDUTA</button>
+                                        <div class="col-6">
+                                            <h4 class="d-flex align-items-end"  style="
+                                                        color: rgba(44, 125, 122, 1);
+                                                        font-family: 'Poppins', sans-serif;
+                                                        font-style: normal;
+                                                        font-weight: 600;
+                                                        font-size: 20px;
+                                                        line-height: 29px;
+                                                        "
+                                            >Ficha Clínica</h4>
+                                        </div>
+                                        <div class="col-6 ms-auto text-end">
+                                            <button class="btn btn-primary" style="border-color: rgba(44, 125, 122, 1); color: rgba(44, 125, 122, 1); background: #fff">NÃO REALIZAR</button>
+                                            <button class="btn btn-primary" style="background: rgba(44, 125, 122, 1);">GERAR CONDUTA</button>
                                         </div>
                                     </div>
                                     
                                     <hr style="border: 1px solid rgba(44, 125, 122, 1);border-radius: 5px; place-items: center">
+                                              
+                                    <div class="mt-3">
+                                        <label class="mb-2">Qual MEDICAMENTO você usa e precisa renovar a receita?*</label>
+                                        <input type="text" class="form-control" value="<?=$rows['anmpac_med_presc'];?>" disabled/>  
+                                    </div>
 
-                                    <label class="mb-2">Qual MEDICAMENTO você usa e precisa renovar a receita?*</label>
-
-                                    <input type="text" class="form-control" maxlength="25" name="defaultconfig" id="defaultconfig" placeholder="Losartana 50 mg" disabled/>            
                                     <div class="mt-3">
                                         <label class="mb-2">Para qual problema de saúde, seu médico prescreveu este medicamento?*</label>
-                                        <input type="text" maxlength="25" name="thresholdconfig" class="form-control" id="thresholdconfig" placeholder="Hipertensão" disabled/>
+                                        <input type="text" class="form-control" value="<?=$rows['anmpac_tratamento'];?>" disabled/>
                                     </div>
 
                                     <div class="mt-3">
                                         <label class="mb-2">Tem alergia a algum medicamento?*</label>
-                                        <input type="text" class="form-control" maxlength="25" name="placement" id="placement" placeholder="Não" disabled/>
+                                        <input type="text" class="form-control" value="<?=$rows['anmpac_alergia'] == 1 ? 'Sim' : 'Não';?>" disabled/>
                                     </div>                                    
                                     <div class="mt-3">
                                         <label class="mb-2">Qual seu nome completo? (Informe corretamente, para ser colocado na sua receita)</label>
-                                        <input type="text" class="form-control" maxlength="25" name="alloptions" id="alloptions" placeholder="ANITA MAFALDI" disabled/>
+                                        <input type="text" class="form-control" value="<?=$rows['anmpac_nom'];?>" disabled/>
                                     </div> 
                                     <div class="mt-3">
                                         <label class="mb-2">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)*</label>
-                                        <input type="text" class="form-control" maxlength="25" name="alloptions" id="alloptions" placeholder="(12) 91234-5678" disabled/>
+                                        <input type="text" class="form-control" value="<?=$rows['anmpac_numcel'];?>" disabled/>
                                     </div>  
 
-                                    <h4 class="card-title mt-3">Termo de Ciência e Consentimento</h4>                                
+                                    <h4 class="card-title mt-4">Termo de Ciência e Consentimento</h4>                                
                                     
                                     <div class="card-body border">
-                                        <p class="card-text text-muted text-justify">Afirmo que sou maior de idade e que todas as informações fornecidas são verdadeiras, sob as penas da lei.
+                                        <p class="card-text text-justify">Afirmo que sou maior de idade e que todas as informações fornecidas são verdadeiras, sob as penas da lei.
                                         Autorizo o uso das minhas informações, que ficarão em sigilo e guardadas em prontuário, para fins de atendimento médico..
                                         Fui informado que a Telessaúde tem limitações, por ser uma modalidade de atendimento à distância, sem exame físico e que no caso de sintomas, devo procurar atendimento presencial.
                                         Estou ciente de que a Teletriagem, como nesse caso, é um atendimento momentâneo, que não faz novo diagnóstico, mas avalia os sinais e sintomas de um caso que já tenha diagnóstico prévio. No caso de baixo risco, o médico emite uma conduta, até o paciente retornar em seu médico presencial.

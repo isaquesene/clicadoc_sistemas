@@ -1,3 +1,8 @@
+<?php	
+include "../../include/valida_session_usuario.php";
+include "../../include/mysqlconecta.php";
+include "assets/ajax/atualiza_formulario.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +42,7 @@
             <div class="image">
                 <img src="assets/image/image_form.png" alt="">
             </div>
-            <form>
+            <form method="post">
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span>
                 <p>Receba a receita direto no seu celular.
                     As receitas médicas têm validade em todas as farmácias do Brasil.
@@ -46,23 +51,23 @@
                 </P>
                 <div class="input-box">
                     <span class="details">Qual MEDICAMENTO você usa e precisa renovar a receita?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui...">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_pagamento_status">
                 </div>
                 <div class="input-box">
                     <span class="details">Para qual problema de saúde, seu médico prescreveu este medicamento?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="nome_completo" id="nome_completo">
-                </div>
-                <div class="input-box">
-                    <span class="details">Tem alergia a algum medicamento?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="idade" id="idade">
-                </div>
-                <div class="input-box">
-                    <span class="details">Qual seu nome completo? (Informe corretamente, para ser colocado na sua receita)</span>
                     <input class="input" type="text" placeholder="Descreva aqui...">
                 </div>
                 <div class="input-box">
+                    <span class="details">Tem alergia a algum medicamento?*</span>
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_cpf">
+                </div>
+                <div class="input-box">
+                    <span class="details">Qual seu nome completo? (Informe corretamente, para ser colocado na sua receita)</span>
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_nom">
+                </div>
+                <div class="input-box">
                     <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)</span>
-                    <input class="input" type="phone" placeholder="(_) _____-____" name="endereco" id="endereco">
+                    <input class="input" type="phone" placeholder="(_) _____-____" name="anmpac_data_cadastro">
                 </div>
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span><br>
                 <div class="termo">
@@ -167,7 +172,6 @@
     <script src="js_h/modal2.js"></script>-->
 
     <script src="assets/js_h/whatsapp.shrink.js"></script>
-
 
     
 </body>

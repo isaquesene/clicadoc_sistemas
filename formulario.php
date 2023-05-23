@@ -46,15 +46,15 @@
                 </P>
                 <div class="input-box">
                     <span class="details">Qual MEDICAMENTO você usa e precisa renovar a receita?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_pagamento_status">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_med_presc">
                 </div>
                 <div class="input-box">
                     <span class="details">Para qual problema de saúde, seu médico prescreveu este medicamento?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui...">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_tratamento">
                 </div>
                 <div class="input-box">
                     <span class="details">Tem alergia a algum medicamento?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_cpf">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_alergia">
                 </div>
                 <div class="input-box">
                     <span class="details">Qual seu nome completo? (Informe corretamente, para ser colocado na sua receita)</span>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="input-box">
                     <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)</span>
-                    <input class="input" type="phone" placeholder="(_) _____-____" name="anmpac_data_cadastro">
+                    <input class="input" type="phone" placeholder="(_) _____-____" name="anmpac_numcel">
                 </div>
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span><br>
                 <div class="termo">

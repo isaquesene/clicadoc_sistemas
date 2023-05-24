@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css_h/estyle.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    <!--AJAX-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <title>ClicaDoc</title>
 </head>
@@ -37,7 +40,7 @@
             <div class="image">
                 <img src="assets/image/image_form.png" alt="">
             </div>
-            <form method="post" action="assets/ajax/atualiza_formulario.php">
+            <form method="post" id="formulario_atendimento">
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span>
                 <p>Receba a receita direto no seu celular.
                     As receitas médicas têm validade em todas as farmácias do Brasil.
@@ -46,23 +49,23 @@
                 </P>
                 <div class="input-box">
                     <span class="details">Qual MEDICAMENTO você usa e precisa renovar a receita?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_med_presc">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_med_presc" id="anmpac_med_presc">
                 </div>
                 <div class="input-box">
                     <span class="details">Para qual problema de saúde, seu médico prescreveu este medicamento?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_tratamento">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_tratamento" id="anmpac_tratamento">
                 </div>
                 <div class="input-box">
                     <span class="details">Tem alergia a algum medicamento?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_alergia">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_alergia" id="anmpac_alergia">
                 </div>
                 <div class="input-box">
                     <span class="details">Qual seu nome completo? (Informe corretamente, para ser colocado na sua receita)</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_nom">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_nom" id="anmpac_nom">
                 </div>
                 <div class="input-box">
                     <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)</span>
-                    <input class="input" type="phone" placeholder="(_) _____-____" name="anmpac_numcel">
+                    <input class="input" type="phone" placeholder="(_) _____-____" name="anmpac_numcel" id="anmpac_numcel">
                 </div>
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span><br>
                 <div class="termo">
@@ -93,12 +96,51 @@
                     </span>
                 </div>
                 <div class="button">
-                    <input type="submit" name="submit" value="Enviar">
+                    <input type="submit" value="Enviar">
                 </div>
             </form>
         </div>
         
     </section>
+
+    <style>
+        .modal {
+        display: none;
+        position: fixed; 
+        z-index: 9999; 
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto; 
+        background-color: rgba(0, 0, 0, 0.4); 
+        }
+
+        .modal-content {
+        background-color: #fefefe;
+        margin: 20% auto; 
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px;
+        justify-content: center;
+        place-items: center;
+        text-align: center;
+        }
+
+        h3{
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+    </style>
+
+    <!--MODAL SUCCESS-->
+    <div id="modalSuccess" class="modal">
+        <div class="modal-content">
+            <h3>Sucesso!</h3>
+            <p>Seu formulário foi enviado com sucesso.</p>
+        </div>
+    </div>
 
     <!--FOOTER-->
     <footer class="footer">
@@ -154,19 +196,48 @@
         <div class="credit-footer"> Desenvolvido por <span>ITA Ventures</span> © 2023 </div>
     </section>
 
+    <!--CADASTRO VIA AJAX-->
+    <script>
+       $(document).ready(function(){
+        $("#formulario_atendimento").submit(function(e){
+            e.preventDefault();
+            $("#acao").val('cadastrar'); // Removi ":hidden" do seletor
+            $.ajax({
+                type: "POST",
+                url: "assets/ajax/atualiza_formulario.php",
+                data: $(this).serialize(),
+                success: function(response){
+                    var success = true; 
+                    if (success) {
+                        $("#modalSuccess").css("display", "block");
+                    }
+                        $("#formulario_atendimento")[0].reset();
+
+                        setTimeout(function() {
+                            $("#modalSuccess").hide();
+                        }, 3000);
+
+                    /*var success = <?php echo isset($success) && $success ? 'true' : 'false'; ?>;
+                    if (success) {
+                        $("#modalSuccess").css("display", "block");
+                    }
+                    $("#formulario_atendimento")[0].reset();*/
+                }
+            });
+        });
+    });
+
+    </script>
+
     <script src="https://unpkg.com/scrollreveal"></script>
 
     <script src="assets/js_h/script.js"></script>
 
     <script src="assets/js_h/scroll.js"></script>
 
-    <script src="assets/js_h/cookies.js"></script>
-
     <!--<script src="js_h/modal.js"></script>
 
     <script src="js_h/modal2.js"></script>-->
-
-    <script src="assets/js_h/whatsapp.shrink.js"></script>
 
     
 </body>

@@ -84,13 +84,12 @@ if(!isset($nome) || $situacao != 'ativo'){
                                                         <input type="password" class="form-control" name="conf_password" id="conf_password">
                                                     </div>
                                                 </div>
-
-                                                <div class="alert alert-light alert-dismissible fade show border-0 my-3" role="alert">
+                                                <div class="alert alert-light alert-dismissible fade show border-0 my-3" role="alert" id="lista_requisito">
                                                     <strong>A senha deverá possuir obrigatoriamente as seguintes características:</strong>
                                                     <ul class="mt-2">
-                                                        <li>Uma letra maiúscula</li>
-                                                        <li>Um caráter especial</li>
-                                                        <li>E um número</li>
+                                                        <li id="requisito_maiuscula" style="display:flex;">- Uma letra maiúscula<i style="display:none;" id="check_m" class="dripicons-checkmark"></i></li>
+                                                        <li id="requisito_especial" style="display:flex;">- Um caráter especial<i style="display:none;" id="check_e" class="dripicons-checkmark"></i></i></li>
+                                                        <li id="requisito_numero" style="display:flex;">- E um número<i style="display:none;" id="check_n" class="dripicons-checkmark"></i></li>
                                                     </ul>                                                
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
@@ -151,38 +150,37 @@ if(!isset($nome) || $situacao != 'ativo'){
 
     //AO ENVIAR FORMULÁRIO
     $('#form-login').submit(function(e) {
-        
-        e.preventDefault();
-        $('#btn_submit').prop('disabled', true);
-        $("#loading").removeClass("d-none").addClass("d-flex");   
+    e.preventDefault();
+    $('#btn_submit').prop('disabled', true);
+    $("#loading").removeClass("d-none").addClass("d-flex");
 
-        let password = $('#password').val(); 
-        let conf_password = $('#conf_password').val(); 
+    let password = $('#password').val();
+    let conf_password = $('#conf_password').val();
 
-        //VERIFICA SE AS SENHAS SÃO IGUAIS
-        if(password !== conf_password){
-            
-            msg.fire({ icon: 'error', title: 'As senhas devem ser iguais.' });
-            $('#btn_submit').prop('disabled', false);
-            $("#loading").removeClass("d-flex").addClass("d-none"); 
-            return;
-        }
+    // VERIFICA SE AS SENHAS SÃO IGUAIS
+    if (password !== conf_password) {
+        msg.fire({ icon: 'error', title: 'As senhas devem ser iguais.' });
+        $('#btn_submit').prop('disabled', false);
+        $("#loading").removeClass("d-flex").addClass("d-none");
+        return;
+    }
 
-        var possuiLetraMaiuscula = /[A-Z]/.test(password);
-        var possuiCaractereEspecial = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
-        var possuiNumero = /[0-9]/.test(password);
+    var possuiLetraMaiuscula = /[A-Z]/.test(password);
+    var possuiCaractereEspecial = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
+    var possuiNumero = /[0-9]/.test(password);
 
-        //VERFICA SE CUMPRE OS REQUISITOS
-        if (!possuiLetraMaiuscula || !possuiCaractereEspecial || !possuiNumero) {
+    // VERIFICA SE CUMPRE OS REQUISITOS
+    if (!possuiLetraMaiuscula || !possuiCaractereEspecial || !possuiNumero) {
+        msg.fire({ icon: 'error', title: 'A senha não cumpre os requisitos mínimos' });
+        $('#btn_submit').prop('disabled', false);
+        $("#loading").removeClass("d-flex").addClass("d-none");
+        return;
+    }
 
-            msg.fire({ icon: 'error', title: 'A senha não cumpre os requsitos mínimos' });
-            $('#btn_submit').prop('disabled', false);
-            $("#loading").removeClass("d-flex").addClass("d-none"); 
-            return;
-        }
+    // RESTANTE DO SEU CÓDIGO...
+    var formData = new FormData(this);
+    // ...
 
-        //RECUPERA OS VALORES DOS CAMPOS
-        var formData = new FormData(this);
 
         //REQUSIÇÃO
         $.ajax({
@@ -220,5 +218,45 @@ if(!isset($nome) || $situacao != 'ativo'){
                 $("#loading").removeClass("d-flex").addClass("d-none");             
             }
         });        
+    });
+
+    // ATUALIZA A CLASSE CSS DO REQUISITO DE LETRA MAIÚSCULA
+    $('#password').on('input', function() {
+        var password = $(this).val();
+        var possuiLetraMaiuscula = /[A-Z]/.test(password);
+        var requisitoMaiuscula = $('#requisito_maiuscula');
+        var check_m = $('#check_m');
+        var possuiCaractereEspecial = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
+        var requisitoEspecial = $('#requisito_especial');
+        var check_e = $('#check_e');
+        var possuiNumero = /[0-9]/.test(password);
+        var requisitoNumero = $('#requisito_numero');
+        var check_n = $('#check_n');
+
+        if (possuiLetraMaiuscula) {
+            requisitoMaiuscula.css('color', 'green');
+            check_m.css('display', 'block');
+
+        } else {
+            requisitoMaiuscula.css('color', '');
+            check_m.css('display', 'none');
+
+        }
+
+        if (possuiCaractereEspecial) {
+            requisitoEspecial.css('color', 'green');
+            check_e.css('display', 'block');
+        } else {
+            requisitoEspecial.css('color', '');
+            check_e.css('display', 'none');
+        }
+
+        if (possuiNumero) {
+            requisitoNumero.css('color', 'green');
+            check_n.css('display', 'block');
+        } else {
+            requisitoNumero.css('color', '');
+            check_n.css('display', 'none');
+        }
     });
 </script>

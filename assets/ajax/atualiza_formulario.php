@@ -9,13 +9,14 @@ $anmpac_tratamento = $_POST['anmpac_tratamento'];
 $anmpac_alergia = $_POST['anmpac_alergia'];
 $anmpac_nom = $_POST['anmpac_nom'];
 $anmpac_numcel = $_POST['anmpac_numcel'];
+$anmpac_pagamento_status = $_POST['anmpac_pagamento_status'];
 
 $success = false;
 
 if ($acao == "cadastrar"){
     
-    $SQL = "insert into tanam_dados_pacientes(anmpac_med_presc, anmpac_tratamento, anmpac_alergia, anmpac_nom, anmpac_numcel) values 
-    ('$anmpac_med_presc','$anmpac_tratamento','$anmpac_alergia','$anmpac_nom','$anmpac_numcel')";    
+    $SQL = "insert into tanam_dados_pacientes(anmpac_med_presc, anmpac_tratamento, anmpac_alergia, anmpac_nom, anmpac_numcel, anmpac_pagamento_status) values 
+    ('$anmpac_med_presc','$anmpac_tratamento','$anmpac_alergia','$anmpac_nom','$anmpac_numcel','$anmpac_pagamento_status')";    
     @mysqli_query($conexao,$SQL) or die("Ocorreu um problema! Código: 001");  
 
     $success = true;  

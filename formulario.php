@@ -67,6 +67,10 @@
                     <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)</span>
                     <input class="input" type="phone" placeholder="(_) _____-____" name="anmpac_numcel" id="anmpac_numcel">
                 </div>
+                <div class="input-box">
+                    <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)</span>
+                    <input class="input" type="text" placeholder="" name="anmpac_pagamento_status" id="anmpac_pagamento_status">
+                </div>
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span><br>
                 <div class="termo">
                     <p>

@@ -202,7 +202,7 @@
                         return;                   
                     }
 
-                    location.href="demais_acesso.php";
+                    location.href="home.php";
                     return;
                 } 
 

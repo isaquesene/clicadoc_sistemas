@@ -14,7 +14,7 @@
 <div class="menu-content h-100" data-simplebar>
     <ul class="metismenu left-sidenav-menu">               
         <li>
-            <a href="primeiro_acesso.php" id="menu_home"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Home</span></a>                        
+            <a href="home.php" id="menu_home"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Home</span></a>                        
         </li>
 
         <li>
@@ -22,7 +22,7 @@
         </li>
 
         <li>
-            <a href="javascript: void(0);" id="menu_pacientes"><i data-feather="user" class="align-self-center menu-icon"></i><span>Meus Pacientes</span><span class="menu-arrow"></span></a>
+            <a href="meus_pacientes.php" id="menu_meus_pacientes"><i data-feather="user" class="align-self-center menu-icon"></i><span>Meus Pacientes</span><span class="menu-arrow"></span></a>
         </li> 
 
         <li>

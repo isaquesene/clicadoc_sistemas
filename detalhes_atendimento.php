@@ -9,12 +9,18 @@ if (!$_POST['anmpac_id']){
 
     $anmpac_id = $_POST['anmpac_id'];
 
-    $SQL = "SELECT * FROM tanam_dados_pacientes WHERE anmpac_id = $anmpac_id";    
+    $SQL = "SELECT * FROM tanam_dados_pacientes tdp LEFT JOIN tanam_dados_consulta tdc ON tdp.anmpac_id = tdc.anmcon_id_paciente LEFT JOIN tanam_usuarios tu ON tdc.anmcon_id_medico = tu.user_id WHERE anmpac_id = $anmpac_id";    
 
     $result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
     $linhas_json = array();
 
     $rows = mysqli_fetch_array($result);
+
+    $anmcon_datacad = $rows['anmcon_datacad'];
+
+    if(!is_null($anmcon_datacad)){
+        $anmcon_datacad = (new DateTime($anmcon_datacad))->format('d/m/Y');    
+    }
 }
 
 ?>
@@ -24,7 +30,7 @@ if (!$_POST['anmpac_id']){
     
 <head>
     <meta charset="utf-8" />
-    <title>ClicaDoc | Atendimento</title>
+    <title>ClicaDoc | Administração</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -77,7 +83,7 @@ if (!$_POST['anmpac_id']){
                         <div class="page-title-box">
                             <div class="row">
                                 <div class="col">
-                                    <h4 class="page-title">Atendimentos</h4>                                        
+                                    <h4 class="page-title">Pacientes</h4>                                        
                                 </div><!--end col-->                                                                        
                             </div><!--end row-->                                                              
                         </div><!--end page-title-box-->
@@ -97,7 +103,7 @@ if (!$_POST['anmpac_id']){
                                             font-weight: 600;
                                             font-size: 20px;
                                             line-height: 29px;
-                                            margin-bottom: 20px;">Paciente
+                                            margin-bottom: 20px;">Detalhes da consulta
                                         </h4>                                                             
                                     
                                         
@@ -114,7 +120,7 @@ if (!$_POST['anmpac_id']){
                                         </div><!--end col-->
                                         <div class="col-lg-12 d-flex justify-content-end">
                                             <div class="row">
-                                                <p class="mb-1 fw-bold">Consultas realizadas: 3</p>                                                    
+                                                <p class="mb-1 fw-bold">Data da consulta:  <b><?=$anmcon_datacad?></b></p>                                                    
                                             </div><!--end row-->                                               
                                         </div><!--end col-->
                                     </div><!--end row-->
@@ -134,18 +140,14 @@ if (!$_POST['anmpac_id']){
                                                     line-height: 29px;
                                                     "
                                         >Ficha Clínica</h4>
-                                    </div>
-                                    <div class="col-6 ms-auto text-end">
-                                        <a onclick="gerarConduta('negar')" class="btn btn-primary" style="border-color: rgba(44, 125, 122, 1); color: rgba(44, 125, 122, 1); background: #fff">NÃO REALIZAR</a>
-                                        <a onclick="gerarConduta('gerar')" class="btn btn-primary" style="background: rgba(44, 125, 122, 1);">GERAR CONDUTA</a>
-                                    </div>
+                                    </div>                                    
                                 </div>
                                 
                                 <hr style="border: 1px solid rgba(44, 125, 122, 1);border-radius: 5px; place-items: center">
                                             
                                 <div class="mt-3">
                                     <label class="mb-2">Qual MEDICAMENTO você usa e precisa renovar a receita?*</label>
-                                    <input type="text" class="form-control" value="<?=$rows['anmpac_med_presc'];?>" disabled/>  
+                                    <input type="text" class="form-control" value="<?=$anmcon_datacad;?>" disabled/>  
                                 </div>
 
                                 <div class="mt-3">
@@ -192,13 +194,36 @@ if (!$_POST['anmpac_id']){
                                     <label class="form-check-label" for="exampleRadios1">
                                     Li e concordo com os termos acima.
                                     </label>
-                                </div>
+                                </div>                                
+                            </div>                                    
+                        </div> <!-- end card-body -->
+                        <div class="card">                                
+                            <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-10 ms-auto text-end">
-                                        <a onclick="gerarConduta('negar')" class="btn btn-primary" style="border-color: rgba(44, 125, 122, 1); color: rgba(44, 125, 122, 1); background: #fff">NÃO REALIZAR</a>
-                                        <a onclick="gerarConduta('gerar')" class="btn btn-primary" style="background: rgba(44, 125, 122, 1);">GERAR CONDUTA</a>
-                                    </div>
+                                    <div class="col-6">
+                                        <h4 class="d-flex align-items-end"  style="
+                                                    color: rgba(44, 125, 122, 1);
+                                                    
+                                                    font-style: normal;
+                                                    font-weight: 600;
+                                                    font-size: 20px;
+                                                    line-height: 29px;
+                                                    "
+                                        >Observações da consulta</h4>
+                                    </div>                                    
                                 </div>
+                                
+                                <hr style="border: 1px solid rgba(44, 125, 122, 1);border-radius: 5px; place-items: center">
+                                            
+                                <div class="mt-3">
+                                    <p class="mb-2 fw-bold">Médico: <?=$rows['user_nom']?> - CRM/SP <?=$rows['user_crm']?></p>
+                                    <p class="mb-2 fw-bold">Data da consulta: <?=$anmcon_datacad?></p>
+
+                                    <div class="mt-3 mb-3">
+                                        <label class="mb-2">Observações do Médico</label>
+                                        <textarea type="text" rows="5" class="form-control" name="observacoes_medico" disabled><?=$rows['anmcon_observacao']?></textarea>
+                                    </div>                                     
+                                </div>                               
                             </div>                                    
                         </div> <!-- end card-body -->
                     </div><!--end col-->
@@ -261,21 +286,5 @@ if (!$_POST['anmpac_id']){
 </html>
 
 <script>
-    $("#menu_fila_atendimento").addClass("active");
-
-    var anmpac_id = <?php echo $anmpac_id;?>;
-
-    function gerarConduta(acao){
-
-        let dadosConduta = [];
-
-        dadosConduta[0] = {
-            anmpac_id,
-            acao
-        }       
-
-        postAndRedirect('em_atendimento.php', dadosConduta[0], 'POST');
-
-    }
-    
+    $("#menu_meus_pacientes").addClass("active");
 </script>

@@ -8,6 +8,7 @@ if (!$_POST['anmpac_id']){
 } else {
 
     $anmpac_id = $_POST['anmpac_id'];
+    $acao = $_POST['acao'];
 
     $SQL = "SELECT * FROM tanam_dados_pacientes WHERE anmpac_id = $anmpac_id";    
 
@@ -124,6 +125,9 @@ if (!$_POST['anmpac_id']){
                                 <form action="conduta_enviada.php" method="post">
 
                                     <input type="hidden" name="anmpac_id" value="<?=$anmpac_id?>">
+                                    <input type="hidden" name="acao" value="<?=$acao?>">
+                                    <input type="hidden" name="anmpac_nom" value="<?=$rows['anmpac_nom']?>">
+                                    <input type="hidden" name="anmpac_numcel" value="<?=$rows['anmpac_numcel']?>">
 
                                     <div class="row mb-3">
                                         <a onclick="voltarParaFicha()" style="cursor:pointer;font-weight: 700;font-size: 16px;color: #2C7D7A;"><i class="mdi mdi-arrow-left"></i> Voltar para ficha</a>
@@ -137,7 +141,7 @@ if (!$_POST['anmpac_id']){
                                                         font-size: 20px;
                                                         line-height: 29px;
                                                         "
-                                            >Gerar Conduta</h4>
+                                            ><?=$acao == 'gerar' ? 'Gerar Conduta' : 'Recusa de Conduta' ?></h4>
                                         </div>
                                         <div class="col-6 ms-auto text-end">
                                             <a onclick="cancelarAtendimento()" class="btn btn-primary" style="border-color: rgba(44, 125, 122, 1); color: rgba(44, 125, 122, 1); background: #fff">Cancelar</a>
@@ -145,11 +149,14 @@ if (!$_POST['anmpac_id']){
                                         </div>
                                     </div>
                                     <hr style="border: 1px solid rgba(44, 125, 122, 1);border-radius: 5px; place-items: center">
-                                
-                                    <div class="mt-1">
-                                        <label class="mb-2">Prescrições do Médico</label>
-                                        <textarea type="text" rows="5" class="form-control" name="conduta_medico" required></textarea>
-                                    </div> 
+                                    
+                                    <?php if($acao == 'gerar'){ ?>
+                                        <div class="mt-1">
+                                            <label class="mb-2">Prescrições do Médico</label>
+                                            <textarea type="text" rows="5" class="form-control" name="conduta_medico" required></textarea>
+                                        </div> 
+                                    <?php } ?>
+
                                     <div class="mt-3 mb-3">
                                         <label class="mb-2">Observações do Médico</label>
                                         <textarea type="text" rows="5" class="form-control" name="observacoes_medico" required></textarea>
@@ -230,7 +237,7 @@ if (!$_POST['anmpac_id']){
         let dadosConduta = [];
 
         dadosConduta[0] = {
-            anmpac_id
+            anmpac_id     
         }
 
         postAndRedirect('atendimentos.php', dadosConduta[0], 'POST');

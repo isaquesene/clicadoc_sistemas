@@ -10,10 +10,22 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
 } else {   
 
     $anmpac_id = $_POST['anmpac_id'];
-    $conduta_medico = $_POST['conduta_medico'];
+    $acao = $_POST['acao'];
+    $anmpac_nom = $_POST['anmpac_nom'];
+    $anmpac_numcel = $_POST['anmpac_numcel'];
+    
+    $gerar_ou_negar = 0;
+    $conduta_medico = '';
+    $imagem = 'justificativa_recusa.png';
+
+    if($acao == 'gerar'){
+        $conduta_medico = $_POST['conduta_medico'];
+        $gerar_ou_negar = 1;
+        $imagem = 'sucesso.png';
+    }
     $observacoes_medico = $_POST['observacoes_medico'];
 
-    if($conduta_medico == '' || $observacoes_medico == ''){
+    if(($conduta_medico == '' && $acao == 'gerar') || $observacoes_medico == ''){
         header("Location: ./fila_atendimento.php");
         exit;
     }
@@ -21,7 +33,7 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
     $anmcon_id_medico = $_SESSION['clicadoc_user_id'];
 
     $SQL = "INSERT INTO tanam_dados_consulta (anmcon_conduta,anmcon_conduta_medica,anmcon_observacao,anmcon_id_paciente,anmcon_id_medico) 
-            VALUES (1,'$conduta_medico','$observacoes_medico',$anmpac_id,$anmcon_id_medico)";    
+            VALUES ($gerar_ou_negar,'$conduta_medico','$observacoes_medico',$anmpac_id,$anmcon_id_medico)";    
 
     @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
 
@@ -117,8 +129,8 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
                                                         <img src="<?=$_SESSION['clicadoc_user_foto_perfil']?>" alt="" height="110" class="rounded-circle">
                                                     </div>
                                                     <div class="dastone-profile_user-detail">
-                                                        <h4 class="dastone-user-name">Nome do paciente: <?=$rows['anmpac_nom'];?></h4>                                                        
-                                                        <i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i> <b> Número de telefone </b> : <?=$rows['anmpac_numcel'];?>                                                    
+                                                        <h4 class="dastone-user-name">Nome do paciente: <?=$anmpac_nom;?></h4>                                                        
+                                                        <i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i> <b> Número de telefone </b> : <?=$anmpac_numcel;?>                                                    
                                                     </div>
                                                 </div>                                                
                                             </div><!--end col-->
@@ -134,7 +146,7 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
                             <div class="card">
                                 <div class="card-body">
                                     </div class="row">
-                                        <img src="assets/images/sucesso.png" class="img-fluid mx-auto d-flex" alt="..."> 
+                                        <img src="assets/images/<?=$imagem?>" class="img-fluid mx-auto d-flex" alt="..."> 
                                         <div class="card-body">
                                             <div class="card-body">
                                                 <p class="card-text" style="text-align: center;">A prescrição médica do paciente foi enviada com sucesso.

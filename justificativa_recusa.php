@@ -76,7 +76,7 @@ include "include/mysqlconecta.php";
                                         <div class="row">
                                             <h4 class="CdTitulo" style="
                                                 
-                                                font-family: 'Poppins', sans-serif;
+                                                
                                                 font-style: normal;
                                                 font-weight: 600;
                                                 font-size: 20px;
@@ -168,11 +168,11 @@ include "include/mysqlconecta.php";
         <!-- Plugins js -->
       
         <script src="assets/plugins/select2/select2.min.js"></script>
-        <script src="assets/plugins/huebee/huebee.pkgd.min.js"></script>
+        
         <script src="assets/plugins/timepicker/bootstrap-material-datetimepicker.js"></script>
         <script src="assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
         <script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
-        <script src="assets/pages/jquery.forms-advanced.js"></script>
+        
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>

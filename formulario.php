@@ -41,6 +41,7 @@
                 <img src="assets/image/image_form.png" alt="">
             </div>
             <form method="post" id="formulario_atendimento">
+            <input type="hidden" name="acao" id="acao" value="cadastrar">
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span>
                 <p>Receba a receita direto no seu celular.
                     As receitas médicas têm validade em todas as farmácias do Brasil.

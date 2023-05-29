@@ -4,7 +4,7 @@ include "../../include/mysqlconecta.php";
 
 $acao = $_POST['acao'];
 
-$anmpac_med_presc = $_POST['aanmpac_med_presc'];
+$anmpac_med_presc = $_POST['anmpac_med_presc'];
 $anmpac_tratamento = $_POST['anmpac_tratamento'];
 $anmpac_alergia = $_POST['anmpac_alergia'];
 $anmpac_nom = $_POST['anmpac_nom'];

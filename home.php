@@ -1,6 +1,26 @@
 <?php 
 include "include/valida_session_usuario.php";
 include "include/mysqlconecta.php";
+
+$user_id = $_SESSION["clicadoc_user_id"];
+
+$sql_total_consultas_realizadas = "SELECT COUNT(*) AS total_consultas_realizadas FROM tanam_dados_consulta WHERE anmcon_id_medico = $user_id AND anmcon_conduta = 1";    
+$result_total_consultas_realizadas = @mysqli_query($conexao,$sql_total_consultas_realizadas) or die("Ocorreu um erro! 001");
+$rows_total_consultas_realizadas = mysqli_fetch_array($result_total_consultas_realizadas);
+
+$total_consultas_realizadas = $rows_total_consultas_realizadas['total_consultas_realizadas'];
+
+$sql_total_atendimentos = "SELECT COUNT(*) AS total_atendimentos FROM tanam_dados_consulta WHERE anmcon_id_medico = $user_id";    
+$result_total_atendimentos = @mysqli_query($conexao,$sql_total_atendimentos) or die("Ocorreu um erro! 001");
+$rows_total_atendimentos = mysqli_fetch_array($result_total_atendimentos);
+
+$total_atendimentos = $rows_total_atendimentos['total_atendimentos'];
+
+$sql_total_pacientes = "SELECT COUNT(DISTINCT tdp.anmpac_cpf) AS total_pacientes FROM tanam_dados_pacientes tdp LEFT JOIN tanam_dados_consulta tdc ON tdp.anmpac_id = tdc.anmcon_id_paciente WHERE tdc.anmcon_id_medico = 1";    
+$result_total_pacientes = @mysqli_query($conexao,$sql_total_pacientes) or die("Ocorreu um erro! 001");
+$rows_total_pacientes = mysqli_fetch_array($result_total_pacientes);
+
+$total_pacientes = $rows_total_pacientes['total_pacientes'];
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +94,7 @@ include "include/mysqlconecta.php";
                                                 </div>
                                                 <div class="col">
                                                     <p class="mb-0 text-truncate text-muted text-right"></span>Consultas Realizadas</p>
-                                                    <h3 class="m-0">75</h3>
+                                                    <h3 class="m-0"><?=$total_consultas_realizadas?></h3>
                                                 </div>
                                             </div>
                                         </div><!--end card-body--> 
@@ -92,7 +112,7 @@ include "include/mysqlconecta.php";
                                                 </div>
                                                 <div class="col">
                                                     <p class="mb-0 text-truncate text-muted text-right"></span>Total de atendimentos</p>
-                                                    <h3 class="m-0">75</h3>
+                                                    <h3 class="m-0"><?=$total_atendimentos?></h3>
                                                 </div>
                                             </div>
                                         </div><!--end card-body--> 
@@ -109,8 +129,8 @@ include "include/mysqlconecta.php";
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <p class="mb-0 text-truncate text-muted text-right"></span>Total de atendimentos</p>
-                                                    <h3 class="m-0">75</h3>
+                                                    <p class="mb-0 text-truncate text-muted text-right"></span>Pacientes</p>
+                                                    <h3 class="m-0"><?=$total_pacientes?></h3>
                                                 </div>
                                             </div>
                                         </div><!--end card-body--> 

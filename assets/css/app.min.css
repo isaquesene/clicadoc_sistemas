@@ -1,4 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Roboto:wght@300;400;500;700&amp;display=swap");
+
+.texto-fosco{
+    font-family: 'Poppins', sans-serif;
+}
+
+.texto{
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-atendimento{
+    color: var(--bg-color);
+    padding: 10px 40px;
+    font-weight: 400;
+    font-size: var(--p-btn);
+    line-height: 24px;
+    transition: ease .40s;
+    display: inline-block;
+    background: #FF7F32;
+    border-radius: 40px;
+}
+
+.btn-atendimento:hover{
+    box-shadow: #1D1D1D 5px 18px 10px -15px;
+}
+
+.titulo{
+    color: rgba(255, 127, 50, 1);
+}
+
+
+
 .left-sidenav {
     min-width: 230px;
     max-width: 230px;

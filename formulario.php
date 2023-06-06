@@ -65,11 +65,15 @@
                     <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_nom" id="anmpac_nom">
                 </div>
                 <div class="input-box">
+                    <span class="details">Qual seu CPF? (Informe corretamente, para ser colocado na sua receita)</span>
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_cpf" id="anmpac_nom">
+                </div>
+                <div class="input-box">
                     <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)</span>
                     <input class="input" type="phone" placeholder="(_) _____-____" name="anmpac_numcel" id="anmpac_numcel">
                 </div>
                 <div class="input-box">
-                    <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)</span>
+                    <span class="details">Teste Pagamento:</span>
                     <input class="input" type="text" placeholder="" name="anmpac_pagamento_status" id="anmpac_pagamento_status">
                 </div>
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span><br>
@@ -206,7 +210,7 @@
        $(document).ready(function(){
         $("#formulario_atendimento").submit(function(e){
             e.preventDefault();
-            $("#acao").val('cadastrar'); // Removi ":hidden" do seletor
+            $("#acao").val('cadastrar'); 
             $.ajax({
                 type: "POST",
                 url: "assets/ajax/atualiza_formulario.php",
@@ -216,17 +220,11 @@
                     if (success) {
                         $("#modalSuccess").css("display", "block");
                     }
-                        $("#formulario_atendimento")[0].reset();
+                    $("#formulario_atendimento")[0].reset();
 
-                        setTimeout(function() {
-                            $("#modalSuccess").hide();
-                        }, 3000);
-
-                    /*var success = <?php echo isset($success) && $success ? 'true' : 'false'; ?>;
-                    if (success) {
-                        $("#modalSuccess").css("display", "block");
-                    }
-                    $("#formulario_atendimento")[0].reset();*/
+                    setTimeout(function() {
+                        $("#modalSuccess").hide();
+                    }, 3000);
                 }
             });
         });

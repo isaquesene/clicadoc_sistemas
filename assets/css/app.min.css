@@ -9,7 +9,7 @@
 }
 
 .btn-atendimento{
-    color: var(--bg-color);
+    font-family: 'Poppins', sans-serif;
     padding: 10px 40px;
     font-weight: 400;
     font-size: var(--p-btn);
@@ -18,6 +18,8 @@
     display: inline-block;
     background: #FF7F32;
     border-radius: 40px;
+    color: #fff;
+    border: none;
 }
 
 .btn-atendimento:hover{

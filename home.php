@@ -28,7 +28,7 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
     
 <head>
         <meta charset="utf-8" />
-        <title>ClicaDoc | Administração</title>
+        <title>ClicaDoc | Médico</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 

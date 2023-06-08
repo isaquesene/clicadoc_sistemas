@@ -148,17 +148,35 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
                             </div><!--end row-->
                         </div><!--end col-->                       
                     </div><!--end row-->
+                    <!--Table Recusa-->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">  
+                                    <table id="tabela_meus_pacientes" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Nome do paciente</th>
+                                                <th>Data da última consulta</th>                                                
+                                                <th>CPF</th>                                            
+                                            </tr>
+                                        </thead>
+                                    </table>        
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
                     <!--Table-->
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">  
-                                    <table id="tabela_atendimentos" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="tabela_meus_pacientes" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>Status</th>
-                                                <th>Data</th>
                                                 <th>Nome do paciente</th>
+                                                <th>Data da última consulta</th>                                                
                                                 <th>CPF</th>                                            
                                                 <th>Ação</th>
                                             </tr>
@@ -227,10 +245,10 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
 </html>
 
 <script>
-    $("#menu_home").addClass("active");
+  $("#menu_fila_atendimento").addClass("active");
 
-    //CRIANDO DATATABLE EM BRANCO
-$("#tabela_atendimentos").DataTable({
+//CRIANDO DATATABLE EM BRANCO
+$("#tabela_meus_pacientes").DataTable({
     language: {
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
     },
@@ -243,38 +261,36 @@ $("#tabela_atendimentos").DataTable({
     data: [],
     columns: [
         { data: "status" },
-        { data: "anmpac_data_cadastro" },
         { data: "anmpac_nom" },
-        { data: "anmpac_cpf" },
-        { data: "btns" }
+        { data: "anmcon_datacad" },
+        { data: "anmpac_cpf" }
     ]
 });
 
 //FUNÇÃO PARA BUSCAR ATENDIMENTOS
-function busca_atendimentos(){ 
+function busca_meus_pacientes(){ 
     $.ajax({
-        url: "assets/ajax/buscar_atendimentos.php",
-        type: "GET"        
+        url: "assets/ajax/buscar_recusa.php",
+        type: "GET"
     }).done(function (result) {        
         
         var data = JSON.parse(result);        
         
-        $("#tabela_atendimentos").DataTable().clear().draw();
-        $("#tabela_atendimentos").DataTable().rows.add(data).draw();
+        $("#tabela_meus_pacientes").DataTable().clear().draw();
+        $("#tabela_meus_pacientes").DataTable().rows.add(data).draw();
     });
 }
 
-//FUNÇÃO PARA REDIRECIONAR PARA ATENDIMENTO
-function realizarAtendimento(anmpac_id){
-    
-    let postData = [];
+function verDetalhes(anmpac_id){
 
-    postData[0] = {
+    let dadosAtendimento = [];
+
+    dadosAtendimento[0] = {
         anmpac_id
     }
 
-    postAndRedirect('atendimentos.php', postData[0], 'POST');
+    postAndRedirect('detalhes_atendimento.php', dadosAtendimento[0], 'POST');
 }
 
-busca_atendimentos();
+busca_meus_pacientes(); 
 </script>

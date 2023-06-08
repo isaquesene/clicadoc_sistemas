@@ -1,5 +1,6 @@
 <?php 
 include "include/valida_session_usuario.php";
+include "include/valida_session_admin.php";
 include "include/mysqlconecta.php";
 
 $user_id = $_SESSION["clicadoc_user_id"];
@@ -50,7 +51,7 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
     <body class="">
         <!-- Left Sidenav -->        
         <div class="left-sidenav">           
-            <?php include "left_menu_adm.php";?>
+            <?php include "left_menu.php";?>
         </div>
         <!-- end left-sidenav-->        
 
@@ -72,7 +73,7 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
                             <div class="page-title-box">
                                 <div class="row">
                                     <div class="col">
-                                        <h4 class="page-title">Seu Painel</h4>                                        
+                                        <h4 class="page-title">Desempenho</h4>                                        
                                     </div><!--end col-->                                    
                                 </div><!--end row-->                                                              
                             </div><!--end page-title-box-->
@@ -140,42 +141,7 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
                             </div><!--end row-->
                         </div><!--end col-->                       
                     </div><!--end row-->
-                    <div class="row">
-                        <div class="col-20">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-lg-5 text-center">
-                                            <div id="" class="" data-bs-ride="">
-                                                <div class="">
-                                                    <div class="">
-                                                        <img src="assets/images/primeiro_acesso.png" class="w-75 p-4" alt="...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div><!--end col-->
-                                        <div class="col-lg-5 offset-lg-1 align-self-center">
-                                            <div class="p-10">
-                                                <h1 class="titulo">Olá, seja bem-vindo!</h1>
-                                                <p class="font-14 texto-fosco">
-                                                Estamos felizes em tê-lo(a) conosco e esperamos que a ClicaDoc facilite 
-                                                significativamente seu trabalho.
-                                                </p>
-                                                <p class="font-14 texto">
-                                                Com nosso sistema, você pode renovar receitas de forma rápida e eficiente, economizando tempo e energia para se 
-                                                concentrar no que mais importa: seus pacientes. Sinta-se à vontade para explorar todas as funcionalidades e 
-                                                recursos do nosso software e não hesite em entrar em contato conosco se precisar de ajuda ou suporte.
-                                                </p>
-                                                <button type="button" class="btn-atendimento">Iniciar atendimento</button>
-                                            </div>
-                                        </div><!--end col-->
-                                        
-                                    </div><!--end row-->
-                                </div><!--end card-body-->
-                            </div><!--end card-->
-                        </div><!--end col-->
-                    </div><!--end row-->
-
+                    
                 </div><!-- container -->
                 
                 <footer class="footer text-center text-sm-start">

@@ -23,6 +23,7 @@ if(isset($username) && isset($password)){
         $_SESSION["clicadoc_user_nom"] = $rows['user_nom'];
         $_SESSION["clicadoc_user_email"] = $rows['user_email'];        
         $_SESSION["clicadoc_user_crm"] = $rows['user_crm'];    
+        $_SESSION["clicadoc_user_perfil"] = $rows['user_perfil'];    
             
         $_SESSION['foto_nao_encontrada'] = true;
         
@@ -39,12 +40,12 @@ if(isset($username) && isset($password)){
             @mysqli_query($conexao,$SQL) or die("Erro, código:002");   
 
         }
-
                         
         $linhas_json = array(
             'success'=>true,
             'msg'=>'Login bem-sucedido.',
-            'primeiro_acesso'=>$_SESSION['user_primeiro_acesso']
+            'primeiro_acesso'=>$_SESSION['clicadoc_user_primeiro_acesso'],
+            'perfil'=>$_SESSION['clicadoc_user_perfil']
         );  
         
         echo json_encode($linhas_json);
@@ -54,7 +55,8 @@ if(isset($username) && isset($password)){
 
         $linhas_json = array(
             'success'=>false,
-            'msg'=>'Login mal-sucedido.'            
+            'msg'=>'Login mal-sucedido.',
+            'perfil'=>$_SESSION['clicadoc_user_perfil']            
         ); 
 
         echo json_encode($linhas_json);

@@ -36,7 +36,7 @@
                 <a href="#" id="#"><i data-feather="users" class="align-self-center menu-icon"></i><span>Usuários</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li class="nav-item"><a class="nav-link" href="#">Novo Usuário</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Todos os Usuários</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="usuarios.php">Todos os Usuários</a></li> 
                 </ul>
             </li>
             <?php

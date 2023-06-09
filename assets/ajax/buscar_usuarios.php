@@ -14,6 +14,12 @@ while($rows = mysqli_fetch_array($result_id)){
     $user_nom = $rows['user_nom'];    
     $user_cpf = $rows['user_cpf'];
     $user_situacao = $rows['user_situacao'];
+
+    if($user_situacao == 'ativo'){
+        $status_atual = 1;
+    } else {
+        $status_atual = 0;
+    }
     
     $user_primeiro_acesso = $rows['user_primeiro_acesso'];
     $user_primeiro_acesso = (new DateTime($user_primeiro_acesso))->format('d-m-Y'); 
@@ -26,7 +32,7 @@ while($rows = mysqli_fetch_array($result_id)){
     $status = "
         <div class='form-check form-switch form-switch-warning'>
             <label class='form-check-label' for='switch'>Inativo</label>
-            <input class='form-check-input' type='checkbox' id='switch' onclick='mudaStatus($user_id)'>
+            <input class='form-check-input' type='checkbox' id='switch' onclick='mudaStatus($user_id,$status_atual)'>
         </div>
     ";
 
@@ -35,7 +41,7 @@ while($rows = mysqli_fetch_array($result_id)){
         $status = "
             <div class='form-check form-switch form-switch-warning'>
                 <label class='form-check-label' for='switch'>Ativo</label>
-                <input class='form-check-input' type='checkbox' id='switch' checked='' onclick='mudaStatus($user_id)'>
+                <input class='form-check-input' type='checkbox' id='switch' checked='' onclick='mudaStatus($user_id,$status_atual)'>
             </div>
         ";
     }

@@ -152,7 +152,10 @@ include "include/mysqlconecta.php";
         <script src="assets/plugins/select2/select2.min.js"></script>        
         <script src="assets/plugins/timepicker/bootstrap-material-datetimepicker.js"></script>
         <script src="assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
-        <script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>        
+        <script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>    
+        
+        <!-- Sweet-Alert  -->
+        <script src="assets/plugins/sweet-alert2/sweetalert2.min.js"></script>  
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
@@ -163,6 +166,18 @@ include "include/mysqlconecta.php";
 </html>
 
 <script>
+
+const msg = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+});
 
 $("#menu_fila_atendimento").addClass("active");
 
@@ -201,8 +216,50 @@ function busca_usuarios(){
     });
 }
 
-function mudaStatus(user_id){
-    alert(user_id)
+function mudaStatus(user_id,user_status){
+
+    const formData = new FormData()
+    formData.append('user_id', user_id)
+    formData.append('user_status', user_status)
+       
+    $.ajax({
+        url: 'assets/ajax/muda_status_usuario.php',
+        type: 'POST',
+        data:  formData,
+        contentType: false,
+        cache: false,
+        processData:false,  
+                    
+        success: function(data) {                
+            let result = $.parseJSON(data);
+
+            if(result.success){
+                
+                msg.fire({ icon: 'success', title: 'Atualização realizada.' }); 
+                busca_usuarios(); 
+                return
+            } 
+
+            msg.fire({ icon: 'error', title: 'Ocorreu um erro.' });           
+                        
+        },
+        error: function () {                
+                
+            msg.fire({ icon: 'error', title: 'Ocorreu um erro.' });            
+        }
+    });   
+}
+
+//FUNÇÃO PARA REDIRECIONAR PARA ATENDIMENTO
+function editar(user_id){
+    
+    let postData = [];
+
+    postData[0] = {
+        user_id
+    }
+
+    postAndRedirect('editar_usuario.php', postData[0], 'POST');
 }
 
 busca_usuarios(); 

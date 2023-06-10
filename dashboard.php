@@ -148,12 +148,12 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
                                         <div class="col-auto"> 
                                             <div class="dropdown">
                                                 <a href="#" class="btn btn-sm btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                   Este Ano<i class="las la-angle-down ms-1"></i>
+                                                   <span id="filtroAtual">Este Ano</span><i class="las la-angle-down ms-1"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-end" id="filtro_grafico">
-                                                    <a class="dropdown-item" href="#" id="">Hoje</a>
+                                                    <a class="dropdown-item" href="#" id="todayBtn">Hoje</a>
                                                     <a class="dropdown-item" href="#" id="weekBtn">Última semana</a>
-                                                    <a class="dropdown-item" href="#" id="monthBtn">Último Mês</a>
+                                                    <a class="dropdown-item" href="#" id="monthBtn">Último mês</a>
                                                     <a class="dropdown-item" href="#" id="yearBtn">Este ano</a>
                                                 </div>
                                             </div>               
@@ -241,6 +241,8 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
             categories = ["Semana 1", "Semana 2", "Semana 3", "Semana 4"];
         } else if (period === "year") {                    
             categories = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+        } else if (period === "today"){
+            categories = ["Hoje"];
         }
 
         //REQUISIÇÃO AJAX
@@ -248,10 +250,10 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
             .then(response => response.json())
             .then(data => {
                 const total_atendimentos = data.total_atendimentos;
-                console.log(total_atendimentos)
+                const total_atendimentos_array = Object.values(total_atendimentos);
                 //ATUALIZANDO GRÁFICO CONFORME RESPOSTA DA REQUISIÇÃO
                 chart.updateOptions({
-                    series: [{ name: "Atendimentos", data: [total_atendimentos] }], 
+                    series: [{ name: "Atendimentos", data: total_atendimentos_array }], 
                     xaxis: { categories },               
                     
                 });
@@ -260,23 +262,32 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
                 console.error('Error fetching data:', error);
             });
     }
-
+    
+    const todayBtn = document.getElementById("todayBtn");
     const weekBtn = document.getElementById("weekBtn");
     const monthBtn = document.getElementById("monthBtn");
     const yearBtn = document.getElementById("yearBtn");
 
-    weekBtn.addEventListener("click", function() {        
+    todayBtn.addEventListener("click", function() {        
+        $("#filtroAtual" ).html('Hoje');
+        fetchData("today");
+    });
+
+    weekBtn.addEventListener("click", function() {  
+        $("#filtroAtual" ).html('Última semana');
         fetchData("week");
     });
-
+    
     monthBtn.addEventListener("click", function() {
+        $("#filtroAtual" ).html('Último mês');
         fetchData("month");
     });
-
+    
     yearBtn.addEventListener("click", function() {
+        $("#filtroAtual" ).html('Este ano');
         fetchData("year");
     });
 
-    fetchData('week');
+    fetchData('year');
 
 </script>

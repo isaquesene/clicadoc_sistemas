@@ -217,7 +217,7 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header bg-danger">
-                                    <h6 class="modal-title m-0 text-white">Primary Modal</h6>
+                                    <h6 class="modal-title m-0 text-white">Revisar Recusa</h6>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div><!--end modal-header-->
                                 <div class="modal-body">

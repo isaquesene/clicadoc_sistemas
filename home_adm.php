@@ -207,6 +207,32 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
                         </div> <!-- end col -->
                     </div> <!-- end row -->
                     <!--Table-->
+
+                    <!--modal REVISAR consultas RECUSADO -->
+                    <!--<div class="col-12" style="display:none" class="" id="area_revisar"></div>-->
+
+                    <button type="button" id="area" data-bs-toggle="modal" data-bs-target="#area_abrir" hidden></button>
+
+                    <div class="modal fade"  id="area_abrir">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-danger">
+                                    <h6 class="modal-title m-0 text-white">Primary Modal</h6>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div><!--end modal-header-->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div id="area_revisar">
+
+                                        </div>
+                                    </div><!--end row-->                                                     
+                                </div><!--end modal-body-->
+                                <div class="modal-footer">                                                    
+                                    <button type="button" class="btn btn-soft-danger btn-sm" data-bs-dismiss="modal">Close</button>
+                                </div><!--end modal-footer-->
+                            </div><!--end modal-content-->
+                        </div><!--end modal-dialog-->
+                    </div><!--end modal-->
                     
                 </div><!-- container -->
                 
@@ -229,6 +255,9 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
         <script src="assets/js/simplebar.min.js"></script>
         <script src="assets/js/moment.js"></script>
         <script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
+
+        <!-- jQuery  -->
+        <script src="assets/js/metismenu.min.js"></script>
 
         <!-- Required datatable js -->
         <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -338,6 +367,47 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
 
         postAndRedirect('atendimentos.php', postData[0], 'POST');
     }
+
+    function verDetalhes(anmcon_id){
+
+        let dadosAtendimento = [];
+
+        dadosAtendimento[0] = {
+            anmcon_id
+        }
+
+        postAndRedirect('detalhes_atendimento_adm.php', dadosAtendimento[0], 'POST');
+
+    }
+
+    //ABRIR MODAL
+    function revisar(anmpac_id) {
+  
+    $.ajax({
+        url: "assets/ajax/seleciona_recusa.php",
+        type: "POST",
+        data: { acao_recusa: 'seleciona_recusa', anmpac_id },
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function(data){
+
+            $('#area_revisar').html(data);
+            $('#area_revisar').show();
+            $('#area').click()
+                            
+        },
+        error: function () {
+            Toastify({
+                text: 'Ocorreu um erro, tente novamente.',
+                duration: 3000,
+                close:true,
+                gravity:"top",
+                position: "center",
+                backgroundColor: "#f3616d",
+            }).showToast(); 
+        }
+    });
+    
+}
 
     busca_ultimos_atendimentos();
     busca_recusas();

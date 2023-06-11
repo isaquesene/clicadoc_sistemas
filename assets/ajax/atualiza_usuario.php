@@ -21,9 +21,32 @@ if ($acao == "cadastrar"){
     if (mysqli_query($conexao, $SQL)) {
         // Cadastro realizado com sucesso, redirecionar para usuarios.php
         header("Access-Control-Allow-Origin: usuarios.php");
-        exit;
     } else {
         // Ocorreu um erro ao cadastrar
         die("Ocorreu um problema! Código: 001");
     }
+}else if($acao == "editar"){
+    $user_id = $_POST['user_id'];
+
+    $SQL = "UPDATE tanam_usuarios SET user_nom = '$user_nom', user_cpf = '$user_cpf', user_email = '$user_email', user_log = '$user_log', user_psw = '$user_psw', user_perfil = '$user_perfil', user_situacao = '$user_situacao' WHERE user_id = '$user_id'";
+
+    if (mysqli_query($conexao, $SQL)) {
+        // Cadastro realizado com sucesso, redirecionar para usuarios.php
+        header("Access-Control-Allow-Origin: usuarios.php");
+    } else {
+        // Ocorreu um erro ao cadastrar
+        die("Ocorreu um problema! Código: 002");
+    }
+}else if($acao == "deleta"){
+    $user_id = $_POST['user_id'];
+
+    $SQL = "DELETE FROM tanam_usuarios WHERE user_id = $user_id";
+
+    @mysqli_query($conexao,$SQL) or die("Ocorreu um problema! Código: 001");
+
+    echo "<input type='hidden' name='sucesso' id='sucesso' value='1'>";   
+
+} else {
+    echo "<input type='hidden' name='sucesso' id='sucesso' value='0'>";    
+
 }

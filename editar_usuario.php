@@ -127,40 +127,41 @@ if (!$_POST['user_id']){
 
                             <div class="row">
 
-                            <input type="hidden" name="acao_usuario" id="acao_usuario" value="cadastrar">
+                            <input type="hidden" name="user_id" id="acao_usuario" value="<?=$rows['user_id']?>">
+                           
 
                             <div class="row mb-3">
-                                <a onclick="goBack()" style="cursor:pointer;font-weight: 700;font-size: 16px;color: #2C7D7A;"><i class="mdi mdi-arrow-left"></i> Voltar para ficha</a>
+                                <a onclick="goBack()" style="cursor:pointer;font-weight: 700;font-size: 16px;color: #2C7D7A;"><i class="mdi mdi-arrow-left"></i> Voltar</a>
                             </div>
 
                                 <div class="mt-3 col-sm-12">
                                     <label class="mb-2">Nome do usuário</label>
-                                    <input type="text" class="form-control" placeholder="Nome completo" value="<?=$rows['user_nom'];?>"/>  
+                                    <input type="text" class="form-control" placeholder="Nome completo" id="user_nom" name="user_nom" value="<?=$rows['user_nom'];?>"/>  
                                 </div>
     
                                 <div class="mt-3 col-sm-6">
                                     <label class="mb-2">CPF</label>
-                                    <input type="text" class="form-control" placeholder="___.___.___-__" value="<?=$rows['user_cpf'];?>"/>
+                                    <input type="text" class="form-control" placeholder="___.___.___-__" id="user_cpf" name="user_cpf" value="<?=$rows['user_cpf'];?>"/>
                                 </div>
     
                                 <div class="mt-3 col-sm-6">
                                     <label class="mb-2">Seu e-mail</label>
-                                    <input type="email" class="form-control" placeholder="@exemplo.com" value="<?=$rows['user_email'];?>"/>
+                                    <input type="email" class="form-control" placeholder="@exemplo.com" id="user_email" name="user_email" value="<?=$rows['user_email'];?>"/>
                                 </div>      
     
                                 <div class="mt-3 col-sm-6">
                                     <label class="mb-2">Login</label>
-                                    <input type="text" class="form-control" placeholder="Digite o login do usuário" value="<?=$rows['user_log'];?>"/>
+                                    <input type="text" class="form-control" placeholder="Digite o login do usuário" id="user_log" name="user_log" value="<?=$rows['user_log'];?>"/>
                                 </div>
     
                                 <div class="mt-3 col-sm-6">
                                     <label class="mb-2">Senha</label>
-                                    <input type="password" class="form-control" placeholder="Digite uma senha" value="<?=$rows['user_psw'];?>"/>
+                                    <input type="password" class="form-control" placeholder="Digite uma senha" id="user_psw" name="user_psw" value="<?=$rows['user_psw'];?>"/>
                                 </div>      
     
                                 <div class="mt-3 col-sm-6"> 
                                     <label class="mb-2">Perfil de usuário</label>
-                                    <select class="form-control" id="" name="user_perfil">
+                                    <select class="form-control" id="user_perfil" name="user_perfil">
                                         <option value="<?=$rows['user_perfil'];?>"><?=$rows['user_perfil'];?></option>
                                         <option value="1">Administrador</option>
                                         <option value="0">Médico</option>
@@ -169,7 +170,7 @@ if (!$_POST['user_id']){
     
                                 <div class="mt-3 col-sm-6"> 
                                     <label class="mb-2">Status</label>
-                                    <select class="form-control" id="" name="user_situacao">
+                                    <select class="form-control" id="user_situacao" name="user_situacao">
                                         <option value="<?=$rows['user_situacao'];?>"><?=$rows['user_situacao'];?></option>
                                         <option value="ativo">Ativo</option>
                                         <option value="inativo">Inativo</option>
@@ -240,18 +241,33 @@ if (!$_POST['user_id']){
        $(document).ready(function(){
         $("#formulario_usuario").submit(function(e){
             e.preventDefault();
-            $("#acao_usuario").val('cadastrar'); 
+            
+            // Verifica se é uma ação de edição
+            var user_id = $("#acao_usuario").val();
+            if (user_id !== '') {
             $.ajax({
                 type: "POST",
                 url: "assets/ajax/atualiza_usuario.php",
-                data: $(this).serialize(),
+                data: {
+                acao_usuario: 'editar',
+                user_id: user_id,
+                user_nom: $("#user_nom").val(),
+                user_cpf: $("#user_cpf").val(),
+                user_email: $("#user_email").val(),
+                user_log: $("#user_log").val(),
+                user_psw: $("#user_psw").val(),
+                user_perfil: $("#user_perfil").val(),
+                user_situacao: $("#user_situacao").val(),
+                },
                 success: function(response){
-                    window.location.href = "usuarios.php";
+                window.location.href = "usuarios.php";
                 }
             });
+            }
         });
     });
 
+    //VOLTAR A PÁGINA
     function goBack() {
         history.back();
     }

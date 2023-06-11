@@ -34,6 +34,8 @@ include "include/mysqlconecta.php";
         <link href="assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     </head>
 
     <body class="">
@@ -91,7 +93,7 @@ include "include/mysqlconecta.php";
                             </div>
                         </div> <!-- end col -->
                     </div> <!-- end row -->
-
+         
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -160,6 +162,8 @@ include "include/mysqlconecta.php";
         <!-- App js -->
         <script src="assets/js/app.js"></script>
         <script src="assets/js/functions.js"></script>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         
     </body>
 
@@ -261,6 +265,49 @@ function editar(user_id){
 
     postAndRedirect('editar_usuario.php', postData[0], 'POST');
 }
+
+//DELETAR
+function excluir(user_id) {
+
+    let deletar = confirm("Tem certeza que deseja excluir o usuário?")
+
+    if (deletar) {
+        $.ajax({
+            url: "assets/ajax/atualiza_usuario.php",
+            type: "POST",
+           // data: jQuery.param({ acao: 'deleta', user_id }),
+            data: { acao_usuario: 'deleta', user_id },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function(data){
+
+                var retorno_sucesso = $(data).filter("#sucesso").val();
+
+                if(retorno_sucesso === '1'){                    
+                    Toastify({
+                        text: 'Remoção realizada com sucesso.',
+                        duration: 3000,
+                        close:true,
+                        gravity:"top",
+                        position: "center",
+                        backgroundColor: "#4fbe87",
+                    }).showToast(); 
+                    location.reload();
+                } else {
+                    Toastify({
+                        text: 'Ocorreu um erro, tente novamente.',
+                        duration: 3000,
+                        close:true,
+                        gravity:"top",
+                        position: "center",
+                        backgroundColor: "#f3616d",
+                    }).showToast(); 
+
+                }                   
+            }
+        });
+    }
+}
+
 
 busca_usuarios(); 
 </script>

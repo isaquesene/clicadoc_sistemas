@@ -1,5 +1,4 @@
 <?php	
-include "../../include/valida_session_usuario.php";
 include "../../include/mysqlconecta.php";
 
 $acao = $_POST['acao'];

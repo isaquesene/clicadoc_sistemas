@@ -10,8 +10,11 @@ $user_cpf = $_POST['user_cpf'];
 $user_email = $_POST['user_email'];
 $user_log = $_POST['user_log'];
 $user_psw = $_POST['user_psw'];
+$user_psw = md5($user_psw);
 $user_perfil = $_POST['user_perfil'];
 $user_situacao = $_POST['user_situacao'];
+
+
 
 if ($acao == "cadastrar"){
     

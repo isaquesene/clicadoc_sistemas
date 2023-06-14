@@ -162,9 +162,13 @@ if (!$_POST['user_id']){
                                 <div class="mt-3 col-sm-6"> 
                                     <label class="mb-2">Perfil de usuário</label>
                                     <select class="form-control" id="user_perfil" name="user_perfil">
-                                        <option value="<?=$rows['user_perfil'];?>"><?=$rows['user_perfil'];?></option>
+                                    <?php if ($rows['user_perfil'] == 0): ?>
+                                        <option value="0" selected>Médico</option>
                                         <option value="1">Administrador</option>
+                                    <?php else: ?>
+                                        <option value="1" selected>Administrador</option>
                                         <option value="0">Médico</option>
+                                    <?php endif; ?>
                                     </select>
                                 </div>
     

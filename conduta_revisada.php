@@ -1,49 +1,30 @@
 <?php 
 include "include/valida_session_usuario.php";
+include "include/valida_session_admin.php";
 include "include/mysqlconecta.php";
 
-if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['anmpac_id']){
-    
+if (!$_POST['anmpac_id']){
+
     header("Location: ./fila_atendimento.php");
     exit;
-    
-} else {   
 
-    $anmpac_id = $_POST['anmpac_id'];
+} else {   
+    
     $anmcon_id = $_POST['anmcon_id'];
-    $acao = $_POST['acao'];
+    $anmpac_id = $_POST['anmpac_id'];
     $anmpac_nom = $_POST['anmpac_nom'];
     $anmpac_numcel = $_POST['anmpac_numcel'];
-    
-    $gerar_ou_negar = 0;
-    $conduta_medico = '';
-    $imagem = 'justificativa_recusa.png';
 
-    if($acao == 'gerar'){
-        $conduta_medico = $_POST['conduta_medico'];
-        $gerar_ou_negar = 1;
-        $imagem = 'sucesso.png';
-    }
-    $observacoes_medico = $_POST['observacoes_medico'];
+    $gerar_ou_negar = 1;
+    $imagem = 'sucesso.png';
 
-    if(($conduta_medico == '' && $acao == 'gerar') || $observacoes_medico == ''){
-        header("Location: ./fila_atendimento.php");
-        exit;
-    }
+    $clicadoc_user_id = $_SESSION['clicadoc_user_id'];
+    $clicadoc_user_nom = $_SESSION['clicadoc_user_nom'];
 
-    $anmcon_id_medico = $_SESSION['clicadoc_user_id'];
+    $SQL = "UPDATE tanam_dados_consulta SET anmcon_conduta=NULL,anmcon_revisado=1 WHERE anmcon_id=$anmcon_id";            
+    @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
 
-    if($anmcon_id == 0){
-
-        $SQL = "INSERT INTO tanam_dados_consulta (anmcon_conduta,anmcon_conduta_medica,anmcon_observacao,anmcon_id_paciente,anmcon_id_medico) 
-                VALUES ($gerar_ou_negar,'$conduta_medico','$observacoes_medico',$anmpac_id,$anmcon_id_medico)";    
-    } else {
-        $SQL = "UPDATE tanam_dados_consulta SET anmcon_conduta=$gerar_ou_negar,anmcon_conduta_medica='$conduta_medico',
-                anmcon_observacao='$observacoes_medico',anmcon_id_paciente=$anmpac_id,anmcon_id_medico=$anmcon_id_medico 
-                WHERE anmcon_id=$anmcon_id";
-    }
-
-
+    $SQL = "INSERT INTO tanam_dados_revisao_conduta (rev_user_nom,rev_user_id,rev_data,rev_cons_id) VALUES ('$clicadoc_user_nom','$clicadoc_user_id',now(),$anmcon_id)";    
     @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
 
     $_SESSION['clicadoc_conduta_cadastrada'] = $anmpac_id;

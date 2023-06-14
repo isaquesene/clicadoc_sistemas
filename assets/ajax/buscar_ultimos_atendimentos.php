@@ -3,7 +3,7 @@ include "../../include/valida_session_usuario.php";
 include "../../include/valida_session_admin.php";
 include "../../include/mysqlconecta.php";
 
-$SQL = "SELECT tdc.anmcon_datacad,tdc.anmcon_id,tdp.anmpac_nom, tu.user_nom FROM tanam_dados_consulta tdc LEFT JOIN tanam_dados_pacientes tdp ON tdp.anmpac_id = tdc.anmcon_id_paciente LEFT JOIN tanam_usuarios tu ON tu.user_id = tdc.anmcon_id_medico";  
+$SQL = "SELECT tdc.anmcon_datacad,tdc.anmcon_id,tdp.anmpac_nom, tu.user_nom FROM tanam_dados_consulta tdc LEFT JOIN tanam_dados_pacientes tdp ON tdp.anmpac_id = tdc.anmcon_id_paciente LEFT JOIN tanam_usuarios tu ON tu.user_id = tdc.anmcon_id_medico ORDER by tdc.anmcon_id DESC LIMIT 0,10";  
 
 $result_id = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
 $linhas_json = array();

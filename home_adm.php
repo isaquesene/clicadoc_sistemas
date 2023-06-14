@@ -278,6 +278,7 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <script src="assets/js/functions.js"></script>
         
     </body>
 
@@ -357,15 +358,15 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
     }
 
     //FUNÇÃO PARA REDIRECIONAR PARA ATENDIMENTO
-    function realizarAtendimento(anmpac_id){
-        
+    function revisar(anmpac_id){
+
         let postData = [];
 
         postData[0] = {
             anmpac_id
         }
 
-        postAndRedirect('atendimentos.php', postData[0], 'POST');
+        postAndRedirect('revisar_atendimento.php', postData[0], 'POST');
     }
 
     function verDetalhes(anmcon_id){
@@ -381,33 +382,33 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
     }
 
     //ABRIR MODAL
-    function revisar(anmpac_id) {
+    /* function revisar(anmpac_id) {
   
-    $.ajax({
-        url: "assets/ajax/seleciona_recusa.php",
-        type: "POST",
-        data: { acao_recusa: 'seleciona_recusa', anmpac_id },
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        success: function(data){
+        $.ajax({
+            url: "assets/ajax/seleciona_recusa.php",
+            type: "POST",
+            data: { acao_recusa: 'seleciona_recusa', anmpac_id },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function(data){
 
-            $('#area_revisar').html(data);
-            $('#area_revisar').show();
-            $('#area').click()
-                            
-        },
-        error: function () {
-            Toastify({
-                text: 'Ocorreu um erro, tente novamente.',
-                duration: 3000,
-                close:true,
-                gravity:"top",
-                position: "center",
-                backgroundColor: "#f3616d",
-            }).showToast(); 
-        }
-    });
+                $('#area_revisar').html(data);
+                $('#area_revisar').show();
+                $('#area').click()
+                                
+            },
+            error: function () {
+                Toastify({
+                    text: 'Ocorreu um erro, tente novamente.',
+                    duration: 3000,
+                    close:true,
+                    gravity:"top",
+                    position: "center",
+                    backgroundColor: "#f3616d",
+                }).showToast(); 
+            }
+        });
     
-}
+    } */
 
     busca_ultimos_atendimentos();
     busca_recusas();

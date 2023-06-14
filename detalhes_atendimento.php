@@ -10,10 +10,7 @@ if (!$_POST['anmpac_id']){
     $anmpac_id = $_POST['anmpac_id'];
 
     $SQL = "SELECT * FROM tanam_dados_pacientes tdp LEFT JOIN tanam_dados_consulta tdc ON tdp.anmpac_id = tdc.anmcon_id_paciente LEFT JOIN tanam_usuarios tu ON tdc.anmcon_id_medico = tu.user_id WHERE anmpac_id = $anmpac_id";    
-
     $result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
-    $linhas_json = array();
-
     $rows = mysqli_fetch_array($result);
 
     $anmcon_datacad = $rows['anmcon_datacad'];

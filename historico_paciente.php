@@ -1,54 +1,24 @@
 <?php 
 include "include/valida_session_usuario.php";
+include "include/valida_session_admin.php";
 include "include/mysqlconecta.php";
 
-if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['anmpac_id']){
-    
-    header("Location: ./fila_atendimento.php");
+$anmpac_id = $_POST['anmpac_id'];
+
+if($anmpac_id == '' || $anmpac_id == 0 || is_null($anmpac_id)){
+    header("Location: pacientes.php");
     exit;
-    
-} else {   
-
-    $anmpac_id = $_POST['anmpac_id'];
-    $anmcon_id = $_POST['anmcon_id'];
-    $acao = $_POST['acao'];
-    $anmpac_nom = $_POST['anmpac_nom'];
-    $anmpac_numcel = $_POST['anmpac_numcel'];
-    
-    $gerar_ou_negar = 0;
-    $conduta_medico = '';
-    $imagem = 'justificativa_recusa.png';
-
-    if($acao == 'gerar'){
-        $conduta_medico = $_POST['conduta_medico'];
-        $gerar_ou_negar = 1;
-        $imagem = 'sucesso.png';
-    }
-    $observacoes_medico = $_POST['observacoes_medico'];
-
-    if(($conduta_medico == '' && $acao == 'gerar') || $observacoes_medico == ''){
-        header("Location: ./fila_atendimento.php");
-        exit;
-    }
-
-    $anmcon_id_medico = $_SESSION['clicadoc_user_id'];
-
-    if($anmcon_id == 0){
-
-        $SQL = "INSERT INTO tanam_dados_consulta (anmcon_conduta,anmcon_conduta_medica,anmcon_observacao,anmcon_id_paciente,anmcon_id_medico) 
-                VALUES ($gerar_ou_negar,'$conduta_medico','$observacoes_medico',$anmpac_id,$anmcon_id_medico)";    
-    } else {
-        $SQL = "UPDATE tanam_dados_consulta SET anmcon_conduta=$gerar_ou_negar,anmcon_conduta_medica='$conduta_medico',
-                anmcon_observacao='$observacoes_medico',anmcon_id_paciente=$anmpac_id,anmcon_id_medico=$anmcon_id_medico 
-                WHERE anmcon_id=$anmcon_id";
-    }
-
-
-    @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
-
-    $_SESSION['clicadoc_conduta_cadastrada'] = $anmpac_id;
-    
 }
+
+$anmpac_id = $_POST['anmpac_id'];
+
+$SQL = "SELECT * FROM tanam_dados_pacientes WHERE anmpac_id = $anmpac_id";
+$result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
+$rows = mysqli_fetch_array($result);
+
+$SQL = "SELECT * FROM tanam_dados_consulta WHERE anmcon_id_paciente = $anmpac_id";
+$result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 002");
+$qnt_consultas = mysqli_num_rows($result);
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +26,7 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
     
 <head>
         <meta charset="utf-8" />
-        <title>ClicaDoc | Médico</title>
+        <title>ClicaDoc | Paciente</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -70,8 +40,7 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
         <link href="assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
 
         <!-- Plugins css -->
-        <link href="assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/huebee/huebee.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />        
         <link href="assets/plugins/timepicker/bootstrap-material-datetimepicker.css" rel="stylesheet">
         <link href="assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
 
@@ -109,12 +78,19 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
                             <div class="page-title-box">
                                 <div class="row">
                                     <div class="col">
-                                        <h4 class="page-title">Atendimentos</h4>                                        
+                                        <h4 class="page-title">Pacientes</h4>                                        
                                     </div><!--end col-->                                                                        
                                 </div><!--end row-->                                                              
                             </div><!--end page-title-box-->
                         </div><!--end col-->
                     </div><!--end row-->
+                    <div class="breadcrumb" style="margin-bottom: 10px;">                        
+                        <a style="text-decoration: none; color: #000;">Pacientes</a>  
+                        <span style="color: #888;margin: 0 5px;"> > </span>
+                        <span>Histórico de pacientes</span>
+                        <span style="color: #888;margin: 0 5px;"> > </span>
+                        <span>Consultas do paciente</span>                      
+                    </div>
                     <!-- end page title end breadcrumb -->
                     <div class="row">
                         <div class="col-12">
@@ -124,11 +100,7 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
                                         <div class="row">
                                             <div class="col-lg-12 d-flex justify-content-between">
                                                 
-                                                <h4 class="page-title" style="margin-top:-3px">Paciente</h4>
-                                                    
-                                                <div class="h-25">
-                                                    <span class='badge rounded-pill bg-success text-dark'>CONCLUÍDO</span>                                                   
-                                                </div>
+                                                <h4 class="page-title" style="margin-top:-3px">Paciente</h4>                                                  
                                                                                         
                                             </div><!--end col-->  
                                             
@@ -138,37 +110,42 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
                                                         <img src="<?=$_SESSION['clicadoc_user_foto_perfil']?>" alt="" height="110" class="rounded-circle">
                                                     </div>
                                                     <div class="dastone-profile_user-detail">
-                                                        <h4 class="dastone-user-name">Nome do paciente: <?=$anmpac_nom;?></h4>                                                        
-                                                        <i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i> <b> Número de telefone </b> : <?=$anmpac_numcel;?>                                                    
+                                                        <h4 class="dastone-user-name">Nome do paciente: <?=$rows['anmpac_nom'];?></h4>                                                        
+                                                        <i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i> <b> Número de telefone </b> : <?=$rows['anmpac_numcel'];?>                                                    
                                                     </div>
                                                 </div>                                                
                                             </div><!--end col-->
+                                            <div class="col-lg-12 d-flex justify-content-end">
+                                                <div class="row">
+                                                    <p class="mb-1 fw-bold">Consultas realizadas: <?=$qnt_consultas?></p>                                                    
+                                                </div><!--end row-->                                               
+                                            </div><!--end col-->
                                             
                                         </div><!--end row-->                                                                                                                   
-                                    </div>                                                                             
+                                    </div>
                                 </div><!--end card-body-->          
                             </div> <!--end card-->    
                         </div><!--end col-->
                     </div><!--end row-->
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-12">
                             <div class="card">
-                                <div class="card-body">
-                                    </div class="row">
-                                        <img src="assets/images/<?=$imagem?>" class="img-fluid mx-auto d-flex" alt="..."> 
-                                        <div class="card-body">
-                                            <div class="card-body">
-                                                <p class="card-text" style="text-align: center;">A prescrição médica do paciente foi enviada com sucesso.
-                                                    Estamos comprometidos em fornecer o melhor  <br>  atendimento médico possível, 
-                                                    e sabemos que isso inclui a entrega segura e rápida de prescrições médicas.
-                                                </p> 
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="card-body">  
+                                    <table id="tabela_meus_pacientes" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome do paciente</th>
+                                                <th>Data da última consulta</th>                                                
+                                                <th>CPF</th>                                            
+                                                <th>Ação</th>
+                                            </tr>
+                                        </thead>
+                                    </table>        
                                 </div>
                             </div>
                         </div> <!-- end col -->
-                    </div>
+                    </div> <!-- end row -->
+
                 </div><!-- container -->
 
                 <?php include "footer.php";?>  
@@ -202,24 +179,75 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
         <!-- Responsive examples -->
         <script src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
         <script src="assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
-        <script src="assets/pages/jquery.datatable.init.js"></script>
+        <!-- <script src="assets/pages/jquery.datatable.init.js"></script> -->
 
         <!-- Plugins js -->
       
-        <script src="assets/plugins/select2/select2.min.js"></script>
-        
+        <script src="assets/plugins/select2/select2.min.js"></script>        
         <script src="assets/plugins/timepicker/bootstrap-material-datetimepicker.js"></script>
         <script src="assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
-        <script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
-        
+        <script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>        
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <script src="assets/js/functions.js"></script>
         
     </body>
 
 </html>
 
 <script>
-    $("#menu_fila_atendimento").addClass("active");
+
+$("#menu_fila_atendimento").addClass("active");
+
+var anmpac_id = <?php echo $anmpac_id;?>;
+
+//CRIANDO DATATABLE EM BRANCO
+$("#tabela_meus_pacientes").DataTable({
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
+    },
+    pageLength: 20,
+    lengthMenu: [20, 30, 50, 75, 100],
+    order: [],
+    paging: true,
+    searching: true,
+    info: true,
+    data: [],
+    columns: [
+        { data: "anmpac_nom" },
+        { data: "anmcon_datacad" },
+        { data: "anmpac_cpf" },
+        { data: "btns" }
+    ]
+});
+
+//FUNÇÃO PARA BUSCAR ATENDIMENTOS
+function busca_consultas() { 
+    $.ajax({
+        url: "assets/ajax/buscar_consultas_pacientes.php",
+        type: "GET",
+        data: {
+            anmpac_id
+        }
+    }).done(function(result) {        
+        var data = JSON.parse(result);        
+        
+        $("#tabela_meus_pacientes").DataTable().clear().draw();
+        $("#tabela_meus_pacientes").DataTable().rows.add(data).draw();
+    });
+}
+
+function verDetalhes(anmpac_id){
+
+    let dadosAtendimento = [];
+
+    dadosAtendimento[0] = {
+        anmpac_id
+    }
+
+    postAndRedirect('detalhes_atendimento_adm.php', dadosAtendimento[0], 'POST');
+}
+
+busca_consultas(); 
 </script>

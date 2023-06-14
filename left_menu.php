@@ -26,7 +26,7 @@
             </li>
             
             <li>
-                <a href="meus_pacientes.php" id="menu_meus_pacientes"><i data-feather="user" class="align-self-center menu-icon"></i><span>Meus Pacientes</span><span class="menu-arrow"></span></a>
+                <a href="pacientes.php" id="menu_meus_pacientes"><i data-feather="user" class="align-self-center menu-icon"></i><span>Pacientes</span><span class="menu-arrow"></span></a>
             </li> 
             
             <li>

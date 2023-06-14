@@ -1,7 +1,7 @@
 <nav class="navbar-custom">    
     <ul class="list-unstyled topbar-nav float-end mb-0">                                              
 
-        <li class="dropdown notification-list">
+        <!-- <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-bs-toggle="dropdown" href="#" role="button"
                 aria-haspopup="false" aria-expanded="false">
                 <i data-feather="bell" class="align-self-center topbar-icon"></i>
@@ -12,8 +12,7 @@
                 <h6 class="dropdown-item-text font-15 m-0 py-3 border-bottom d-flex justify-content-between align-items-center">
                     Notificações <span class="badge bg-primary rounded-pill">2</span>
                 </h6> 
-                <div class="notification-menu" data-simplebar>
-                    <!-- item-->
+                <div class="notification-menu" data-simplebar>                    
                     <a href="#" class="dropdown-item py-3">
                         <small class="float-end text-muted ps-2">2 min</small>
                         <div class="media">
@@ -23,16 +22,15 @@
                             <div class="media-body align-self-center ms-2 text-truncate">
                                 <h6 class="my-0 fw-normal text-dark">Notificação</h6>
                                 <small class="text-muted mb-0">Mensagem de teste</small>
-                            </div><!--end media-body-->
-                        </div><!--end media-->
-                    </a><!--end-item-->
-                </div>
-                <!-- All-->
+                            </div>
+                        </div>
+                    </a>
+                </div>                
                 <a href="javascript:void(0);" class="dropdown-item text-center text-primary">
                     Todas <i class="fi-arrow-right"></i>
                 </a>
             </div>
-        </li>
+        </li> -->
 
         <li class="dropdown">
             <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-bs-toggle="dropdown" href="#" role="button"

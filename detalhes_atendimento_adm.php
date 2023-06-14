@@ -84,12 +84,21 @@ if (!$_POST['anmpac_id']){
                         <div class="page-title-box">
                             <div class="row">
                                 <div class="col">
-                                    <h4 class="page-title">Pacientes</h4>                                        
+                                    <h4 class="page-title">Pacientes</h4>                                                                            
                                 </div><!--end col-->                                                                        
                             </div><!--end row-->                                                              
                         </div><!--end page-title-box-->
                     </div><!--end col-->
                 </div><!--end row-->
+                <div class="breadcrumb" style="margin-bottom: 10px;">                        
+                        <a style="text-decoration: none; color: #000;">Pacientes</a>  
+                        <span style="color: #888;margin: 0 5px;"> > </span>
+                        <span>Histórico de pacientes</span>
+                        <span style="color: #888;margin: 0 5px;"> > </span>
+                        <span>Consultas do paciente</span>                      
+                        <span style="color: #888;margin: 0 5px;"> > </span>
+                        <span>Detalhe da consulta</span>                      
+                    </div>
                 <!-- end page title end breadcrumb -->
                 <div class="row">
                     <div class="col-12">
@@ -98,15 +107,12 @@ if (!$_POST['anmpac_id']){
                                 <div class="dastone-profile">
                                     <div class="row">
                                         <h4 class="CdTitulo" style="
-                                            
-                                            
                                             font-style: normal;
                                             font-weight: 600;
                                             font-size: 20px;
                                             line-height: 29px;
                                             margin-bottom: 20px;">Detalhes da consulta
-                                        </h4>                                                             
-                                    
+                                        </h4>                                                                                                 
                                         
                                         <div class="col-lg-11 align-self-center mb-3 mb-lg-0">
                                             <div class="dastone-profile-main">

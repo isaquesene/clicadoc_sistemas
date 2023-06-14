@@ -1,5 +1,6 @@
 <?php 
 include "include/valida_session_usuario.php";
+include "include/valida_session_admin.php";
 include "include/mysqlconecta.php";
 
 $_SESSION['clicadoc_conduta_cadastrada'] = '';
@@ -10,7 +11,7 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
     
 <head>
         <meta charset="utf-8" />
-        <title>ClicaDoc | Médico</title>
+        <title>ClicaDoc | Pacientes</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -63,7 +64,7 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
                             <div class="page-title-box">
                                 <div class="row">
                                     <div class="col">
-                                        <h4 class="page-title">Fila de atendimento</h4>                                        
+                                        <h4 class="page-title">Pacientes</h4>                                        
                                     </div><!--end col-->                                                                        
                                 </div><!--end row-->                                                              
                             </div><!--end page-title-box-->
@@ -72,9 +73,9 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
                     <div class="breadcrumb" style="margin-bottom: 10px;">
                         <a href="primeiro_acesso.php" style="text-decoration: none; color: #000;">Home</a>
                         <span style="color: #888;margin: 0 5px;"> > </span>
-                        <a href="fila_atendimento.php" style="text-decoration: none; color: #000;">Fila de atendimento</a>
+                        <a style="text-decoration: none; color: #000;">Pacientes</a>
                         <span style="color: #888;margin: 0 5px;"> > </span>
-                        <span>Pacientes em espera</span>
+                        <span>Histórico de pacientes</span>
                     </div>
                     <!-- end page title end breadcrumb -->
                     <div class="row">
@@ -87,7 +88,7 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
                                     font-style: normal;
                                     font-weight: 600;
                                     font-size: 20px;
-                                    line-height: 29px;">Fila de atendimento</h4>
+                                    line-height: 29px;">Filtros</h4>
                                     
                                     <hr style="border: 1px solid #FF7F32;border-radius: 5px;">
 
@@ -98,7 +99,7 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
                                         <div class="col-md-5"> 
                                             <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">Ordenar:</span>
-                                            <select class="form-control" id="filtro_ordenar">
+                                            <select class="form-control">
                                                 <option value="">Selecione...</option>
                                                 <option value="">opção1</option>
                                                 <option value="">opção2</option>
@@ -129,12 +130,11 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">  
-                                    <table id="tabela_atendimentos" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="tabela_meus_pacientes" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>Status</th>
-                                                <th>Data</th>
                                                 <th>Nome do paciente</th>
+                                                <th>Data da última consulta</th>                                                
                                                 <th>CPF</th>                                            
                                                 <th>Ação</th>
                                             </tr>
@@ -200,7 +200,7 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
 $("#menu_fila_atendimento").addClass("active");
 
 //CRIANDO DATATABLE EM BRANCO
-$("#tabela_atendimentos").DataTable({
+$("#tabela_meus_pacientes").DataTable({
     language: {
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
     },
@@ -212,40 +212,37 @@ $("#tabela_atendimentos").DataTable({
     info: true,
     data: [],
     columns: [
-        { data: "status" },
-        { data: "anmpac_data_cadastro" },
         { data: "anmpac_nom" },
+        { data: "anmcon_datacad" },
         { data: "anmpac_cpf" },
         { data: "btns" }
     ]
 });
 
 //FUNÇÃO PARA BUSCAR ATENDIMENTOS
-function busca_atendimentos(){ 
+function busca_pacientes(){ 
     $.ajax({
-        url: "assets/ajax/buscar_atendimentos.php",
-        type: "GET"        
+        url: "assets/ajax/buscar_pacientes.php",
+        type: "GET"
     }).done(function (result) {        
         
         var data = JSON.parse(result);        
         
-        $("#tabela_atendimentos").DataTable().clear().draw();
-        $("#tabela_atendimentos").DataTable().rows.add(data).draw();
+        $("#tabela_meus_pacientes").DataTable().clear().draw();
+        $("#tabela_meus_pacientes").DataTable().rows.add(data).draw();
     });
 }
 
-//FUNÇÃO PARA REDIRECIONAR PARA ATENDIMENTO
-function realizarAtendimento(anmpac_id,anmcon_id=0){
-    
-    let postData = [];
+function verDetalhes(anmpac_id){
 
-    postData[0] = {
-        anmpac_id,
-        anmcon_id
+    let dadosAtendimento = [];
+
+    dadosAtendimento[0] = {
+        anmpac_id
     }
 
-    postAndRedirect('atendimentos.php', postData[0], 'POST');
+    postAndRedirect('historico_paciente.php', dadosAtendimento[0], 'POST');
 }
 
-busca_atendimentos(); 
+busca_pacientes(); 
 </script>

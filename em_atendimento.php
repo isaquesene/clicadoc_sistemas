@@ -8,13 +8,11 @@ if (!$_POST['anmpac_id']){
 } else {
 
     $anmpac_id = $_POST['anmpac_id'];
+    $anmcon_id = $_POST['anmcon_id'];
     $acao = $_POST['acao'];
 
     $SQL = "SELECT * FROM tanam_dados_pacientes WHERE anmpac_id = $anmpac_id";    
-
     $result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
-    $linhas_json = array();
-
     $rows = mysqli_fetch_array($result);
 }
 ?>
@@ -125,6 +123,7 @@ if (!$_POST['anmpac_id']){
                                 <form action="conduta_enviada.php" method="post">
 
                                     <input type="hidden" name="anmpac_id" value="<?=$anmpac_id?>">
+                                    <input type="hidden" name="anmcon_id" value="<?=$anmcon_id?>">
                                     <input type="hidden" name="acao" value="<?=$acao?>">
                                     <input type="hidden" name="anmpac_nom" value="<?=$rows['anmpac_nom']?>">
                                     <input type="hidden" name="anmpac_numcel" value="<?=$rows['anmpac_numcel']?>">

@@ -202,6 +202,11 @@
                         return;                   
                     }
 
+                    if(result.perfil === '1'){
+                        location.href="home_adm.php";
+                        return;
+                    }
+                                        
                     location.href="home.php";
                     return;
                 } 

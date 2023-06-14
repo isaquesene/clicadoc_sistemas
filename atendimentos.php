@@ -8,12 +8,10 @@ if (!$_POST['anmpac_id']){
 } else {
 
     $anmpac_id = $_POST['anmpac_id'];
+    $anmcon_id = $_POST['anmcon_id'];
 
     $SQL = "SELECT * FROM tanam_dados_pacientes WHERE anmpac_id = $anmpac_id";    
-
     $result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
-    $linhas_json = array();
-
     $rows = mysqli_fetch_array($result);
 }
 
@@ -264,6 +262,7 @@ if (!$_POST['anmpac_id']){
     $("#menu_fila_atendimento").addClass("active");
 
     var anmpac_id = <?php echo $anmpac_id;?>;
+    var anmcon_id = <?php echo $anmcon_id;?>;
 
     function gerarConduta(acao){
 
@@ -271,7 +270,8 @@ if (!$_POST['anmpac_id']){
 
         dadosConduta[0] = {
             anmpac_id,
-            acao
+            acao,
+            anmcon_id
         }       
 
         postAndRedirect('em_atendimento.php', dadosConduta[0], 'POST');

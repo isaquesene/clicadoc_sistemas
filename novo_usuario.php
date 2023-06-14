@@ -121,7 +121,7 @@ include "include/mysqlconecta.php";
     
                                 <div class="mt-3 col-sm-6">
                                     <label class="mb-2">CPF</label>
-                                    <input type="text" class="form-control" placeholder="___.___.___-__" name="user_cpf"/>
+                                    <input type="text" class="form-control" placeholder="___.___.___-__" name="user_cpf" id="cpf-input" data-inputmask="'mask': '999.999.999-99', 'removeMaskOnSubmit': false"/>
                                 </div>
     
                                 <div class="mt-3 col-sm-6">
@@ -141,11 +141,16 @@ include "include/mysqlconecta.php";
     
                                 <div class="mt-3 col-sm-6"> 
                                     <label class="mb-2">Perfil de usuário</label>
-                                    <select class="form-control" id="" name="user_perfil">
+                                    <select class="form-control" id="user_perfil" name="user_perfil">
                                         <option value="">Selecione...</option>
                                         <option value="1">Administrador</option>
                                         <option value="0">Médico</option>
                                     </select>
+                                </div>
+
+                                <div class="mt-3 col-sm-6" id="hidden_div" style="display: none;">
+                                    <label class="mb-2">CRM</label>
+                                    <input type="text" class="form-control" placeholder="Digite O CRM" name="user_crm"/>
                                 </div>
     
                                 <div class="mt-3 col-sm-6"> 
@@ -233,7 +238,25 @@ include "include/mysqlconecta.php";
         });
     });
 
+    //MASCARA CPF
+    $(document).ready(function(){
+        Inputmask().mask(document.getElementById("cpf-input"));
+    });
+
+    //PERFIL MÉDICO CRM
+    window.onload=function(){
+    document.getElementById('user_perfil').addEventListener('change', function () {
+        var style = this.value == '0' ? 'block' : 'none';
+        document.getElementById('hidden_div').style.display = style;
+    });
+    }       
+
+
     </script>
+
+    <!--MASCARA CPF-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <script type="text/javascript" src="assets/js/inputmask.js" charset="utf-8"></script>
         
     </body>
 

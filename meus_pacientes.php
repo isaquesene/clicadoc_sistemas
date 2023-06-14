@@ -87,47 +87,8 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
                                     font-style: normal;
                                     font-weight: 600;
                                     font-size: 20px;
-                                    line-height: 29px;">Filtros</h4>
-                                    
-                                    <hr style="border: 1px solid #FF7F32;border-radius: 5px;">
-
-                                    <div class="row">
-                                        <div class="col-md-2 align-self-center">
-                                            <p>Filtros</p>                                            
-                                        </div>
-                                        <div class="col-md-5"> 
-                                            <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Ordenar:</span>
-                                            <select class="form-control">
-                                                <option value="">Selecione...</option>
-                                                <option value="">opção1</option>
-                                                <option value="">opção2</option>
-                                                <option value="">opção3</option>
-                                            </select>
-                                            </div>
-                                        </div><!-- end col -->
-                                                                             
-                                        <div class="col-md-5"> 
-                                            <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Status:</span>
-                                            <select class="form-control">
-                                                <option value="">Selecione...</option>
-                                                <option value="">opção1</option>
-                                                <option value="">opção2</option>
-                                                <option value="">opção3</option>
-                                            </select>
-                                            </div>
-                                        </div><!-- end col -->                                                
-                                    </div><!-- end row --> 
+                                    line-height: 29px;">Meus pacientes</h4>                                             
                                 </div><!--end card-header-->
-                                
-                            </div>
-                        </div> <!-- end col -->
-                    </div> <!-- end row -->
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
                                 <div class="card-body">  
                                     <table id="tabela_meus_pacientes" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>

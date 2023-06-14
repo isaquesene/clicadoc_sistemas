@@ -17,7 +17,7 @@ while($rows = mysqli_fetch_array($result_id)){
     $anmpac_cpf = $rows['anmpac_cpf'];
     $anmcon_datacad = $rows['anmcon_datacad'];
     
-    $btns = "<button type='button' class='btn btn-success' onclick='verDetalhes($anmpac_id)'><i class='mdi mdi-search me-2'></i>Ver detalhes</button>";    
+    $btns = "<button type='button' class='btn btn-success' onclick='verDetalhes($anmpac_id)'><i class='mdi mdi-file-plus me-2'></i>Ver detalhes</button>";    
     
     $linha_json = array(
         'anmpac_nom'=>$anmpac_nom,

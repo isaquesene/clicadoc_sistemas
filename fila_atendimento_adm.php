@@ -82,9 +82,9 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
                             <div class="card">
                                 <div class="card-body">    
                                     <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                                    <ul class="nav nav-tabs nav-justified"  role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab" aria-selected="true">Condutas negadas</a>
+                                            <a class="nav-link active text-danger" style="border-color: transparent transparent #f5325c;" data-bs-toggle="tab" href="#home" role="tab" aria-selected="true">Condutas negadas</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab" aria-selected="false">Fila de atendimentos</a>
@@ -94,25 +94,25 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div class="tab-pane p-3 active" id="home" role="tabpanel">
-                                        <table id="tabela_atendimentos" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>Status</th>
-                                                <th>Data</th>
-                                                <th>Nome do paciente</th>
-                                                <th>CPF</th>                                            
-                                                <th>Ação</th>
-                                            </tr>
-                                        </thead>
-                                    </table> 
+                                        <table id="tabela_recusas" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="max-width:100px;">Status</th>
+                                                    <th>Nome do paciente</th>
+                                                    <th>Medicamento</th>
+                                                    <th>Data</th>                                                
+                                                    <th>CPF</th>                                            
+                                                    <th style="min-width:100px;"></th>                                            
+                                                </tr>
+                                            </thead>
+                                        </table> 
                                         </div>
                                         <div class="tab-pane p-3" id="profile" role="tabpanel">
-                                        <table id="tabela_atendimentos" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <table id="tabela_meus_pacientes" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>Status</th>
-                                                <th>Data</th>
                                                 <th>Nome do paciente</th>
+                                                <th>Data da última consulta</th>                                                
                                                 <th>CPF</th>                                            
                                                 <th>Ação</th>
                                             </tr>
@@ -180,37 +180,38 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
 $("#menu_fila_atendimento").addClass("active");
 
 //CRIANDO DATATABLE EM BRANCO
-$("#tabela_atendimentos").DataTable({
+$("#tabela_recusas").DataTable({
     language: {
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
     },
-    pageLength: 20,
-    lengthMenu: [20, 30, 50, 75, 100],
+    pageLength: 5,
+    lengthMenu: [],
     order: [],
-    paging: true,
-    searching: true,
-    info: true,
+    paging: false,
+    searching: false,
+    info: false,
     data: [],
     columns: [
         { data: "status" },
-        { data: "anmpac_data_cadastro" },
         { data: "anmpac_nom" },
+        { data: "anmpac_med_presc" },
+        { data: "anmcon_datacad" },
         { data: "anmpac_cpf" },
         { data: "btns" }
     ]
 });
 
 //FUNÇÃO PARA BUSCAR ATENDIMENTOS
-function busca_atendimentos(){ 
+function busca_recusas(){ 
     $.ajax({
-        url: "assets/ajax/buscar_atendimentos.php",
+        url: "assets/ajax/buscar_recusa_total.php",
         type: "GET"        
     }).done(function (result) {        
         
-        var data = JSON.parse(result);        
+        let data = JSON.parse(result);        
         
-        $("#tabela_atendimentos").DataTable().clear().draw();
-        $("#tabela_atendimentos").DataTable().rows.add(data).draw();
+        $("#tabela_recusas").DataTable().clear().draw();
+        $("#tabela_recusas").DataTable().rows.add(data).draw();
     });
 }
 
@@ -227,5 +228,64 @@ function realizarAtendimento(anmpac_id,anmcon_id=0){
     postAndRedirect('atendimentos.php', postData[0], 'POST');
 }
 
-busca_atendimentos(); 
+//FUNÇÃO PARA REDIRECIONAR PARA ATENDIMENTO
+function revisar(anmpac_id){
+
+let postData = [];
+
+postData[0] = {
+    anmpac_id
+}
+
+postAndRedirect('revisar_atendimento.php', postData[0], 'POST');
+}
+
+//CRIANDO DATATABLE EM BRANCO
+$("#tabela_meus_pacientes").DataTable({
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
+    },
+    pageLength: 20,
+    lengthMenu: [20, 30, 50, 75, 100],
+    order: [],
+    paging: true,
+    searching: true,
+    info: true,
+    data: [],
+    columns: [
+        { data: "anmpac_nom" },
+        { data: "anmcon_datacad" },
+        { data: "anmpac_cpf" },
+        { data: "btns" }
+    ]
+});
+
+//FUNÇÃO PARA BUSCAR ATENDIMENTOS
+function busca_pacientes(){ 
+    $.ajax({
+        url: "assets/ajax/buscar_pacientes.php",
+        type: "GET"
+    }).done(function (result) {        
+        
+        var data = JSON.parse(result);        
+        
+        $("#tabela_meus_pacientes").DataTable().clear().draw();
+        $("#tabela_meus_pacientes").DataTable().rows.add(data).draw();
+    });
+}
+
+function verDetalhes(anmpac_id){
+
+let dadosAtendimento = [];
+
+dadosAtendimento[0] = {
+    anmpac_id
+}
+
+postAndRedirect('historico_paciente.php', dadosAtendimento[0], 'POST');
+}
+
+busca_pacientes(); 
+
+busca_recusas(); 
 </script>

@@ -1380,10 +1380,22 @@ hr.hr-dashed {
 .nav.nav-tabs .nav-link.active:hover {
     border-color: transparent transparent #1761fd;
 }
+
+.nav.nav-tabs .nav-item.show.active:hover,
+.nav.nav-tabs .nav-linkdanger.active:hover {
+    border-color: transparent transparent #f5325c;
+}
+
 .nav.nav-tabs .nav-item.show:hover,
 .nav.nav-tabs .nav-link:hover {
     border-color: transparent transparent #e3ebf6;
 }
+
+.nav.nav-tabs .nav-item.show:hover,
+.nav.nav-tabs .nav-linkdanger:hover {
+    border-color: transparent transparent #e3ebf6;
+}
+
 .nav.nav-tabs .nav-item.show .nav-link {
     color: #1761fd;
     background-color: #fff;

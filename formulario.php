@@ -31,8 +31,6 @@
             <li><a href="#">COMO FUNCIONA</a></li>
             <li><a href="#">SERVIÇOS</a></li>
         </ul>
-        <!--<a href="https://api.whatsapp.com/send?phone=5512935851032&text=Ol%C3%A1+Em+que+Posso+ajudar%3F" target="_blank" class="top-btn-w"><img src="image/WhatsApp.svg.png" alt=""><span class="fale"></span></a>-->
-        <!--<a href="#" id="open-form" target="_blank" data-modal="open" class="top-btn"></a>-->
     </header>
     <!--FIM HEADER-->
     <section class="card">
@@ -50,27 +48,28 @@
                 </P>
                 <div class="input-box">
                     <span class="details">Qual MEDICAMENTO você usa e precisa renovar a receita?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_med_presc" id="anmpac_med_presc">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_med_presc" id="anmpac_med_presc" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Para qual problema de saúde, seu médico prescreveu este medicamento?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_tratamento" id="anmpac_tratamento">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_tratamento" id="anmpac_tratamento" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Tem alergia a algum medicamento?*</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_alergia" id="anmpac_alergia">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_alergia" id="anmpac_alergia" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Qual seu nome completo? (Informe corretamente, para ser colocado na sua receita)</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_nom" id="anmpac_nom">
+                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_nom" id="anmpac_nom" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Qual seu CPF? (Informe corretamente, para ser colocado na sua receita)</span>
-                    <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_cpf" id="anmpac_nom">
+                    <input class="input" type="text" name="anmpac_cpf" id="cpf-input" data-inputmask="'mask': '999.999.999-99', 'removeMaskOnSubmit': false" required>
+                    <p id="mensagem"></p>
                 </div>
                 <div class="input-box">
                     <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)</span>
-                    <input class="input" type="phone" placeholder="(_) _____-____" name="anmpac_numcel" id="anmpac_numcel">
+                    <input class="input" type="phone" placeholder="(_) _____-____" name="anmpac_numcel" id="anmpac_numcel" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Teste Pagamento:</span>
@@ -105,7 +104,7 @@
                     </span>
                 </div>
                 <div class="button">
-                    <input type="submit" value="Enviar">
+                    <input type="submit" onclick="verificarCPF()" value="Enviar">
                 </div>
             </form>
         </div>
@@ -230,17 +229,84 @@
         });
     });
 
+    //MASCARA CPF
+    $(document).ready(function(){
+        Inputmask().mask(document.getElementById("cpf-input"));
+    });
+
+    //FUNÇÃO VALIDA CPF
+    function validarCPF(cpf){
+        cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
+  
+    if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
+        return false; // CPF com tamanho inválido ou todos os dígitos iguais
+    }
+    
+        var soma = 0;
+        var resto;
+    
+    for (var i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.substring(i-1, i)) * (11 - i);
+    }
+    
+        resto = (soma * 10) % 11;
+    
+    if (resto === 10 || resto === 11) {
+        resto = 0;
+    }
+    
+    if (resto !== parseInt(cpf.substring(9, 10))) {
+        return false; // Primeiro dígito verificador inválido
+    }
+    
+        soma = 0;
+    
+    for (var j = 1; j <= 10; j++) {
+        soma += parseInt(cpf.substring(j-1, j)) * (12 - j);
+    }
+    
+        resto = (soma * 10) % 11;
+    
+    if (resto === 10 || resto === 11) {
+        resto = 0;
+    }
+    
+    if (resto !== parseInt(cpf.substring(10, 11))) {
+        return false; // Segundo dígito verificador inválido
+    }
+    
+        return true; // CPF válido
+    }
+
+    function verificarCPF() {
+      var inputCPF = document.getElementById('cpf-input');
+      var cpf = inputCPF.value;
+      
+      var valido = validarCPF(cpf);
+      
+      if (valido) {
+        inputCPF.classList.remove('invalido');
+        inputCPF.classList.add('valido');
+        document.getElementById('mensagem').textContent = 'CPF válido.';
+      } else {
+        inputCPF.classList.remove('valido');
+        inputCPF.classList.add('invalido');
+        document.getElementById('mensagem').textContent = 'CPF inválido.';
+      }
+    }
+    
+
     </script>
+    
+    <!--MASCARA CPF-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <script type="text/javascript" src="assets/js/inputmask.js" charset="utf-8"></script>
 
     <script src="https://unpkg.com/scrollreveal"></script>
 
     <script src="assets/js_h/script.js"></script>
 
     <script src="assets/js_h/scroll.js"></script>
-
-    <!--<script src="js_h/modal.js"></script>
-
-    <script src="js_h/modal2.js"></script>-->
 
     
 </body>

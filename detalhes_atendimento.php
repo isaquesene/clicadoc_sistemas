@@ -144,7 +144,7 @@ if (!$_POST['anmpac_id']){
                                             
                                 <div class="mt-3">
                                     <label class="mb-2">Qual MEDICAMENTO você usa e precisa renovar a receita?*</label>
-                                    <input type="text" class="form-control" value="<?=$anmcon_datacad;?>" disabled/>  
+                                    <input type="text" class="form-control" value="<?=$rows['anmpac_med_presc'];?>" disabled/>  
                                 </div>
 
                                 <div class="mt-3">

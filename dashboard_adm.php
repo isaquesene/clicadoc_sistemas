@@ -1,22 +1,23 @@
 <?php 
 include "include/valida_session_usuario.php";
+include "include/valida_session_admin.php";
 include "include/mysqlconecta.php";
 
 $user_id = $_SESSION["clicadoc_user_id"];
 
-$sql_total_consultas_realizadas = "SELECT COUNT(*) AS total_consultas_realizadas FROM tanam_dados_consulta WHERE anmcon_id_medico = $user_id AND anmcon_conduta = 1";    
+$sql_total_consultas_realizadas = "SELECT COUNT(*) AS total_consultas_realizadas FROM tanam_dados_consulta WHERE anmcon_conduta = 1";    
 $result_total_consultas_realizadas = @mysqli_query($conexao,$sql_total_consultas_realizadas) or die("Ocorreu um erro! 001");
 $rows_total_consultas_realizadas = mysqli_fetch_array($result_total_consultas_realizadas);
 
 $total_consultas_realizadas = $rows_total_consultas_realizadas['total_consultas_realizadas'];
 
-$sql_total_atendimentos = "SELECT COUNT(*) AS total_atendimentos FROM tanam_dados_consulta WHERE anmcon_id_medico = $user_id";    
+$sql_total_atendimentos = "SELECT COUNT(*) AS total_atendimentos FROM tanam_dados_consulta";    
 $result_total_atendimentos = @mysqli_query($conexao,$sql_total_atendimentos) or die("Ocorreu um erro! 001");
 $rows_total_atendimentos = mysqli_fetch_array($result_total_atendimentos);
 
 $total_atendimentos = $rows_total_atendimentos['total_atendimentos'];
 
-$sql_total_pacientes = "SELECT COUNT(DISTINCT tdp.anmpac_cpf) AS total_pacientes FROM tanam_dados_pacientes tdp LEFT JOIN tanam_dados_consulta tdc ON tdp.anmpac_id = tdc.anmcon_id_paciente WHERE tdc.anmcon_id_medico = 1";    
+$sql_total_pacientes = "SELECT COUNT(DISTINCT tdp.anmpac_cpf) AS total_pacientes FROM tanam_dados_pacientes tdp LEFT JOIN tanam_dados_consulta tdc ON tdp.anmpac_id = tdc.anmcon_id_paciente";    
 $result_total_pacientes = @mysqli_query($conexao,$sql_total_pacientes) or die("Ocorreu um erro! 001");
 $rows_total_pacientes = mysqli_fetch_array($result_total_pacientes);
 
@@ -28,7 +29,7 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
     
 <head>
         <meta charset="utf-8" />
-        <title>ClicaDoc | Médico</title>
+        <title>ClicaDoc | Administração</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -64,7 +65,7 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
             <!-- Top Bar End -->
 
             <!-- Page Content-->
-            <div class="page-content" style="background-color: #F2F3F3;">
+            <div class="page-content">
                 <div class="container-fluid">
                     <!-- Page-Title -->
                     <div class="row">
@@ -72,7 +73,7 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
                             <div class="page-title-box">
                                 <div class="row">
                                     <div class="col">
-                                        <h4 class="page-title">Seu Painel</h4>                                        
+                                        <h4 class="page-title">Indicadores</h4>                                        
                                     </div><!--end col-->                                    
                                 </div><!--end row-->                                                              
                             </div><!--end page-title-box-->
@@ -80,7 +81,7 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
                     </div><!--end row-->
                     <!-- end page title end breadcrumb -->
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-12">                            
                             <div class="row justify-content-center">
                                 <div class="col-md-6 col-lg-4">
                                     <div class="card report-card">
@@ -138,58 +139,44 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
                                 </div> <!--end col--> 
                                                              
                             </div><!--end row-->
-                        </div><!--end col-->                       
-                    </div><!--end row-->
-                    <div class="row">
-                        <div class="col-20">
+
                             <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-lg-5 text-center">
-                                            <div id="" class="" data-bs-ride="">
-                                                <div class="">
-                                                    <div class="">
-                                                        <img src="assets/images/primeiro_acesso.png" class="w-75 p-4" alt="...">
-                                                    </div>
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col">                      
+                                            <h4 class="card-title">Atendimentos</h4>                      
+                                        </div><!--end col-->
+                                        <div class="col-auto"> 
+                                            <div class="dropdown">
+                                                <a href="#" class="btn btn-sm btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                   <span id="filtroAtual">Este Ano</span><i class="las la-angle-down ms-1"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end" id="filtro_grafico">
+                                                    <a class="dropdown-item" href="#" id="todayBtn">Hoje</a>
+                                                    <a class="dropdown-item" href="#" id="weekBtn">Última semana</a>
+                                                    <a class="dropdown-item" href="#" id="monthBtn">Último mês</a>
+                                                    <a class="dropdown-item" href="#" id="yearBtn">Este ano</a>
                                                 </div>
-                                            </div>
+                                            </div>               
                                         </div><!--end col-->
-                                        <div class="col-lg-5 offset-lg-1 align-self-center">
-                                            <div class="p-10">
-                                                <h1 class="titulo">Olá, seja bem-vindo!</h1>
-                                                <p class="font-14 texto-fosco">
-                                                Estamos felizes em tê-lo(a) conosco e esperamos que a ClicaDoc facilite 
-                                                significativamente seu trabalho.
-                                                </p>
-                                                <p class="font-14 texto">
-                                                Com nosso sistema, você pode renovar receitas de forma rápida e eficiente, economizando tempo e energia para se 
-                                                concentrar no que mais importa: seus pacientes. Sinta-se à vontade para explorar todas as funcionalidades e 
-                                                recursos do nosso software e não hesite em entrar em contato conosco se precisar de ajuda ou suporte.
-                                                </p>
-                                                <a type="button" href="fila_atendimento.php" class="btn-atendimento">Iniciar atendimento</a>
-                                            </div>
-                                        </div><!--end col-->
-                                        
-                                    </div><!--end row-->
+                                    </div>  <!--end row-->                                  
+                                </div><!--end card-header-->
+                                <div class="card-body">
+                                    <div class="chart-demo">
+                                        <div id="apex_column1" class="apex-charts"></div>
+                                    </div>                                        
                                 </div><!--end card-body-->
-                            </div><!--end card-->
-                        </div><!--end col-->
+                            </div><!--end card--> 
+                        </div><!--end col-->                       
                     </div><!--end row-->
 
                 </div><!-- container -->
-                
-                <footer class="footer text-center text-sm-start">
-                    &copy; <script>
-                        document.write(new Date().getFullYear())
-                    </script> ClicaDoc
-                </footer><!--end footer-->  
+
+                <?php include "footer.php";?>  
             </div>
             <!-- end page content -->
         </div>
         <!-- end page-wrapper -->
-
-        
-
 
         <!-- jQuery  -->
         <script src="assets/js/jquery.min.js"></script>
@@ -202,6 +189,10 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
         <script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
 
         <script src="assets/plugins/apex-charts/apexcharts.min.js"></script>
+        <script src="assets/plugins/apex-charts/irregular-data-series.js"></script>
+        <script src="assets/plugins/apex-charts/ohlc.js"></script>
+        <!-- <script src="assets/pages/jquery.apexcharts.init.js"></script> -->
+
         <script src="assets/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
         <script src="assets/plugins/jvectormap/jquery-jvectormap-us-aea-en.js"></script>
         <script src="assets/pages/jquery.analytics_dashboard.init.js"></script>
@@ -214,5 +205,90 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
 </html>
 
 <script>
-    $("#menu_home").addClass("active");
+    $("#menu_indicadores").addClass("active");
+
+    options = {
+        chart: { height: 396, type: "bar", toolbar: { show: true } },
+        plotOptions: { bar: { horizontal: !1 } },
+        dataLabels: { enabled: !1 },
+        stroke: { show: !0, width: 2, colors: ["transparent"] },
+        colors: ["rgba(42, 118, 244, .18)", "#2a76f4", "rgba(251, 182, 36, .6)"],
+        series: [],
+        xaxis: {},
+        legend: { offsetY: 6 },        
+        fill: { opacity: 1 },
+        grid: { row: { colors: ["transparent", "transparent"], opacity: 0.5 }, borderColor: "#f1f3fa" },
+        tooltip: {
+            y: {
+                formatter: function (e) {
+                    return e;
+                },
+            },
+        },
+    };
+    (chart = new ApexCharts(document.querySelector("#apex_column1"), options)).render();
+
+    var user_id = <?php echo $user_id;?>;
+
+    function fetchData(period) {
+
+        let categories;
+
+        const url = 'assets/ajax/atualiza_grafico_dashboard.php?user_id=' + encodeURIComponent(user_id) + '&period=' + period
+
+        if (period === "week") {                    
+            categories = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
+        } else if (period === "month") {                    
+            categories = ["Semana 1", "Semana 2", "Semana 3", "Semana 4"];
+        } else if (period === "year") {                    
+            categories = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+        } else if (period === "today"){
+            categories = ["Hoje"];
+        }
+
+        //REQUISIÇÃO AJAX
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const total_atendimentos = data.total_atendimentos;
+                const total_atendimentos_array = Object.values(total_atendimentos);
+                //ATUALIZANDO GRÁFICO CONFORME RESPOSTA DA REQUISIÇÃO
+                chart.updateOptions({
+                    series: [{ name: "Atendimentos", data: total_atendimentos_array }], 
+                    xaxis: { categories },               
+                    
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+    
+    const todayBtn = document.getElementById("todayBtn");
+    const weekBtn = document.getElementById("weekBtn");
+    const monthBtn = document.getElementById("monthBtn");
+    const yearBtn = document.getElementById("yearBtn");
+
+    todayBtn.addEventListener("click", function() {        
+        $("#filtroAtual" ).html('Hoje');
+        fetchData("today");
+    });
+
+    weekBtn.addEventListener("click", function() {  
+        $("#filtroAtual" ).html('Última semana');
+        fetchData("week");
+    });
+    
+    monthBtn.addEventListener("click", function() {
+        $("#filtroAtual" ).html('Último mês');
+        fetchData("month");
+    });
+    
+    yearBtn.addEventListener("click", function() {
+        $("#filtroAtual" ).html('Este ano');
+        fetchData("year");
+    });
+
+    fetchData('year');
+
 </script>

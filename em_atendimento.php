@@ -9,9 +9,13 @@ if (!$_POST['anmpac_id']){
 
     $anmpac_id = $_POST['anmpac_id'];
     $anmcon_id = $_POST['anmcon_id'];
+
     $acao = $_POST['acao'];
 
-    $SQL = "SELECT * FROM tanam_dados_pacientes WHERE anmpac_id = $anmpac_id";    
+    $SQL = "UPDATE tanam_dados_pacientes SET anmpac_em_atendimento = 1 WHERE anmpac_id = $anmpac_id";
+    @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
+
+    $SQL = "SELECT * FROM tanam_dados_pacientes WHERE anmpac_id = $anmpac_id";
     $result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
     $rows = mysqli_fetch_array($result);
 }
@@ -143,7 +147,7 @@ if (!$_POST['anmpac_id']){
                                             ><?=$acao == 'gerar' ? 'Gerar Conduta' : 'Recusa de Conduta' ?></h4>
                                         </div>
                                         <div class="col-6 ms-auto text-end">
-                                            <a onclick="cancelarAtendimento()" class="btn btn-primary" style="border-color: rgba(44, 125, 122, 1); color: rgba(44, 125, 122, 1); background: #fff">Cancelar</a>
+                                            <a onclick="cancelar()" class="btn btn-primary" style="border-color: rgba(44, 125, 122, 1); color: rgba(44, 125, 122, 1); background: #fff">Cancelar</a>
                                             <button type="submit" class="btn btn-primary" style="background: rgba(44, 125, 122, 1);">Salvar alterações</button>
                                         </div>
                                     </div>
@@ -163,7 +167,7 @@ if (!$_POST['anmpac_id']){
                                                                     
                                     <div class="row">
                                         <div class="col-sm-10 ms-auto text-end">
-                                            <a onclick="cancelarAtendimento()" class="btn btn-primary" style="border-color: rgba(44, 125, 122, 1); color: rgba(44, 125, 122, 1); background: #fff">Cancelar</a>
+                                            <a onclick="cancelar()" class="btn btn-primary" style="border-color: rgba(44, 125, 122, 1); color: rgba(44, 125, 122, 1); background: #fff">Cancelar</a>
                                             <button type="submit" class="btn btn-primary" style="background: rgba(44, 125, 122, 1);">Salvar alterações</button>
                                         </div>
                                     </div>                                    
@@ -230,20 +234,41 @@ if (!$_POST['anmpac_id']){
     $("#menu_fila_atendimento").addClass("active");
 
     var anmpac_id = <?php echo $anmpac_id;?>;
+    var anmcon_id = <?php echo $anmcon_id;?>;
 
     function voltarParaFicha(){
+
+        cancelar_atendimento(anmpac_id,anmcon_id);
 
         let dadosConduta = [];
 
         dadosConduta[0] = {
-            anmpac_id     
+            anmpac_id,
+            anmcon_id     
         }
 
         postAndRedirect('atendimentos.php', dadosConduta[0], 'POST');
     }
 
-    function cancelarAtendimento(){
+    function cancelar(){
+        cancelar_atendimento(anmpac_id,anmcon_id);
         window.location.href = "fila_atendimento.php";
+    }
+
+    function cancelar_atendimento(anmpac_id,anmcon_id){
+        
+        $.ajax({
+            url: 'assets/ajax/cancelar_atendimento.php',
+            type: 'POST',
+            data:  { anmpac_id,anmcon_id },
+                        
+            success: function(data) {  
+                console.log('sucesso')                
+            },
+            error: function () {                
+                console.log('ocorreu um erro')                    
+            }
+        });   
     }
 
 </script>

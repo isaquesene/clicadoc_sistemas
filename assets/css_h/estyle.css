@@ -146,6 +146,7 @@ form .button input{
     border-radius: 5px;
     transition: all 0.4s ease;
     background:  #2C7D7A;
+    cursor: pointer;
 }
 
 /*------------------INICIO HEADER --------------*/

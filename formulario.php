@@ -64,7 +64,7 @@
                 </div>
                 <div class="input-box">
                     <span class="details">Qual seu CPF? (Informe corretamente, para ser colocado na sua receita)</span>
-                    <input class="input" type="text" name="anmpac_cpf" id="cpf-input" data-inputmask="'mask': '999.999.999-99', 'removeMaskOnSubmit': false" required>
+                    <input class="input" type="text" name="anmpac_cpf" id="cpf-input"  onfocusout="verificarCPF()"  data-inputmask="'mask': '999.999.999-99', 'removeMaskOnSubmit': false" required>
                     <p id="mensagem"></p>
                 </div>
                 <div class="input-box">
@@ -97,14 +97,14 @@
                 </div>
                 <div class="input-radio">
                     <span class="details">
-                    <input class="input" type="radio" name="endereco" id="endereco">
+                    <input class="input" type="radio" name="endereco" id="endereco" onchange="checkTermos()">
                         
                     Li e concordo com os termos acima.
 
                     </span>
                 </div>
                 <div class="button">
-                    <input type="submit" onclick="verificarCPF()" value="Enviar">
+                    <input type="submit" value="Enviar" style="cursor: pointer;" id="botaoEnviar" disabled>
                 </div>
             </form>
         </div>
@@ -204,40 +204,44 @@
         <div class="credit-footer"> Desenvolvido por <span>ITA Ventures</span> © 2023 </div>
     </section>
 
-    <!--CADASTRO VIA AJAX-->
-    <script>
-       $(document).ready(function(){
-        $("#formulario_atendimento").submit(function(e){
-            e.preventDefault();
-            $("#acao").val('cadastrar'); 
-            $.ajax({
-                type: "POST",
-                url: "assets/ajax/atualiza_formulario.php",
-                data: $(this).serialize(),
-                success: function(response){
-                    var success = true; 
-                    if (success) {
-                        $("#modalSuccess").css("display", "block");
-                    }
-                    $("#formulario_atendimento")[0].reset();
+    
+    <!--MASCARA CPF-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <script type="text/javascript" src="assets/js/inputmask.js" charset="utf-8"></script>
 
-                    setTimeout(function() {
-                        $("#modalSuccess").hide();
-                    }, 3000);
-                }
-            });
-        });
-    });
+    <script src="https://unpkg.com/scrollreveal"></script>
 
-    //MASCARA CPF
-    $(document).ready(function(){
-        Inputmask().mask(document.getElementById("cpf-input"));
-    });
+    <script src="assets/js_h/script.js"></script>
 
-    //FUNÇÃO VALIDA CPF
-    function validarCPF(cpf){
-        cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
-  
+    <script src="assets/js_h/scroll.js"></script>
+
+    
+</body>
+</html>
+
+<!--CADASTRO VIA AJAX-->
+<script>
+//HABILITA O BUTTON ENVIAR
+function checkTermos() {
+    var radio = document.getElementById("endereco");
+    var botaoEnviar = document.getElementById("botaoEnviar");
+
+    if (radio.checked) {
+        botaoEnviar.disabled = false; // Habilita o botão
+    } else {
+        botaoEnviar.disabled = true; // Desabilita o botão
+    }
+    }
+
+//MASCARA CPF
+$(document).ready(function(){
+    Inputmask().mask(document.getElementById("cpf-input"));
+});
+
+//FUNÇÃO VALIDA CPF
+function validarCPF(cpf){
+    cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
+
     if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
         return false; // CPF com tamanho inválido ou todos os dígitos iguais
     }
@@ -275,39 +279,59 @@
         return false; // Segundo dígito verificador inválido
     }
     
-        return true; // CPF válido
-    }
+    return true; // CPF válido
+}
 
-    function verificarCPF() {
-      var inputCPF = document.getElementById('cpf-input');
-      var cpf = inputCPF.value;
-      
-      var valido = validarCPF(cpf);
-      
-      if (valido) {
+function verificarCPF() {
+    var inputCPF = document.getElementById('cpf-input');
+    var cpf = inputCPF.value;
+    
+    var valido = validarCPF(cpf);
+    
+    if (valido) {
         inputCPF.classList.remove('invalido');
         inputCPF.classList.add('valido');
         document.getElementById('mensagem').textContent = 'CPF válido.';
-      } else {
+
+        return true;
+    } else {
         inputCPF.classList.remove('valido');
         inputCPF.classList.add('invalido');
         document.getElementById('mensagem').textContent = 'CPF inválido.';
-      }
+
+        return false;
+    }
+}
+
+$("#formulario_atendimento").submit(function(e){
+    e.preventDefault();
+
+    if(!verificarCPF()){
+        
+        document.getElementById('cpf-input').focus()
+        return
     }
     
 
-    </script>
-    
-    <!--MASCARA CPF-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
-    <script type="text/javascript" src="assets/js/inputmask.js" charset="utf-8"></script>
+    $("#acao").val('cadastrar'); 
 
-    <script src="https://unpkg.com/scrollreveal"></script>
+    $.ajax({
+        type: "POST",
+        url: "assets/ajax/atualiza_formulario.php",
+        data: $(this).serialize(),
+        success: function(response){
+            var success = true; 
+            if (success) {
+                $("#modalSuccess").css("display", "block");
+            }
+            $("#formulario_atendimento")[0].reset();
 
-    <script src="assets/js_h/script.js"></script>
+            setTimeout(function() {
+                $("#modalSuccess").hide();
+            }, 3000);
+        }
+    });
+});
 
-    <script src="assets/js_h/scroll.js"></script>
 
-    
-</body>
-</html>
+</script>

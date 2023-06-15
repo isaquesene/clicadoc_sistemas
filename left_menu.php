@@ -22,7 +22,7 @@
             </li>
             
             <li>
-                <a href="fila_atendimento.php" id="menu_fila_atendimento"><i class="fas fa-heartbeat"></i><span>Atendimentos</span></a>
+                <a href="fila_atendimento_adm.php" id="menu_fila_atendimento"><i class="fas fa-heartbeat"></i><span>Atendimentos</span></a>
             </li>
             
             <li>
@@ -30,7 +30,7 @@
             </li> 
             
             <li>
-                <a href="dashboard.php" id="menu_indicadores"><i data-feather="bar-chart" class="align-self-center menu-icon"></i><span>Indicadores</span><span class="menu-arrow"></span></a>
+                <a href="dashboard_adm.php" id="menu_indicadores"><i data-feather="bar-chart" class="align-self-center menu-icon"></i><span>Indicadores</span><span class="menu-arrow"></span></a>
             </li> 
             <li>
                 <a href="#" id="#"><i data-feather="users" class="align-self-center menu-icon"></i><span>Usuários</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>

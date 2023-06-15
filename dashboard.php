@@ -207,8 +207,8 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
     $("#menu_indicadores").addClass("active");
 
     options = {
-        chart: { height: 396, type: "bar", toolbar: { show: !1 } },
-        plotOptions: { bar: { horizontal: !1, endingShape: "rounded", columnWidth: "55%" } },
+        chart: { height: 396, type: "bar", toolbar: { show: true } },
+        plotOptions: { bar: { horizontal: !1 } },
         dataLabels: { enabled: !1 },
         stroke: { show: !0, width: 2, colors: ["transparent"] },
         colors: ["rgba(42, 118, 244, .18)", "#2a76f4", "rgba(251, 182, 36, .6)"],
@@ -216,7 +216,7 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
         xaxis: {},
         legend: { offsetY: 6 },        
         fill: { opacity: 1 },
-        grid: { row: { colors: ["transparent", "transparent"], opacity: 0.2 }, borderColor: "#f1f3fa" },
+        grid: { row: { colors: ["transparent", "transparent"], opacity: 0.5 }, borderColor: "#f1f3fa" },
         tooltip: {
             y: {
                 formatter: function (e) {

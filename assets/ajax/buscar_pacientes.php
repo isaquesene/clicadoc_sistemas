@@ -16,10 +16,13 @@ while($rows = mysqli_fetch_array($result_id)){
     $anmpac_nom = $rows['anmpac_nom'];
     $anmpac_cpf = $rows['anmpac_cpf'];
     $anmcon_datacad = $rows['anmcon_datacad'];
+
+    $status = "<span class='badge rounded-pill bg-success'>ATENDIMENTO</span>";
     
     $btns = "<button type='button' class='btn btn-success' onclick='verDetalhes($anmpac_id)'><i class='mdi mdi-file-plus me-2'></i>Ver detalhes</button>";    
     
     $linha_json = array(
+        'status'=>$status,
         'anmpac_nom'=>$anmpac_nom,
         'anmcon_datacad'=>$anmcon_datacad,
         'anmpac_cpf'=>$anmpac_cpf,

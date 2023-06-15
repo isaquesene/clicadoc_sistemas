@@ -108,9 +108,10 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
                                         </table> 
                                         </div>
                                         <div class="tab-pane p-3" id="profile" role="tabpanel">
-                                        <table id="tabela_meus_pacientes" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <table id="tabela_atendimentos" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
+                                                <th style="max-width:100px;">Status</th>
                                                 <th>Nome do paciente</th>
                                                 <th>Data da última consulta</th>                                                
                                                 <th>CPF</th>                                            
@@ -241,7 +242,7 @@ postAndRedirect('revisar_atendimento.php', postData[0], 'POST');
 }
 
 //CRIANDO DATATABLE EM BRANCO
-$("#tabela_meus_pacientes").DataTable({
+$("#tabela_atendimentos").DataTable({
     language: {
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
     },
@@ -253,24 +254,25 @@ $("#tabela_meus_pacientes").DataTable({
     info: true,
     data: [],
     columns: [
+        { data: "status" },
         { data: "anmpac_nom" },
-        { data: "anmcon_datacad" },
+        { data: "anmpac_data_cadastro" },
         { data: "anmpac_cpf" },
         { data: "btns" }
     ]
 });
 
 //FUNÇÃO PARA BUSCAR ATENDIMENTOS
-function busca_pacientes(){ 
+function busca_atendimentos(){ 
     $.ajax({
-        url: "assets/ajax/buscar_pacientes.php",
+        url: "assets/ajax/buscar_atendimentos_adm.php",
         type: "GET"
     }).done(function (result) {        
         
         var data = JSON.parse(result);        
         
-        $("#tabela_meus_pacientes").DataTable().clear().draw();
-        $("#tabela_meus_pacientes").DataTable().rows.add(data).draw();
+        $("#tabela_atendimentos").DataTable().clear().draw();
+        $("#tabela_atendimentos").DataTable().rows.add(data).draw();
     });
 }
 
@@ -285,7 +287,7 @@ dadosAtendimento[0] = {
 postAndRedirect('historico_paciente.php', dadosAtendimento[0], 'POST');
 }
 
-busca_pacientes(); 
+busca_atendimentos(); 
 
 busca_recusas(); 
 </script>

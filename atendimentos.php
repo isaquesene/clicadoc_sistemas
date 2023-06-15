@@ -13,6 +13,10 @@ if (!$_POST['anmpac_id']){
     $SQL = "SELECT * FROM tanam_dados_pacientes WHERE anmpac_id = $anmpac_id";    
     $result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
     $rows = mysqli_fetch_array($result);
+
+    $SQL = "SELECT * FROM tanam_dados_consulta WHERE anmcon_id_paciente = $anmpac_id";
+    $result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 002");
+    $qnt_consultas = mysqli_num_rows($result);
 }
 
 ?>
@@ -112,7 +116,7 @@ if (!$_POST['anmpac_id']){
                                         </div><!--end col-->
                                         <div class="col-lg-12 d-flex justify-content-end">
                                             <div class="row">
-                                                <p class="mb-1 fw-bold">Consultas realizadas: 3</p>                                                    
+                                                <p class="mb-1 fw-bold">Consultas realizadas: <?=$qnt_consultas?></p>                                                    
                                             </div><!--end row-->                                               
                                         </div><!--end col-->
                                     </div><!--end row-->

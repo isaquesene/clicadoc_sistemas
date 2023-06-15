@@ -25,15 +25,13 @@
         <div class="bx bx-menu" id="menu-icon"></div>
 
         <ul class="navlist">
-            <li><a href="#homem">HOME</a></li>
-            <!--<li><a href="#receita">AGENDAR UMA CONSULTA</a></li>-->
-            <li><a href="#">RENOVAÇÃO DE RECEITA</a></li>
-            <li><a href="#">COMO FUNCIONA</a></li>
-            <li><a href="#">SERVIÇOS</a></li>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="#receita">FORMULARIO</a></li>
+            <li><a href="#servicos">SERVIÇOS</a></li>
         </ul>
     </header>
     <!--FIM HEADER-->
-    <section class="card">
+    <section class="card" id="receita">
         <div class="card_form">
             <div class="image">
                 <img src="assets/image/image_form.png" alt="">
@@ -151,7 +149,7 @@
     </div>
 
     <!--FOOTER-->
-    <footer class="footer">
+    <footer class="footer" id="servicos">
         <div class="box-container">
             <div class="footer-img">
                 <img src="assets/image/logo-footer.png" alt="">

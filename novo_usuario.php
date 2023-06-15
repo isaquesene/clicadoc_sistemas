@@ -164,7 +164,7 @@ include "include/mysqlconecta.php";
     
                                 <div class="row mt-3">
                                     <div class="col-sm-10 ms-auto text-end">
-                                        <a class="btn btn-primary" style="border-color: rgba(44, 125, 122, 1); color: rgba(44, 125, 122, 1); background: #fff">Cancelar</a>
+                                        <a class="btn btn-primary" style="border-color: rgba(44, 125, 122, 1); color: rgba(44, 125, 122, 1); background: #fff" onclick="goBack()">Cancelar</a>
                                         <input type="submit" class="btn btn-primary" style="background: rgba(44, 125, 122, 1);" value="Salvar alterações"/>
                                     </div>
                                 </div>
@@ -251,6 +251,10 @@ include "include/mysqlconecta.php";
     });
     }       
 
+    //VOLTAR A PÁGINA
+    function goBack() {
+        history.back();
+    }
 
     </script>
 

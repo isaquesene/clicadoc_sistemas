@@ -104,6 +104,7 @@ include "include/mysqlconecta.php";
                                                 <th>Nome do usuário</th>
                                                 <th>CPF</th>                                            
                                                 <th>Data de cadastro</th>
+                                                <th>Perfil Usuário</th>
                                                 <th>Status do usuário</th>
                                                 <th>Opções</th>
                                             </tr>
@@ -201,6 +202,7 @@ $("#tabela_usuarios").DataTable({
         { data: "user_nom" },
         { data: "user_cpf" },
         { data: "user_primeiro_acesso" },
+        { data: "user_perfil" },
         { data: "user_situacao" },
         { data: "btns" }
     ]

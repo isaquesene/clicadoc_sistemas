@@ -5,23 +5,46 @@ include "include/mysqlconecta.php";
 
 $user_id = $_SESSION["clicadoc_user_id"];
 
+//TOTAL DE CONSULTAS REALIZADAS
 $sql_total_consultas_realizadas = "SELECT COUNT(*) AS total_consultas_realizadas FROM tanam_dados_consulta WHERE anmcon_conduta = 1";    
 $result_total_consultas_realizadas = @mysqli_query($conexao,$sql_total_consultas_realizadas) or die("Ocorreu um erro! 001");
 $rows_total_consultas_realizadas = mysqli_fetch_array($result_total_consultas_realizadas);
 
 $total_consultas_realizadas = $rows_total_consultas_realizadas['total_consultas_realizadas'];
 
+//TOTAL DE ATENDIMENTOS
 $sql_total_atendimentos = "SELECT COUNT(*) AS total_atendimentos FROM tanam_dados_consulta";    
 $result_total_atendimentos = @mysqli_query($conexao,$sql_total_atendimentos) or die("Ocorreu um erro! 001");
 $rows_total_atendimentos = mysqli_fetch_array($result_total_atendimentos);
 
 $total_atendimentos = $rows_total_atendimentos['total_atendimentos'];
 
-$sql_total_pacientes = "SELECT COUNT(DISTINCT tdp.anmpac_cpf) AS total_pacientes FROM tanam_dados_pacientes tdp LEFT JOIN tanam_dados_consulta tdc ON tdp.anmpac_id = tdc.anmcon_id_paciente";    
+//TOTAL DE PACIENTES
+$sql_total_pacientes = "SELECT COUNT(*) AS total_pacientes FROM tanam_dados_pacientes WHERE anmpac_pagamento_status = 'realiado'";    
 $result_total_pacientes = @mysqli_query($conexao,$sql_total_pacientes) or die("Ocorreu um erro! 001");
 $rows_total_pacientes = mysqli_fetch_array($result_total_pacientes);
 
 $total_pacientes = $rows_total_pacientes['total_pacientes'];
+
+//TOTAL DE MÉDICOS
+$sql_total_medicos = "SELECT COUNT(*) AS total_medicos FROM tanam_usuarios WHERE user_perfil = 0";    
+$result_total_medicos = @mysqli_query($conexao,$sql_total_medicos) or die("Ocorreu um erro! 001");
+$rows_total_medicos = mysqli_fetch_array($result_total_medicos);
+
+$total_medicos = $rows_total_medicos['total_medicos'];
+
+//MÉDIA DE ATENDIMENTOS POR MÉDICO
+$sql_total_atendimentos_por_medico = "SELECT COUNT(*) AS total_atendimentos_por_medico FROM tanam_dados_consulta GROUP BY anmcon_id_medico";    
+$result_total_atendimentos_por_medico = @mysqli_query($conexao,$sql_total_atendimentos_por_medico) or die("Ocorreu um erro! 001");
+
+$numero_de_medicos = mysqli_num_rows($result_total_atendimentos_por_medico);
+$soma_atendimentos = 0;
+
+while($rows_total_atendimentos_por_medico = mysqli_fetch_array($result_total_atendimentos_por_medico)){
+    $soma_atendimentos = $soma_atendimentos + $rows_total_atendimentos_por_medico['total_atendimentos_por_medico'];    
+}
+
+$media_atendimentos_por_medico = $soma_atendimentos / $numero_de_medicos;
 ?>
 
 <!DOCTYPE html>
@@ -136,8 +159,44 @@ $total_pacientes = $rows_total_pacientes['total_pacientes'];
                                             </div>
                                         </div><!--end card-body--> 
                                     </div><!--end card--> 
+                                </div> <!--end col-->                                                                                              
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card report-card">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-auto align-self-center">
+                                                    <div class="report-main">
+                                                        <!--<i data-feather="users" class="align-self-center text-muted icon-sm"></i>-->
+                                                        <img src="assets/images/pacientes.png" class="w-45 p-0" alt="...">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <p class="mb-0 text-truncate text-muted text-right"></span>Médicos</p>
+                                                    <h3 class="m-0"><?=$total_medicos?></h3>
+                                                </div>
+                                            </div>
+                                        </div><!--end card-body--> 
+                                    </div><!--end card--> 
                                 </div> <!--end col--> 
-                                                             
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card report-card">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-center">                                                
+                                            <div class="col-auto align-self-center">
+                                                    <div class="report-main">
+                                                        <!--<i data-feather="users" class="align-self-center text-muted icon-sm"></i>-->
+                                                        <img src="assets/images/atendimento.png" class="w-45 p-2" alt="...">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <p class="mb-0 text-truncate text-muted text-right"></span>Atendimentos/Médico</p>
+                                                    <h3 class="m-0"><?=$media_atendimentos_por_medico?></h3>
+                                                </div>
+                                            </div>
+                                        </div><!--end card-body--> 
+                                    </div><!--end card--> 
+                                </div> <!--end col--> 
+                                                                                                                             
                             </div><!--end row-->
                         </div><!--end col-->                       
                     </div><!--end row-->

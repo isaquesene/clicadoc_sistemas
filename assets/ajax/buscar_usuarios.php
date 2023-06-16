@@ -14,6 +14,7 @@ while($rows = mysqli_fetch_array($result_id)){
     $user_nom = $rows['user_nom'];    
     $user_cpf = $rows['user_cpf'];
     $user_situacao = $rows['user_situacao'];
+    $user_perfil = $rows['user_perfil'];
 
     if($user_situacao == 'ativo'){
         $status_atual = 1;
@@ -46,11 +47,13 @@ while($rows = mysqli_fetch_array($result_id)){
         ";
     }
     
+    $perfil = ($user_perfil == 0) ? 'Médico' : 'Administrador';
     
     $linha_json = array(
         'user_nom'=>utf8_encode($user_nom),
         'user_cpf'=>$user_cpf,
         'user_primeiro_acesso'=>$user_primeiro_acesso,
+        'user_perfil'=>$perfil,
         'user_situacao'=>$status,
         'btns'=>$btns
     ); 

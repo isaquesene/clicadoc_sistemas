@@ -20,9 +20,14 @@ if ($period === 'week') {
         $weekDates[] = $currentDate;
         $currentDate = date('Y-m-d', strtotime('+1 day', strtotime($currentDate)));
     }
-
-    //$sql_total_atendimentos = "SELECT COUNT(*) AS total_atendimentos FROM tanam_dados_consulta WHERE anmcon_id_medico = $user_id AND anmcon_datacad BETWEEN '$startOfWeek' AND '$endOfWeek'";
+    
     $sql = "SELECT DATE(anmcon_datacad) AS date, COUNT(*) AS total_atendimentos FROM tanam_dados_consulta WHERE anmcon_id_medico = $user_id AND anmcon_datacad BETWEEN '$startOfWeek' AND '$endOfWeek' GROUP BY DATE(anmcon_datacad)";
+
+    if($_SESSION["clicadoc_user_perfil"] == 1){
+
+        $sql = "SELECT DATE(anmcon_datacad) AS date, COUNT(*) AS total_atendimentos FROM tanam_dados_consulta WHERE anmcon_datacad BETWEEN '$startOfWeek' AND '$endOfWeek' GROUP BY DATE(anmcon_datacad)";
+    }
+
     
     $result = mysqli_query($conexao, $sql);
     while ($row = mysqli_fetch_assoc($result)) {
@@ -72,8 +77,13 @@ if ($period === 'week') {
     foreach ($weeks as $week) {
         $startOfWeek = $week[0];
         $endOfWeek = end($week);
-
+        
         $sql = "SELECT DATE(anmcon_datacad) AS date, COUNT(*) AS total_atendimentos FROM tanam_dados_consulta WHERE anmcon_id_medico = $user_id AND anmcon_datacad BETWEEN '$startOfWeek' AND '$endOfWeek' GROUP BY DATE(anmcon_datacad)";
+
+        if($_SESSION["clicadoc_user_perfil"] == 1){
+            
+            $sql = "SELECT DATE(anmcon_datacad) AS date, COUNT(*) AS total_atendimentos FROM tanam_dados_consulta WHERE anmcon_datacad BETWEEN '$startOfWeek' AND '$endOfWeek' GROUP BY DATE(anmcon_datacad)";
+        }
         
         $result = mysqli_query($conexao, $sql);
         $data = array();
@@ -128,6 +138,11 @@ if ($period === 'week') {
         $endOfMonth = end($month);
 
         $sql = "SELECT DATE(anmcon_datacad) AS date, COUNT(*) AS total_atendimentos FROM tanam_dados_consulta WHERE anmcon_id_medico = $user_id AND anmcon_datacad BETWEEN '$startOfMonth' AND '$endOfMonth' GROUP BY DATE(anmcon_datacad)";
+
+        if($_SESSION["clicadoc_user_perfil"] == 1){
+            
+            $sql = "SELECT DATE(anmcon_datacad) AS date, COUNT(*) AS total_atendimentos FROM tanam_dados_consulta WHERE anmcon_datacad BETWEEN '$startOfMonth' AND '$endOfMonth' GROUP BY DATE(anmcon_datacad)";
+        }
         
         $result = mysqli_query($conexao, $sql);
         $data = array();
@@ -162,6 +177,11 @@ if ($period === 'week') {
     $endOfDay = date('Y-m-d 23:59:59', strtotime($currentDate));
 
     $sql = "SELECT COUNT(*) AS total_atendimentos FROM tanam_dados_consulta WHERE anmcon_id_medico = $user_id AND anmcon_datacad BETWEEN '$startOfDay' AND '$endOfDay'";
+
+    if($_SESSION["clicadoc_user_perfil"] == 1){
+
+        $sql = "SELECT COUNT(*) AS total_atendimentos FROM tanam_dados_consulta WHERE anmcon_datacad BETWEEN '$startOfDay' AND '$endOfDay'";
+    }
     
     $result = mysqli_query($conexao, $sql);
     $row = mysqli_fetch_assoc($result);

@@ -295,6 +295,7 @@ if (!$_POST['anmpac_id']){
         if (seconds <= 0) {
             clearInterval(countdownInterval);
             countdownElement.innerHTML = "Contagem regressiva concluída!";
+            cancelar();
         }
 
         seconds--;

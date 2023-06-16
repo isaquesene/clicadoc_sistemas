@@ -39,7 +39,7 @@
                 <img src="<?=$_SESSION['clicadoc_user_foto_perfil']?>" alt="profile-user" class="rounded-circle thumb-xs" />                                 
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-                <a class="dropdown-item" href="pages-profile.html"><i data-feather="user" class="align-self-center icon-xs icon-dual me-1"></i> Conta</a>                
+                <a class="dropdown-item" href="conta.php"><i data-feather="user" class="align-self-center icon-xs icon-dual me-1"></i> Conta</a>                
                 <div class="dropdown-divider mb-0"></div>
                 <a class="dropdown-item" href="./logout.php"><i data-feather="power" class="align-self-center icon-xs icon-dual me-1"></i> Sair</a>
             </div>

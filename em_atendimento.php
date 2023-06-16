@@ -15,6 +15,9 @@ if (!$_POST['anmpac_id']){
     $SQL = "UPDATE tanam_dados_pacientes SET anmpac_em_atendimento = 1 WHERE anmpac_id = $anmpac_id";
     @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
 
+    $SQL = "INSERT INTO tanam_controle_consulta (cont_id_paciente,cont_data_inicio_atendimento) VALUES ($anmpac_id,now())";
+    @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
+
     $SQL = "SELECT * FROM tanam_dados_pacientes WHERE anmpac_id = $anmpac_id";
     $result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
     $rows = mysqli_fetch_array($result);
@@ -79,11 +82,11 @@ if (!$_POST['anmpac_id']){
                             <div class="row">
                                 <div class="col">
                                     <h4 class="page-title">Atendimentos</h4>                                        
-                                </div><!--end col-->                                                                        
-                            </div><!--end row-->                                                              
+                                </div>                                                                      
+                            </div>                                                              
                         </div><!--end page-title-box-->
-                    </div><!--end col-->
-                </div><!--end row-->
+                    </div>
+                </div>
                 <!-- end page title end breadcrumb -->
                 <div class="row">
                     <div class="col-12">
@@ -99,7 +102,7 @@ if (!$_POST['anmpac_id']){
                                                 <span class='badge rounded-pill bg-warning text-dark'>EM ATENDIMENTO</span>                                                   
                                             </div>
                                                                                       
-                                        </div><!--end col-->  
+                                        </div>
                                         
                                         <div class="col-lg-11 align-self-center mb-3 mb-lg-0">
                                             <div class="dastone-profile-main">
@@ -111,14 +114,18 @@ if (!$_POST['anmpac_id']){
                                                     <i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i> <b> Número de telefone </b> : <?=$rows['anmpac_numcel'];?>                                                    
                                                 </div>
                                             </div>                                                
-                                        </div><!--end col-->
-                                        
-                                    </div><!--end row-->                                                                                                                   
+                                        </div>
+                                        <div class="col-lg-12 d-flex justify-content-end">
+                                            <div class="row">
+                                                <div id="contador"></div>                                                 
+                                            </div>                                              
+                                        </div>                                      
+                                    </div>                                                                                                                  
                                 </div>
-                            </div><!--end card-body-->          
-                        </div> <!--end card-->    
-                    </div><!--end col-->
-                </div><!--end row-->
+                            </div>        
+                        </div> 
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -270,5 +277,31 @@ if (!$_POST['anmpac_id']){
             }
         });   
     }
+
+    function startCountdown(minutes) {
+        var seconds = minutes * 60;
+        var countdownElement = document.getElementById("contador");
+
+        var countdownInterval = setInterval(function() {
+        var minutesDisplay = Math.floor(seconds / 60);
+        var secondsDisplay = seconds % 60;
+
+        if (secondsDisplay < 10) {
+            secondsDisplay = "0" + secondsDisplay;
+        }
+
+        countdownElement.innerHTML = minutesDisplay + ":" + secondsDisplay;
+
+        if (seconds <= 0) {
+            clearInterval(countdownInterval);
+            countdownElement.innerHTML = "Contagem regressiva concluída!";
+        }
+
+        seconds--;
+        }, 1000);
+    }
+
+    // Chamar a função para iniciar o contador regressivo de 15 minutos
+    startCountdown(15);
 
 </script>

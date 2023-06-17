@@ -13,13 +13,14 @@ $user_psw = $_POST['user_psw'];
 $user_psw = md5($user_psw);
 $user_perfil = $_POST['user_perfil'];
 $user_situacao = $_POST['user_situacao'];
+$user_crm = $_POST['user_crm'];
 
 
 
 if ($acao == "cadastrar"){
     
-    $SQL = "insert into tanam_usuarios(user_nom, user_cpf, user_email, user_log, user_psw, user_perfil, user_situacao) values 
-    ('$user_nom','$user_cpf','$user_email','$user_log','$user_psw','$user_perfil','$user_situacao')";    
+    $SQL = "insert into tanam_usuarios(user_nom, user_cpf, user_email, user_log, user_psw, user_perfil, user_situacao, user_crm) values 
+    ('$user_nom','$user_cpf','$user_email','$user_log','$user_psw','$user_perfil','$user_situacao', '$user_crm')";    
 
     if (mysqli_query($conexao, $SQL)) {
         // Cadastro realizado com sucesso, redirecionar para usuarios.php
@@ -31,7 +32,7 @@ if ($acao == "cadastrar"){
 }else if($acao == "editar"){
     $user_id = $_POST['user_id'];
 
-    $SQL = "UPDATE tanam_usuarios SET user_nom = '$user_nom', user_cpf = '$user_cpf', user_email = '$user_email', user_log = '$user_log', user_psw = '$user_psw', user_perfil = '$user_perfil', user_situacao = '$user_situacao' WHERE user_id = '$user_id'";
+    $SQL = "UPDATE tanam_usuarios SET user_nom = '$user_nom', user_cpf = '$user_cpf', user_email = '$user_email', user_log = '$user_log', user_psw = '$user_psw', user_perfil = '$user_perfil', user_situacao = '$user_situacao', user_crm = '$user_crm' WHERE user_id = '$user_id'";
 
     if (mysqli_query($conexao, $SQL)) {
         // Cadastro realizado com sucesso, redirecionar para usuarios.php

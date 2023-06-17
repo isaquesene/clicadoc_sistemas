@@ -42,12 +42,16 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
                 anmcon_observacao='$observacoes_medico',anmcon_id_paciente=$anmpac_id,anmcon_id_medico=$anmcon_id_medico 
                 WHERE anmcon_id=$anmcon_id";
     }
-
-
-    @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
-
-    $_SESSION['clicadoc_conduta_cadastrada'] = $anmpac_id;
     
+    @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
+    
+    $SQL3 = "UPDATE tanam_dados_pacientes SET anmpac_em_atendimento = 0 WHERE anmpac_id = $anmpac_id";
+    @mysqli_query($conexao,$SQL3) or die("Ocorreu um erro! 001");
+
+    $SQL4 = "DELETE FROM tanam_controle_consulta WHERE cont_id_paciente = $anmpac_id";
+    @mysqli_query($conexao,$SQL4) or die("Ocorreu um erro! 001");
+
+    $_SESSION['clicadoc_conduta_cadastrada'] = $anmpac_id;    
 }
 ?>
 

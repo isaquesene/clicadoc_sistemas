@@ -20,7 +20,7 @@ $rows_total_atendimentos = mysqli_fetch_array($result_total_atendimentos);
 $total_atendimentos = $rows_total_atendimentos['total_atendimentos'];
 
 //TOTAL DE PACIENTES
-$sql_total_pacientes = "SELECT COUNT(*) AS total_pacientes FROM tanam_dados_pacientes WHERE anmpac_pagamento_status = 'realiado'";    
+$sql_total_pacientes = "SELECT COUNT(*) AS total_pacientes FROM tanam_dados_pacientes WHERE anmpac_pagamento_status = 'realizado'";    
 $result_total_pacientes = @mysqli_query($conexao,$sql_total_pacientes) or die("Ocorreu um erro! 001");
 $rows_total_pacientes = mysqli_fetch_array($result_total_pacientes);
 
@@ -44,7 +44,7 @@ while($rows_total_atendimentos_por_medico = mysqli_fetch_array($result_total_ate
     $soma_atendimentos = $soma_atendimentos + $rows_total_atendimentos_por_medico['total_atendimentos_por_medico'];    
 }
 
-$media_atendimentos_por_medico = $soma_atendimentos / $numero_de_medicos;
+$media_atendimentos_por_medico = intval($soma_atendimentos / $numero_de_medicos);
 ?>
 
 <!DOCTYPE html>

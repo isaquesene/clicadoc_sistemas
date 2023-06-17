@@ -157,7 +157,12 @@ if (!$_POST['user_id']){
                                 <div class="mt-3 col-sm-6">
                                     <label class="mb-2">Senha</label>
                                     <input type="password" class="form-control" placeholder="Digite uma senha" id="user_psw" name="user_psw" value="<?=$rows['user_psw'];?>"/>
-                                </div>      
+                                </div>     
+                                
+                                <div class="mt-3 col-sm-6">
+                                    <label class="mb-2">CRM</label>
+                                    <input type="text" class="form-control" placeholder="CRM" id="user_crm" name="user_crm" value="<?=$rows['user_crm'];?>"/>
+                                </div>
     
                                 <div class="mt-3 col-sm-6"> 
                                     <label class="mb-2">Perfil de usuário</label>
@@ -262,6 +267,7 @@ if (!$_POST['user_id']){
                 user_psw: $("#user_psw").val(),
                 user_perfil: $("#user_perfil").val(),
                 user_situacao: $("#user_situacao").val(),
+                user_crm: $("#user_crm").val(),
                 },
                 success: function(response){
                 window.location.href = "usuarios.php";

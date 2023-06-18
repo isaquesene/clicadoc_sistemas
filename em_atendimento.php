@@ -116,8 +116,8 @@ if (!$_POST['anmpac_id']){
                                             </div>                                                
                                         </div>
                                         <div class="col-lg-12 d-flex justify-content-end">
-                                            <div class="row">
-                                                <div id="contador"></div>                                                 
+                                            <div class="row font-16">                                                
+                                                <div>Tempo restante: <span id="contador"></span></div>                                                 
                                             </div>                                              
                                         </div>                                      
                                     </div>                                                                                                                  

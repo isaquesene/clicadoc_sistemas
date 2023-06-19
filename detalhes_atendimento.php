@@ -206,6 +206,35 @@ if (!$_POST['anmpac_id']){
                                                     font-size: 20px;
                                                     line-height: 29px;
                                                     "
+                                        >Prescrição Médica</h4>
+                                    </div>                                    
+                                </div>
+                                
+                                <hr style="border: 1px solid rgba(44, 125, 122, 1);border-radius: 5px; place-items: center">
+                                            
+                                <div class="mt-3">
+                                    <p class="mb-2 fw-bold">Médico: <?=$rows['user_nom']?> - CRM/SP <?=$rows['user_crm']?></p>
+                                    <p class="mb-2 fw-bold">Data da consulta: <?=$anmcon_datacad?></p>
+
+                                    <div class="mt-3 mb-3">
+                                        <label class="mb-2">Prescrição do Médico</label>
+                                        <textarea type="text" rows="5" class="form-control" name="conduta_medico" disabled><?=$rows['anmcon_conduta_medica']?></textarea>
+                                    </div>                                     
+                                </div>                               
+                            </div>                                    
+                        </div> <!-- end card-body -->
+                        <div class="card">                                
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h4 class="d-flex align-items-end"  style="
+                                                    color: rgba(44, 125, 122, 1);
+                                                    
+                                                    font-style: normal;
+                                                    font-weight: 600;
+                                                    font-size: 20px;
+                                                    line-height: 29px;
+                                                    "
                                         >Observações da consulta</h4>
                                     </div>                                    
                                 </div>

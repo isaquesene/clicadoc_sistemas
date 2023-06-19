@@ -16,7 +16,8 @@ $rows_total_atendimentos = mysqli_fetch_array($result_total_atendimentos);
 
 $total_atendimentos = $rows_total_atendimentos['total_atendimentos'];
 
-$sql_total_pacientes = "SELECT COUNT(DISTINCT tdp.anmpac_cpf) AS total_pacientes FROM tanam_dados_pacientes tdp LEFT JOIN tanam_dados_consulta tdc ON tdp.anmpac_id = tdc.anmcon_id_paciente WHERE tdc.anmcon_id_medico = 1";    
+//TOTAL DE PACIENTES
+$sql_total_pacientes = "SELECT COUNT(*) AS total_pacientes FROM tanam_dados_pacientes WHERE anmpac_pagamento_status = 'realizado'";    
 $result_total_pacientes = @mysqli_query($conexao,$sql_total_pacientes) or die("Ocorreu um erro! 001");
 $rows_total_pacientes = mysqli_fetch_array($result_total_pacientes);
 

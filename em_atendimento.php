@@ -169,7 +169,7 @@ if (!$_POST['anmpac_id']){
 
                                     <div class="mt-3 mb-3">
                                         <label class="mb-2">Observações do Médico</label>
-                                        <textarea type="text" rows="5" class="form-control" name="observacoes_medico" required></textarea>
+                                        <textarea type="text" rows="5" class="form-control" name="observacoes_medico"></textarea>
                                     </div> 
                                                                     
                                     <div class="row">

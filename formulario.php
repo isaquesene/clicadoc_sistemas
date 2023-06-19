@@ -236,6 +236,11 @@ $(document).ready(function(){
     Inputmask().mask(document.getElementById("cpf-input"));
 });
 
+//MASCARA TELEFONE
+var telefoneInput = document.getElementById('anmpac_numcel');
+Inputmask({ mask: '(99) 9999-9999', clearMaskOnLostFocus: false }).mask(telefoneInput);
+
+
 //FUNÇÃO VALIDA CPF
 function validarCPF(cpf){
     cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos

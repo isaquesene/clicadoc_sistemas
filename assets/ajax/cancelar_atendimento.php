@@ -4,11 +4,13 @@ include "../../include/mysqlconecta.php";
 
 $anmpac_id = $_POST['anmpac_id'];
 
-
 if(isset($anmpac_id)){  
         
     $SQL = "UPDATE tanam_dados_pacientes SET anmpac_em_atendimento = 0 WHERE anmpac_id = $anmpac_id";
     @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
+
+    $SQL1 = "DELETE FROM tanam_controle_consulta WHERE cont_id_paciente = $anmpac_id";
+    @mysqli_query($conexao,$SQL1) or die("Ocorreu um erro! 001");
 
     $linhas_json = array(
         'success'=>true,

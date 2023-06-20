@@ -26,7 +26,26 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
     }
     $observacoes_medico = $_POST['observacoes_medico'];
 
-    if(($conduta_medico == '' && $acao == 'gerar') || $observacoes_medico == ''){
+    if(($conduta_medico == '' && $acao == 'gerar')){
+
+        $SQL = "UPDATE tanam_dados_pacientes SET anmpac_em_atendimento = 0 WHERE anmpac_id = $anmpac_id";
+        @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
+
+        $SQL1 = "DELETE FROM tanam_controle_consulta WHERE cont_id_paciente = $anmpac_id";
+        @mysqli_query($conexao,$SQL1) or die("Ocorreu um erro! 001");
+
+        header("Location: ./fila_atendimento.php");
+        exit;
+    }
+
+    if(($observacoes_medico == '' && $acao == 'negar')){
+
+        $SQL = "UPDATE tanam_dados_pacientes SET anmpac_em_atendimento = 0 WHERE anmpac_id = $anmpac_id";
+        @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
+
+        $SQL1 = "DELETE FROM tanam_controle_consulta WHERE cont_id_paciente = $anmpac_id";
+        @mysqli_query($conexao,$SQL1) or die("Ocorreu um erro! 001");
+        
         header("Location: ./fila_atendimento.php");
         exit;
     }
@@ -59,32 +78,32 @@ if (!$_POST['anmpac_id'] || $_SESSION['clicadoc_conduta_cadastrada'] == $_POST['
 <html lang="en">
     
 <head>
-        <meta charset="utf-8" />
-        <title>ClicaDoc | Médico</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>ClicaDoc | Médico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <!-- App favicon -->
-        <!-- <link rel="shortcut icon" href="assets/images/favicon.ico"> -->
+    <!-- App favicon -->
+    <!-- <link rel="shortcut icon" href="assets/images/favicon.ico"> -->
 
-        <!-- DataTables -->
-        <link href="assets/plugins/datatables/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/datatables/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-        <!-- Responsive datatable examples -->
-        <link href="assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
+    <!-- DataTables -->
+    <link href="assets/plugins/datatables/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/datatables/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
 
-        <!-- Plugins css -->
-        <link href="assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/huebee/huebee.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/timepicker/bootstrap-material-datetimepicker.css" rel="stylesheet">
-        <link href="assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <!-- Plugins css -->
+    <link href="assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/huebee/huebee.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/timepicker/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
 
-        <!-- App css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
     </head>
 

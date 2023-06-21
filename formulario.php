@@ -329,6 +329,10 @@ $("#formulario_atendimento").submit(function(e){
             }
             $("#formulario_atendimento")[0].reset();
 
+
+
+
+
             setTimeout(function() {
                 $("#modalSuccess").hide();
             }, 3000);

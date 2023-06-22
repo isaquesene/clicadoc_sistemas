@@ -18,7 +18,11 @@ while($rows = mysqli_fetch_array($result_id)){
     $anmcon_datacad = $rows['anmcon_datacad'];
     $user_nom = $rows['user_nom'];   
 
-    $status = "<span class='badge rounded-pill bg-success'>ATENDIMENTO</span>";
+    if (empty($anmcon_datacad)) {
+        $anmcon_datacad = "<span class='badge rounded-pill bg-warning'>Aguardando consulta</span>";
+    } else {
+        $anmcon_datacad = $rows['anmcon_datacad'];
+    }
     
     $btns = "<button type='button' class='btn btn-success' onclick='verDetalhes($anmpac_id)'><i class='mdi mdi-file-plus me-2'></i>Ver detalhes</button>";    
     

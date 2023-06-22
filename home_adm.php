@@ -275,8 +275,8 @@ $media_atendimentos_por_medico = intval($soma_atendimentos / $numero_de_medicos)
                     <div class="modal fade"  id="area_abrir">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <div class="modal-header bg-danger">
-                                    <h6 class="modal-title m-0 text-white">Revisar Recusa</h6>
+                                <div class="modal-header bg-success">
+                                    <h6 class="modal-title m-0 text-white">Prescrição e Observação do Médico</h6>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div><!--end modal-header-->
                                 <div class="modal-body">
@@ -428,25 +428,24 @@ $media_atendimentos_por_medico = intval($soma_atendimentos / $numero_de_medicos)
         postAndRedirect('revisar_atendimento.php', postData[0], 'POST');
     }
 
-    function verDetalhes(anmcon_id){
+    function verDetalhes(anmpac_id){
 
         let dadosAtendimento = [];
 
         dadosAtendimento[0] = {
-            anmcon_id
+            anmpac_id
         }
 
-        postAndRedirect('detalhes_atendimento_adm.php', dadosAtendimento[0], 'POST');
-
+    postAndRedirect('historico_paciente.php', dadosAtendimento[0], 'POST');
     }
 
     //ABRIR MODAL
-    /* function revisar(anmpac_id) {
+     /*function revisar(anmcon_id) {
   
         $.ajax({
             url: "assets/ajax/seleciona_recusa.php",
             type: "POST",
-            data: { acao_recusa: 'seleciona_recusa', anmpac_id },
+            data: { acao_recusa: 'seleciona_recusa', anmcon_id },
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             success: function(data){
 

@@ -85,7 +85,7 @@ include "include/mysqlconecta.php";
                                                 concentrar no que mais importa: seus pacientes. Sinta-se à vontade para explorar todas as funcionalidades e 
                                                 recursos do nosso software e não hesite em entrar em contato conosco se precisar de ajuda ou suporte.
                                                 </p>
-                                                <button type="button" class="btn-atendimento">Iniciar atendimento</button>
+                                                <a type="button" href="fila_atendimento.php" class="btn-atendimento">Iniciar atendimento</a>
                                             </div>
                                         </div><!--end col-->
                                         

@@ -10,14 +10,14 @@ $linhas_json = array();
 
 while($rows = mysqli_fetch_array($result_id)){
 
-    $anmcon_id = $rows['anmcon_id'];
+    $anmpac_id = $rows['anmpac_id'];
     $anmpac_nom = $rows['anmpac_nom'];
     $user_nom = $rows['user_nom'];    
     
     $anmcon_datacad = $rows['anmcon_datacad'];
     $anmcon_datacad = (new DateTime($anmcon_datacad))->format('d-m-Y'); 
     
-    $btns = "<button type='button' onclick='verDetalhes($anmcon_id)' class='btn btn-success'><i class='mdi mdi-file-plus me-2'></i>Ver detalhes</button>";
+    $btns = "<button type='button' onclick='verDetalhes($anmpac_id)' class='btn btn-success'><i class='mdi mdi-file-plus me-2'></i>Ver detalhes</button>";
     
     $linha_json = array(
         'anmpac_nom'=>$anmpac_nom,
@@ -30,4 +30,5 @@ while($rows = mysqli_fetch_array($result_id)){
 }
 
 echo json_encode($linhas_json);
+
 ?>

@@ -25,7 +25,7 @@
         <div class="bx bx-menu" id="menu-icon"></div>
 
         <ul class="navlist">
-            <li><a href="index.html">HOME</a></li>
+            <li><a href="http://clicadoc.com.br">HOME</a></li>
             <li><a href="#receita">FORMULARIO</a></li>
             <li><a href="#servicos">SERVIÇOS</a></li>
         </ul>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="input-box">
                     <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)</span>
-                    <input class="input" type="phone" placeholder="(_) _____-____" name="anmpac_numcel" id="anmpac_numcel" required>
+                    <input class="input" type="phone" placeholder="(_) ______-____" name="anmpac_numcel" id="anmpac_numcel" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Teste Pagamento:</span>
@@ -238,7 +238,7 @@ $(document).ready(function(){
 
 //MASCARA TELEFONE
 var telefoneInput = document.getElementById('anmpac_numcel');
-Inputmask({ mask: '(99) 9999-9999', clearMaskOnLostFocus: false }).mask(telefoneInput);
+Inputmask({ mask: '(99) 99999-9999', clearMaskOnLostFocus: false }).mask(telefoneInput);
 
 
 //FUNÇÃO VALIDA CPF

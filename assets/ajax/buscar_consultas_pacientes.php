@@ -4,8 +4,9 @@ include "../../include/valida_session_admin.php";
 include "../../include/mysqlconecta.php";
 
 $anmpac_id = $_GET['anmpac_id'];
+$anmpac_cpf = $_GET['anmpac_cpf'];
 
-$SQL = "SELECT tdc.*,tdp.* FROM tanam_dados_consulta tdc LEFT JOIN tanam_dados_pacientes tdp ON tdp.anmpac_id = tdc.anmcon_id_paciente WHERE tdc.anmcon_id_paciente = $anmpac_id"; 
+$SQL = "SELECT tdc.*,tdp.* FROM tanam_dados_consulta tdc LEFT JOIN tanam_dados_pacientes tdp ON tdp.anmpac_id = tdc.anmcon_id_paciente WHERE tdc.anmcon_cpf_paciente = '$anmpac_cpf'";
 
 $result_id = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
 $linhas_json = array();

@@ -15,6 +15,7 @@ $anmpac_id = $_POST['anmpac_id'];
 $SQL = "SELECT * FROM tanam_dados_pacientes WHERE anmpac_id = $anmpac_id";
 $result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
 $rows = mysqli_fetch_array($result);
+$anmpac_cpf = $rows['anmpac_cpf'];
 
 $SQL = "SELECT * FROM tanam_dados_consulta WHERE anmcon_id_paciente = $anmpac_id";
 $result = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 002");
@@ -201,6 +202,7 @@ $qnt_consultas = mysqli_num_rows($result);
 $("#menu_fila_atendimento").addClass("active");
 
 var anmpac_id = <?php echo $anmpac_id;?>;
+var anmpac_cpf = '<?php echo $anmpac_cpf;?>';
 
 //CRIANDO DATATABLE EM BRANCO
 $("#tabela_meus_pacientes").DataTable({
@@ -228,7 +230,8 @@ function busca_consultas() {
         url: "assets/ajax/buscar_consultas_pacientes.php",
         type: "GET",
         data: {
-            anmpac_id
+            anmpac_id,
+            anmpac_cpf
         }
     }).done(function(result) {        
         var data = JSON.parse(result);        

@@ -57,17 +57,21 @@
                     <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_alergia" id="anmpac_alergia" required>
                 </div>
                 <div class="input-box">
-                    <span class="details">Qual seu nome completo? (Informe corretamente, para ser colocado na sua receita)</span>
+                    <span class="details">Qual seu nome completo? (Informe corretamente, para ser colocado na sua receita)*</span>
                     <input class="input" type="text" placeholder="Descreva aqui..." name="anmpac_nom" id="anmpac_nom" required>
                 </div>
                 <div class="input-box">
-                    <span class="details">Qual seu CPF? (Informe corretamente, para ser colocado na sua receita)</span>
+                    <span class="details">Qual seu CPF? (Informe corretamente, para ser colocado na sua receita)*</span>
                     <input class="input" type="text" name="anmpac_cpf" id="cpf-input"  onfocusout="verificarCPF()"  data-inputmask="'mask': '999.999.999-99', 'removeMaskOnSubmit': false" required>
                     <p id="mensagem"></p>
                 </div>
                 <div class="input-box">
-                    <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)</span>
+                    <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)*</span>
                     <input class="input" type="phone" placeholder="(_) ______-____" name="anmpac_numcel" id="anmpac_numcel" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Qual seu e-mail? (Informe corretamente, pois receberá a sua fatura por e-mail)*</span>
+                    <input class="input" type="email" placeholder="Descreva aqui..." name="anmpac_mail" id="anmpac_mail" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Teste Pagamento:</span>
@@ -76,21 +80,20 @@
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span><br>
                 <div class="termo">
                     <p>
-                        Afirmo que sou maior de idade e que todas as informações fornecidas são verdadeiras, sob as penas da lei.
-                        Autorizo o uso das minhas informações, que ficarão em sigilo e guardadas em prontuário, para fins de atendimento médico..
-                        Fui informado que a Telessaúde tem limitações, por ser uma modalidade de atendimento à distância, sem exame físico e que no caso de sintomas, devo procurar atendimento presencial.
-                        Estou ciente de que a Teletriagem, como nesse caso, é um atendimento momentâneo, que não faz novo diagnóstico, mas avalia os sinais e sintomas de um caso que já tenha diagnóstico prévio. No caso de baixo risco, o médico emite uma conduta, até o paciente retornar em seu médico presencial.
-                        Fui orientado que, assim que possível, devo retornar no meu médico.
-                        Afirmo que não tenho sinal ou sintoma de descontrole da minha doença prévia. No caso de sintoma, fui orientado a procurar atendimento presencial.
-                        Nego qualquer tipo de alergia relacionado aos medicamentos que já uso, que foram prescritos pelo meu médico.
-                        Fui informado que este é um serviço de intermediação tecnológica e que o médico tem plena autonomia para fazer o atendimento de Telessaúde, por meio da Plataforma Clica Doc, desde que haja consentimento do paciente.
-                        Todas as condutas são realizadas e as receitas são enviadas pelo médico, com total autonomia e sem interferência da Plataforma Clica Doc.
-                        A Plataforma não realiza videoconsulta e não interfere na relação médico-paciente.
-                        Aviso legal: A Clica Doc é uma empresa  de Tecnologia de Sistemas e não presta serviços médicos. A Plataforma Clica Doc é um Sistema dê Telessaúde que conecta profissionais de saúde com seus pacientes.
-                        O preço do serviço de tecnologia da Plataforma depende do uso do sistema e do profissional a ser contatado.
-                        Clica Doc Tecnologia 
-                        CNPJ: 43.722.721/0001-18
-                        São José dos Campos-SP
+                    Afirmo que sou maior de idade e que todas as informações fornecidas são verdadeiras, sob as penas da lei. Autorizo o uso dos meus dados, que ficarão em sigilo e guardadas em prontuário, para fins de atendimento médico.
+                    Fui informado que a Telessaúde tem limitações, por ser uma modalidade de atendimento à distância, sem exame 
+                    físico e que no caso de sintomas de doença, devo procurar atendimento presencial. Estou ciente de que o atendimento por telemedicina, como nesse caso, é 
+                    realizado quando não haja sinais ou sintomas de risco para o paciente. 
+                    No caso de baixo risco, o médico pode emitir uma conduta momentânea, até o paciente retornar em seu médico presencial. 
+                    Fui orientado de que, assim que possível, devo retornar no meu médico presencial. Afirmo que não tenho sinal ou sintoma de descontrole ou gravidade da minha doença prévia. No caso de mal estar ou algum tipo de desconforto mais sério, 
+                    fui orientado a procurar atendimento presencial. Nego qualquer tipo de alergia relacionado aos medicamentos que já uso e que 
+                    foram prescritos pelo meu médico. Fui informado que este é um serviço de intermediação tecnológica e que o médico tem plena 
+                    autonomia para fazer o atendimento, por meio da Plataforma Clica Doc, desde que haja consentimento do paciente. Todas as condutas 
+                    são realizadas e as receitas são enviadas pelo médico, com total autonomia e sem interferência da Plataforma Clica Doc. 
+                    A Plataforma não realiza videoconsulta e não interfere na relação médico-paciente. Aviso legal: A Clica Doc é uma empresa de 
+                    Tecnologia de Sistemas e não presta serviços médicos. A Plataforma Clica Doc é um Sistema dê Telessaúde que conecta profissionais 
+                    de saúde com seus pacientes. O preço do serviço de tecnologia da Plataforma depende do uso do sistema e do profissional a ser 
+                    contatado. Clica Doc Tecnologia  CNPJ: 43.722.721/0001-18 São José dos Campos-SP
                     </p>
                 </div>
                 <div class="input-radio">
@@ -232,9 +235,8 @@ function checkTermos() {
     }
 
 //MASCARA CPF
-$(document).ready(function(){
-    Inputmask().mask(document.getElementById("cpf-input"));
-});
+var CpfInput =document.getElementById('cpf-input');
+Inputmask({ mask: '___.___.___-__', clearMaskOnLostFocus: false }).mask(CpfInput);
 
 //MASCARA TELEFONE
 var telefoneInput = document.getElementById('anmpac_numcel');
@@ -306,32 +308,47 @@ function verificarCPF() {
     }
 }
 
+//E-MAIL, TELEFONE OBRIGATÓRIO
+function validarCampoObrigatorio(campoId, mensagemErro) {
+    var campoValor = $(campoId).val().trim();
+    if (campoValor === '') {
+        alert(mensagemErro);
+        $(campoId).focus();
+        return false;
+    }
+    return true;
+}
+
+
 $("#formulario_atendimento").submit(function(e){
     e.preventDefault();
 
-    if(!verificarCPF()){
-        
-        document.getElementById('cpf-input').focus()
-        return
+    if (!validarCampoObrigatorio("#anmpac_numcel", "O campo de telefone é obrigatório.")) {
+        return;
     }
-    
 
-    $("#acao").val('cadastrar'); 
+    if (!validarCampoObrigatorio("#anmpac_mail", "O campo de e-mail é obrigatório.")) {
+        return;
+    }
+
+    if (!verificarCPF()) {
+        document.getElementById('cpf-input').focus();
+        alert("O campo de CPF é obrigatório.");
+        return;
+    }
+
+    $("#acao").val('cadastrar');
 
     $.ajax({
         type: "POST",
         url: "assets/ajax/atualiza_formulario.php",
         data: $(this).serialize(),
         success: function(response){
-            var success = true; 
+            var success = true;
             if (success) {
                 $("#modalSuccess").css("display", "block");
             }
             $("#formulario_atendimento")[0].reset();
-
-
-
-
 
             setTimeout(function() {
                 $("#modalSuccess").hide();
@@ -339,6 +356,7 @@ $("#formulario_atendimento").submit(function(e){
         }
     });
 });
+
 
 
 </script>

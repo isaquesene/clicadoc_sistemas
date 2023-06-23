@@ -720,6 +720,8 @@ header.sticky{
 
 
 .receitas{
+    min-height: 80vh;
+    height: 150%;
     display: grid;
     grid-template-columns: repeat(2, 2fr);
     align-items: center;

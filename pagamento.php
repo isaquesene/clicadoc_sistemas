@@ -1,3 +1,60 @@
+<?php
+require_once 'vendor/autoload.php';
+include 'include/mysqlconecta.php';
+
+if ($_POST) {
+    $client = new \GuzzleHttp\Client();
+    $hoje = date('Y-m-d');
+    
+    $acao = $_POST['acao'];
+    
+    $anmpac_med_presc = $_POST['anmpac_med_presc'];
+    $anmpac_tratamento = $_POST['anmpac_tratamento'];
+    $anmpac_alergia = $_POST['anmpac_alergia'];
+    $anmpac_nom = $_POST['anmpac_nom'];
+    $anmpac_numcel = $_POST['anmpac_numcel'];
+    $anmpac_pagamento_status = $_POST['anmpac_pagamento_status'];
+    $anmpac_cpf = $_POST['anmpac_cpf'];
+    $anmpac_mail = $_POST['anmpac_mail'];
+    
+    if ($acao === 'cadastrar') {
+        $SQL = "INSERT INTO tanam_dados_pacientes (anmpac_med_presc, anmpac_tratamento, anmpac_alergia, anmpac_nom, anmpac_cpf, anmpac_numcel, anmpac_pagamento_status, anmpac_mail) VALUES ('$anmpac_med_presc', '$anmpac_tratamento', '$anmpac_alergia', '$anmpac_nom', '$anmpac_cpf', '$anmpac_numcel', '$anmpac_pagamento_status', '$anmpac_mail')";         
+        mysqli_query($conexao, $SQL) or die("Ocorreu um problema! Código: 001");  
+
+        $url = 'https://api.iugu.com/v1/invoices?api_token=7A8E0AD6A2654C9FC13ED8ADBBCE987D1FBC723B7DC3D937D5AFBB10ECD3771A';
+        $body = [
+            'ensure_workday_due_date' => false,
+            'items' => [
+                [
+                    'description' => 'Receita médica',
+                    'quantity' => 1,
+                    'price_cents' => 40000
+                ]
+            ],
+            'email' => $anmpac_mail,
+            'due_date' => $hoje
+        ];
+        $headers = [
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+        ];
+
+        $response = $client->request('POST', $url, [
+            'json' => $body,
+            'headers' => $headers,
+        ]);
+        
+        $responseData = json_decode($response->getBody(), true);
+
+        if (isset($responseData['secure_url'])) {
+            $secureUrl = $responseData['secure_url'];            
+        } else {
+            echo "Ocorreu um erro ao gerar sua fatura, por favor, tente novamente.";
+        }          
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +83,7 @@
 
         <ul class="navlist">
             <li><a href="http://clicadoc.com.br">HOME</a></li>
+            <li><a href="http://clicadocqas.itaventures.com.br/formulario.php">FORMULARIO</a></li>
         </ul>
     </header>
     <!--FIM HEADER-->
@@ -35,8 +93,8 @@
         </div>
         <div class="item">
             <h3>Pague sua <span>fatura</span> agora.</h3>
-            <P> - Clique no botão e acesse a página de pagamento.</p>
-            <a href="#" id="open-form" target="_blank" data-modal="open" class="btn-receita">PAGUE SUA FATURA AQUI</a>
+            <p> - Clique no botão e acesse a página de pagamento.</p>
+            <a href="<?= $secureUrl ?? '#' ?>" id="open-form" target="_blank" data-modal="open" class="btn-receita">PAGUE SUA FATURA AQUI</a>
         </div>
     </section>
 
@@ -57,10 +115,5 @@
     <script src="assets/js_h/script.js"></script>
 
     <script src="assets/js_h/scroll.js"></script>
-
-    
 </body>
 </html>
-
-
-</script>

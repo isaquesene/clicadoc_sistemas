@@ -36,7 +36,7 @@
             <div class="image">
                 <img src="assets/image/image_form.png" alt="">
             </div>
-            <form method="post" id="formulario_atendimento">
+            <form method="post" id="formulario_atendimento" action="pagamento.php">
             <input type="hidden" name="acao" id="acao" value="cadastrar">
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span>
                 <p>Receba a receita direto no seu celular.
@@ -339,24 +339,6 @@ $("#formulario_atendimento").submit(function(e){
 
     $("#acao").val('cadastrar');
 
-    $.ajax({
-        type: "POST",
-        url: "assets/ajax/atualiza_formulario.php",
-        data: $(this).serialize(),
-        success: function(response){
-            var success = true;
-            if (success) {
-                $("#modalSuccess").css("display", "block");
-            }
-            $("#formulario_atendimento")[0].reset();
-
-            setTimeout(function() {
-                $("#modalSuccess").hide();
-            }, 3000);
-        }
-    });
+    this.submit()
 });
-
-
-
 </script>

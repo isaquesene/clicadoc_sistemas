@@ -4,7 +4,7 @@ include 'include/mysqlconecta.php';
 
 if ($_POST) {
     $client = new \GuzzleHttp\Client();
-    $hoje = date('Y-m-d');
+    $hoje = date('Y-m-d', strtotime('+5 days'));
     
     $acao = $_POST['acao'];
     
@@ -21,14 +21,14 @@ if ($_POST) {
         $SQL = "INSERT INTO tanam_dados_pacientes (anmpac_med_presc, anmpac_tratamento, anmpac_alergia, anmpac_nom, anmpac_cpf, anmpac_numcel, anmpac_pagamento_status, anmpac_mail) VALUES ('$anmpac_med_presc', '$anmpac_tratamento', '$anmpac_alergia', '$anmpac_nom', '$anmpac_cpf', '$anmpac_numcel', '$anmpac_pagamento_status', '$anmpac_mail')";         
         mysqli_query($conexao, $SQL) or die("Ocorreu um problema! Código: 001");  
 
-        $url = 'https://api.iugu.com/v1/invoices?api_token=7A8E0AD6A2654C9FC13ED8ADBBCE987D1FBC723B7DC3D937D5AFBB10ECD3771A';
+        $url = 'https://api.iugu.com/v1/invoices?api_token=C02DB9229AE7DD8BEF6051923F7E95E5592E99C73B5915AEA803CF89C86D0BD4';
         $body = [
             'ensure_workday_due_date' => false,
             'items' => [
                 [
                     'description' => 'Receita médica',
                     'quantity' => 1,
-                    'price_cents' => 40000
+                    'price_cents' => 9500
                 ]
             ],
             'email' => $anmpac_mail,
@@ -37,6 +37,8 @@ if ($_POST) {
         $headers = [
             'accept' => 'application/json',
             'content-type' => 'application/json',
+            'Authorization' => 'Basic {{api_token in base64}}',
+            'Cookie' => '__cfruid=4de6e8d698f34284d42117520658036e571b03dc-1634570591',
         ];
 
         $response = $client->request('POST', $url, [

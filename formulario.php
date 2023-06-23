@@ -64,6 +64,7 @@
                     <span class="details">Qual seu CPF? (Informe corretamente, para ser colocado na sua receita)*</span>
                     <input class="input" type="text" name="anmpac_cpf" id="cpf-input"  onfocusout="verificarCPF()"  data-inputmask="'mask': '999.999.999-99', 'removeMaskOnSubmit': false" required>
                     <p id="mensagem"></p>
+                    <p id="status"></p>
                 </div>
                 <div class="input-box">
                     <span class="details">Qual seu celular com DDD? (Informe corretamente, pois receberá a sua receita pelo WhatsApp)*</span>
@@ -74,8 +75,8 @@
                     <input class="input" type="email" placeholder="Descreva aqui..." name="anmpac_mail" id="anmpac_mail" required>
                 </div>
                 <div class="input-box">
-                    <span class="details">Teste Pagamento:</span>
-                    <input class="input" type="text" placeholder="" name="anmpac_pagamento_status" id="anmpac_pagamento_status">
+                    <!--<span class="details">Teste Pagamento:</span>-->
+                    <input class="input" type="hidden" placeholder="" name="anmpac_pagamento_status" id="anmpac_pagamento_status" value="realizado">
                 </div>
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span><br>
                 <div class="termo">
@@ -141,14 +142,30 @@
             margin-bottom: 5px;
         }
 
+        /* Estilos do botão */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
     </style>
 
     <!--MODAL SUCCESS-->
-    <div id="modalSuccess" class="modal">
+    <div id="status" class="modal">
         <div class="modal-content">
             <h3>Sucesso!</h3>
-            <p>Seu formulário foi enviado com sucesso.</p>
+            <p>Número de CPF não corresponde com o nome cadastrado, Informe um nome correspondente com o CPF.</p>
         </div>
+        <span class="close">&times;</span>
     </div>
 
     <!--FOOTER-->
@@ -318,6 +335,26 @@ function validarCampoObrigatorio(campoId, mensagemErro) {
     }
     return true;
 }
+
+//VERIFICA SE O CPF EXISTE
+$(document).ready(function() {
+    $('#cpf-input').keyup(function() {
+        var cpf = $(this).val();
+        $.ajax({
+            url: 'assets/ajax/verificar_cpf.php',
+            type: 'POST',
+            data: { anmpac_cpf: cpf },
+            success: function(response) {
+                if (response == 1) {
+                    $('#status').text('Já existe cadastros com esse CPF.');
+                } else {
+                    $('#status').text('');
+                }
+            }
+        });
+    });
+});
+
 
 
 $("#formulario_atendimento").submit(function(e){

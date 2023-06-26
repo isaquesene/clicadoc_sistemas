@@ -21,7 +21,7 @@ if ($_POST) {
         $SQL = "INSERT INTO tanam_dados_pacientes (anmpac_med_presc, anmpac_tratamento, anmpac_alergia, anmpac_nom, anmpac_cpf, anmpac_numcel, anmpac_pagamento_status, anmpac_mail) VALUES ('$anmpac_med_presc', '$anmpac_tratamento', '$anmpac_alergia', '$anmpac_nom', '$anmpac_cpf', '$anmpac_numcel', '$anmpac_pagamento_status', '$anmpac_mail')";         
         mysqli_query($conexao, $SQL) or die("Ocorreu um problema! Código: 001");  
 
-        $url = 'https://api.iugu.com/v1/invoices?api_token=C02DB9229AE7DD8BEF6051923F7E95E5592E99C73B5915AEA803CF89C86D0BD4';
+        $url = 'https://api.iugu.com/v1/invoices?api_token=B5F7754B7EE530890A544D1BD7B4CFA3C3A73DC3BA71FFC77B19D98969B21666';
         $body = [
             'ensure_workday_due_date' => false,
             'items' => [

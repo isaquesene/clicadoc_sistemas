@@ -60,7 +60,7 @@ if(isset($_POST['email']) && $_POST['acao'] == 'recuperar_senha'){
             </tr>
             
             <tr align='left'>
-            <td><a href='http://cesar.epizy.com/clicadoc/recuperar_senha.php?token=$token'>Criar uma nova senha.</a></td>    
+            <td><a href='http://clicadocqas.itaventures.com.br/recuperar_senha.php?token=$token'>Criar uma nova senha.</a></td>    
             </tr>
             
             <tr align='left'>

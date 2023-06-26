@@ -12,7 +12,9 @@ if (!empty($data)) {
     // Faça o processamento necessário com os dados recebidos
 
     // Exemplo de ação: Inserir dados em um banco de dados MySQL
-    $conexao = mysqli_connect("sql104.epizy.com","epiz_33687998","ndNIXIz5mOYuMI","epiz_33687998_clicadoc");
+    //$conexao = mysqli_connect("sql104.epizy.com","epiz_33687998","ndNIXIz5mOYuMI","epiz_33687998_clicadoc");
+    $conexao = mysqli_connect("10.0.2.4","admin","ita2023","clicadocdb");
+
     if (!$conexao) {
         die("Falha na conexão com o banco de dados: " . mysqli_connect_error());
     }

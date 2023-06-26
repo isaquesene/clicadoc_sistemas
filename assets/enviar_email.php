@@ -85,13 +85,13 @@ if(isset($_POST['email']) && $_POST['acao'] == 'recuperar_senha'){
             $mailer = new PHPMailer();
             $mailer->IsSMTP();
             //$mailer->SMTPDebug = 1;
-            $mailer->Port = 2525; //Indica a porta de conexão 
-            $mailer->Host = 'smtp.elasticemail.com';//Endereço do Host do SMTP 
+            $mailer->Port = 587; //Indica a porta de conexão 
+            $mailer->Host = 'smtp.office365.com';//Endereço do Host do SMTP 
             $mailer->SMTPAuth = true; //define se haverá ou não autenticação     
-            $mailer->Username = 'administrativo@clicadoc.com.br'; //Login de autenticação do SMTP
-            $mailer->Password = '4B277122D5164CFDA1ABC23F1DF59582DE12'; //Senha de autenticação do SMTP
+            $mailer->Username = 'contato@clicadoc.com.br'; //Login de autenticação do SMTP
+            $mailer->Password = 'a2HW1GZ0dfHqMwmdDEJg'; //Senha de autenticação do SMTP
             $mailer->FromName = 'Recuperação de senha - Clicadoc'; //Nome que será exibido
-            $mailer->From = 'administrativo@clicadoc.com.br'; //Obrigatório ser a mesma caixa postal configurada no remetente do SMTP
+            $mailer->From = 'contato@clicadoc.com.br'; //Obrigatório ser a mesma caixa postal configurada no remetente do SMTP
             $mailer->AddAddress($email,'Recuperação de senha - Clicadoc');
             $mailer->AddReplyTo($email,$name);
             $mailer->IsHTML(true);

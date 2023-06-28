@@ -76,7 +76,7 @@
                 </div>
                 <div class="input-box">
                     <!--<span class="details">Teste Pagamento:</span>-->
-                    <input class="input" type="hidden" placeholder="" name="anmpac_pagamento_status" id="anmpac_pagamento_status" value="realizado">
+                    <!--<input class="input" type="hidden" placeholder="" name="anmpac_pagamento_status" id="anmpac_pagamento_status" value="realizado">-->
                 </div>
                 <span class="title">Solicite Agora sua receita médica, com garantia e segurança.</span><br>
                 <div class="termo">

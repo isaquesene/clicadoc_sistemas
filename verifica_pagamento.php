@@ -1,35 +1,53 @@
 <?php
+/* // Definir o destino do log de erros
+ini_set('error_log', '/tmp/errors.log');
+
+// Definir o formato do log de erros
+ini_set('log_errors', 1);
+ini_set('error_reporting', E_ALL);
+
+// Habilitar exibição de erros no navegador (apenas para fins de desenvolvimento)
+ini_set('display_errors', 1); */
+
+include "include/mysqlconecta.php";
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
-$data = json_decode(file_get_contents('php://input'), true);
+//$data = json_decode(file_get_contents('php://input'), true);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Recupera os dados do webhook
 
-// Verifique se a requisição contém dados válidos
-if (!empty($data)) {
-    // Ação a ser executada quando uma requisição for recebida
-    // Você pode acessar os dados da requisição usando $data['event'] e $data['url']
-    // Faça o processamento necessário com os dados recebidos
+    /* $dados = $_POST;
+    $valor2 = print_r($dados, true);
+    syslog(LOG_INFO, $valor2); */
+    
+    $pagamento_fatura = $_POST['data']['id'];
+    $pagamento_status = $_POST['data']['status'];
 
-    // Exemplo de ação: Inserir dados em um banco de dados MySQL
-    //$conexao = mysqli_connect("sql104.epizy.com","epiz_33687998","ndNIXIz5mOYuMI","epiz_33687998_clicadoc");
-    $conexao = mysqli_connect("10.0.2.4","admin","ita2023","clicadocdb");
+    // Verifica se os dados do webhook foram convertidos corretamente em um array
+    if (!empty($pagamento_fatura)) {
+        // Recupera os dados do webhook
 
-    if (!$conexao) {
-        die("Falha na conexão com o banco de dados: " . mysqli_connect_error());
-    }
+        if($pagamento_status == 'paid'){ $pagamento_status = 'realizado'; }
 
-    $pagamento = 'ok';
+        if (!$conexao) {
+            die("Falha na conexão com o banco de dados: " . mysqli_connect_error());
+        }
+        
+        $SQL = "UPDATE tanam_dados_pacientes SET anmpac_pagamento_status = '$pagamento_status', anmpac_pagamento_data = now() WHERE anmpac_pagamento_fatura = '$pagamento_fatura'";
+        
+        if (mysqli_query($conexao, $SQL)) {
+            echo "Dados inseridos com sucesso!";
+        } else {
+            echo "Ocorreu um problema ao inserir os dados: " . mysqli_error($conexao);
+        }
 
-    $SQL = "INSERT INTO teste_pagamento (pagamento) VALUES ('$pagamento')";
-    if (mysqli_query($conexao, $SQL)) {
-        echo "Dados inseridos com sucesso!";
-    } else {
-        echo "Ocorreu um problema ao inserir os dados: " . mysqli_error($conexao);
-    }
-
-    mysqli_close($conexao);
+        mysqli_close($conexao);
+    }    
 }
 
 // Responda com um status de sucesso para a Iugu API
 http_response_code(200);
+

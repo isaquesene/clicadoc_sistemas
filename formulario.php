@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css_h/estyle.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -82,25 +82,25 @@
                 <div class="termo">
                     <p>
                     Afirmo que sou maior de idade e que todas as informações fornecidas são verdadeiras, sob as penas da lei. Autorizo o uso dos meus dados, que ficarão em sigilo e guardadas em prontuário, para fins de atendimento médico.
-                    Fui informado que a Telessaúde tem limitações, por ser uma modalidade de atendimento à distância, sem exame 
-                    físico e que no caso de sintomas de doença, devo procurar atendimento presencial. Estou ciente de que o atendimento por telemedicina, como nesse caso, é 
-                    realizado quando não haja sinais ou sintomas de risco para o paciente. 
-                    No caso de baixo risco, o médico pode emitir uma conduta momentânea, até o paciente retornar em seu médico presencial. 
-                    Fui orientado de que, assim que possível, devo retornar no meu médico presencial. Afirmo que não tenho sinal ou sintoma de descontrole ou gravidade da minha doença prévia. No caso de mal estar ou algum tipo de desconforto mais sério, 
-                    fui orientado a procurar atendimento presencial. Nego qualquer tipo de alergia relacionado aos medicamentos que já uso e que 
-                    foram prescritos pelo meu médico. Fui informado que este é um serviço de intermediação tecnológica e que o médico tem plena 
-                    autonomia para fazer o atendimento, por meio da Plataforma Clica Doc, desde que haja consentimento do paciente. Todas as condutas 
-                    são realizadas e as receitas são enviadas pelo médico, com total autonomia e sem interferência da Plataforma Clica Doc. 
-                    A Plataforma não realiza videoconsulta e não interfere na relação médico-paciente. Aviso legal: A Clica Doc é uma empresa de 
-                    Tecnologia de Sistemas e não presta serviços médicos. A Plataforma Clica Doc é um Sistema dê Telessaúde que conecta profissionais 
-                    de saúde com seus pacientes. O preço do serviço de tecnologia da Plataforma depende do uso do sistema e do profissional a ser 
+                    Fui informado que a Telessaúde tem limitações, por ser uma modalidade de atendimento à distância, sem exame
+                    físico e que no caso de sintomas de doença, devo procurar atendimento presencial. Estou ciente de que o atendimento por telemedicina, como nesse caso, é
+                    realizado quando não haja sinais ou sintomas de risco para o paciente.
+                    No caso de baixo risco, o médico pode emitir uma conduta momentânea, até o paciente retornar em seu médico presencial.
+                    Fui orientado de que, assim que possível, devo retornar no meu médico presencial. Afirmo que não tenho sinal ou sintoma de descontrole ou gravidade da minha doença prévia. No caso de mal estar ou algum tipo de desconforto mais sério,
+                    fui orientado a procurar atendimento presencial. Nego qualquer tipo de alergia relacionado aos medicamentos que já uso e que
+                    foram prescritos pelo meu médico. Fui informado que este é um serviço de intermediação tecnológica e que o médico tem plena
+                    autonomia para fazer o atendimento, por meio da Plataforma Clica Doc, desde que haja consentimento do paciente. Todas as condutas
+                    são realizadas e as receitas são enviadas pelo médico, com total autonomia e sem interferência da Plataforma Clica Doc.
+                    A Plataforma não realiza videoconsulta e não interfere na relação médico-paciente. Aviso legal: A Clica Doc é uma empresa de
+                    Tecnologia de Sistemas e não presta serviços médicos. A Plataforma Clica Doc é um Sistema dê Telessaúde que conecta profissionais
+                    de saúde com seus pacientes. O preço do serviço de tecnologia da Plataforma depende do uso do sistema e do profissional a ser
                     contatado. Clica Doc Tecnologia  CNPJ: 43.722.721/0001-18 São José dos Campos-SP
                     </p>
                 </div>
                 <div class="input-radio">
                     <span class="details">
                     <input class="input" type="radio" name="endereco" id="endereco" onchange="checkTermos()">
-                        
+
                     Li e concordo com os termos acima.
 
                     </span>
@@ -110,25 +110,25 @@
                 </div>
             </form>
         </div>
-        
+
     </section>
 
     <style>
         .modal {
         display: none;
-        position: fixed; 
-        z-index: 9999; 
+        position: fixed;
+        z-index: 9999;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
-        overflow: auto; 
-        background-color: rgba(0, 0, 0, 0.4); 
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
         }
 
         .modal-content {
         background-color: #fefefe;
-        margin: 20% auto; 
+        margin: 20% auto;
         padding: 20px;
         border: 1px solid #888;
         width: 300px;
@@ -180,7 +180,7 @@
                     <a href=""><i class='bx bxl-instagram'></i></a>
                 </div>
             </div>
-            
+
             <div class="box">
                 <h3>Sobre</h3>
                 <a href="#home"> <i class="fas fa-angle-ri"></i>Home</a>
@@ -222,7 +222,7 @@
         <div class="credit-footer"> Desenvolvido por <span>ITA Ventures</span> © 2023 </div>
     </section>
 
-    
+
     <!--MASCARA CPF-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
     <script type="text/javascript" src="assets/js/inputmask.js" charset="utf-8"></script>
@@ -233,7 +233,7 @@
 
     <script src="assets/js_h/scroll.js"></script>
 
-    
+
 </body>
 </html>
 
@@ -267,49 +267,49 @@ function validarCPF(cpf){
     if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
         return false; // CPF com tamanho inválido ou todos os dígitos iguais
     }
-    
+
         var soma = 0;
         var resto;
-    
+
     for (var i = 1; i <= 9; i++) {
         soma += parseInt(cpf.substring(i-1, i)) * (11 - i);
     }
-    
+
         resto = (soma * 10) % 11;
-    
+
     if (resto === 10 || resto === 11) {
         resto = 0;
     }
-    
+
     if (resto !== parseInt(cpf.substring(9, 10))) {
         return false; // Primeiro dígito verificador inválido
     }
-    
+
         soma = 0;
-    
+
     for (var j = 1; j <= 10; j++) {
         soma += parseInt(cpf.substring(j-1, j)) * (12 - j);
     }
-    
+
         resto = (soma * 10) % 11;
-    
+
     if (resto === 10 || resto === 11) {
         resto = 0;
     }
-    
+
     if (resto !== parseInt(cpf.substring(10, 11))) {
         return false; // Segundo dígito verificador inválido
     }
-    
+
     return true; // CPF válido
 }
 
 function verificarCPF() {
     var inputCPF = document.getElementById('cpf-input');
     var cpf = inputCPF.value;
-    
+
     var valido = validarCPF(cpf);
-    
+
     if (valido) {
         inputCPF.classList.remove('invalido');
         inputCPF.classList.add('valido');

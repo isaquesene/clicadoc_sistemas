@@ -99,7 +99,7 @@ if ($_POST) {
             <img src="assets/image/Group_44.png" alt="">
         </div>
         <div class="item">
-            <h3>Pague seu <span>atendimento</span> medico agora.</h3>
+            <h3>Pague seu <span>atendimento</span> médico agora.</h3>
             <p> - Clique no botão e acesse a página de pagamento.</p>
             <a href="<?= $secureUrl ?? '#' ?>" id="open-form" target="_blank" data-modal="open" class="btn-receita">PAGUE SEU ATENDIMENTO AQUI</a>
         </div>

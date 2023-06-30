@@ -18,6 +18,10 @@ if ($_POST) {
 
     if ($acao === 'cadastrar') {
 
+        //PRODUÇÃO
+       //B5F7754B7EE530890A544D1BD7B4CFA3C3A73DC3BA71FFC77B19D98969B21666
+       //TESTE
+       //C02DB9229AE7DD8BEF6051923F7E95E5592E99C73B5915AEA803CF89C86D0BD4
         $url = 'https://api.iugu.com/v1/invoices?api_token=B5F7754B7EE530890A544D1BD7B4CFA3C3A73DC3BA71FFC77B19D98969B21666';
         $body = [
             'ensure_workday_due_date' => false,
@@ -28,8 +32,11 @@ if ($_POST) {
                     'price_cents' => 9500
                 ]
             ],
+
+            'name' => $anmpac_nom,
             'email' => $anmpac_mail,
-            'due_date' => $hoje
+            'due_date' => $hoje,
+            
         ];
         $headers = [
             'accept' => 'application/json',

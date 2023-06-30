@@ -114,7 +114,8 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
                                                 <th style="max-width:100px;">Status</th>
                                                 <th>Nome do paciente</th>
                                                 <th>Data da última consulta</th>                                                
-                                                <th>CPF</th>                                            
+                                                <th>CPF</th> 
+                                                <th>Pagamento</th>                                           
                                                 <th>Ação</th>
                                             </tr>
                                         </thead>
@@ -258,6 +259,7 @@ $("#tabela_atendimentos").DataTable({
         { data: "anmpac_nom" },
         { data: "anmpac_data_cadastro" },
         { data: "anmpac_cpf" },
+        { data: "anmpac_pagamento_status" },
         { data: "btns" }
     ]
 });

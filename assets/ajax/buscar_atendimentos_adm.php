@@ -2,7 +2,7 @@
 include "../../include/valida_session_usuario.php";
 include "../../include/mysqlconecta.php";
 
-$SQL = "SELECT tdp.*, COALESCE(tdc.anmcon_conduta, 'inexistente') AS anmcon_conduta, tdc.anmcon_revisado, tdc.anmcon_id FROM tanam_dados_pacientes tdp LEFT JOIN tanam_dados_consulta tdc ON tdp.anmpac_id = tdc.anmcon_id_paciente WHERE tdp.anmpac_pagamento_status = 'realizado'";    
+$SQL = "SELECT tdp.*, COALESCE(tdc.anmcon_conduta, 'inexistente') AS anmcon_conduta, tdc.anmcon_revisado, tdc.anmcon_id FROM tanam_dados_pacientes tdp LEFT JOIN tanam_dados_consulta tdc ON tdp.anmpac_id = tdc.anmcon_id_paciente WHERE tdp.anmpac_pagamento_status IN ('realizado', 'pendente')";
 
 $result_id = @mysqli_query($conexao,$SQL) or die("Ocorreu um erro! 001");
 $linhas_json = array();
@@ -66,6 +66,14 @@ while($rows = mysqli_fetch_array($result_id)){
             }
             
         }
+
+        $status_pay = '';
+
+        if ($anmpac_pagamento_status == 'realizado') {
+            $status_pay = "<span class='badge rounded-pill bg-success'>Realizado</span>";
+        } elseif ($anmpac_pagamento_status == 'pendente') {
+            $status_pay = "<span class='badge rounded-pill bg-warning'>Pendente</span>";
+        }
         
         $linha_json = array(
             'status'=>$status,
@@ -73,6 +81,7 @@ while($rows = mysqli_fetch_array($result_id)){
             'anmpac_data_cadastro'=>$anmpac_data_cadastro,
             'anmpac_nom'=>$anmpac_nom,
             'anmpac_cpf'=>$anmpac_cpf,
+            'anmpac_pagamento_status' => $status_pay,
             'btns'=>$btns
         ); 
     

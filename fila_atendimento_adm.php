@@ -115,7 +115,7 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
                                                 <th>Nome do paciente</th>
                                                 <th>Data da última consulta</th>                                                
                                                 <th>CPF</th> 
-                                                <th>Pagamento</th>                                           
+                                               <!--  <th>Pagamento</th> -->                                           
                                                 <th>Ação</th>
                                             </tr>
                                         </thead>
@@ -181,7 +181,6 @@ $_SESSION['clicadoc_conduta_cadastrada'] = '';
 
 $("#menu_fila_atendimento").addClass("active");
 
-//CRIANDO DATATABLE EM BRANCO
 $("#tabela_recusas").DataTable({
     language: {
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
@@ -194,12 +193,52 @@ $("#tabela_recusas").DataTable({
     info: false,
     data: [],
     columns: [
-        { data: "status" },
-        { data: "anmpac_nom" },
-        { data: "anmpac_med_presc" },
-        { data: "anmcon_datacad" },
-        { data: "anmpac_cpf" },
-        { data: "btns" }
+        { 
+            data: "status"
+        },
+        { 
+            data: "anmpac_nom",
+            render: function(data, type, row) {
+                // Limita o texto a 20 caracteres
+                if (type === 'display' && data.length > 20) {
+                    return data.substr(0, 20) + '...';
+                }
+                return data;
+            }
+        },
+        { 
+            data: "anmpac_med_presc",
+            render: function(data, type, row) {
+                // Limita o texto a 20 caracteres
+                if (type === 'display' && data.length > 20) {
+                    return data.substr(0, 20) + '...';
+                }
+                return data;
+            }
+        },
+        { 
+            data: "anmcon_datacad",
+            render: function(data, type, row) {
+                // Limita o texto a 20 caracteres
+                if (type === 'display' && data.length > 20) {
+                    return data.substr(0, 20) + '...';
+                }
+                return data;
+            }
+        },
+        { 
+            data: "anmpac_cpf",
+            render: function(data, type, row) {
+                // Limita o texto a 20 caracteres
+                if (type === 'display' && data.length > 20) {
+                    return data.substr(0, 20) + '...';
+                }
+                return data;
+            }
+        },
+        { 
+            data: "btns"
+        }
     ]
 });
 
@@ -213,9 +252,28 @@ function busca_recusas(){
         let data = JSON.parse(result);        
         
         $("#tabela_recusas").DataTable().clear().draw();
+        
+        // Aplicar a função render para cada coluna
+        data.forEach(function(item) {
+            /* item.status = limitarTexto(item.status); */
+            item.anmpac_nom = limitarTexto(item.anmpac_nom);
+            item.anmpac_med_presc = limitarTexto(item.anmpac_med_presc);
+            item.anmcon_datacad = limitarTexto(item.anmcon_datacad);
+            item.anmpac_cpf = limitarTexto(item.anmpac_cpf);
+        });
+        
         $("#tabela_recusas").DataTable().rows.add(data).draw();
     });
 }
+
+// Função para limitar o tamanho do texto a 20 caracteres
+function limitarTexto(texto) {
+    if (texto.length > 20) {
+        return texto.substr(0, 20) + '...';
+    }
+    return texto;
+}
+
 
 //FUNÇÃO PARA REDIRECIONAR PARA ATENDIMENTO
 function realizarAtendimento(anmpac_id,anmcon_id=0){
@@ -259,7 +317,7 @@ $("#tabela_atendimentos").DataTable({
         { data: "anmpac_nom" },
         { data: "anmpac_data_cadastro" },
         { data: "anmpac_cpf" },
-        { data: "anmpac_pagamento_status" },
+        /* { data: "anmpac_pagamento_status" }, */
         { data: "btns" }
     ]
 });

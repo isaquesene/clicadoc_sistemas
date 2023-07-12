@@ -8,13 +8,14 @@ if ($_POST) {
 
     $acao = $_POST['acao'];
 
-    $anmpac_med_presc = $_POST['anmpac_med_presc'];
-    $anmpac_tratamento = $_POST['anmpac_tratamento'];
-    $anmpac_alergia = $_POST['anmpac_alergia'];
-    $anmpac_nom = $_POST['anmpac_nom'];
-    $anmpac_numcel = $_POST['anmpac_numcel'];
-    $anmpac_cpf = $_POST['anmpac_cpf'];
-    $anmpac_mail = $_POST['anmpac_mail'];
+    $anmpac_med_presc = htmlspecialchars($_POST['anmpac_med_presc'], ENT_QUOTES, 'UTF-8');
+    $anmpac_tratamento = htmlspecialchars($_POST['anmpac_tratamento'], ENT_QUOTES, 'UTF-8');
+    $anmpac_alergia = htmlspecialchars($_POST['anmpac_alergia'], ENT_QUOTES, 'UTF-8');
+    $anmpac_nom = htmlspecialchars($_POST['anmpac_nom'], ENT_QUOTES, 'UTF-8');
+    $anmpac_numcel = htmlspecialchars($_POST['anmpac_numcel'], ENT_QUOTES, 'UTF-8');
+    $anmpac_cpf = htmlspecialchars($_POST['anmpac_cpf'], ENT_QUOTES, 'UTF-8');
+    $anmpac_mail = htmlspecialchars($_POST['anmpac_mail'], ENT_QUOTES, 'UTF-8');
+    
 
     if ($acao === 'cadastrar') {
 
